@@ -1,7 +1,5 @@
 package pw.paint.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 public class Ingredient {
     int id;
     String name;
@@ -28,7 +26,6 @@ public class Ingredient {
     }
 
     @Override
-    @JsonValue
     public String toString() {
         char a = '"';
         String str = Character.toString(a);
