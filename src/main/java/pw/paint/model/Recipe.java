@@ -1,8 +1,10 @@
 package pw.paint.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,27 +13,28 @@ public class Recipe {
     @Id
     private Integer id;
     private String name;
-    private Map<Ingredient, String> ingredients;
+//    @DBRef
+//    private Map<Ingredient, String> ingredients;
     private List<String> steps;
     private boolean status;
-    private List<Tag> tags;
+//    @DBRef
+//    private List<Tag> tags = new ArrayList<>();
     private int author_id;
-    private boolean isLiked;
-
+    private int likes;
     private int timeMinutes;
     //photo
 
-    public  Recipe(){};
+    public Recipe() {};
 
-    public Recipe(Integer id, String name, Map<Ingredient, String> ingredients, List<String> steps, boolean status, List<Tag> tags, int author_id, boolean isLiked, int timeMinutes) {
+    public Recipe(Integer id, String name, Map<Ingredient, String> ingredients, List<String> steps, boolean status, List<Tag> tags, int author_id, int likes, int timeMinutes) {
         this.id = id;
         this.name = name;
-        this.ingredients = ingredients;
+//        this.ingredients = ingredients;
         this.steps = steps;
         this.status = status;
-        this.tags = tags;
+//        this.tags = tags;
         this.author_id = author_id;
-        this.isLiked = isLiked;
+        this.likes = likes;
         this.timeMinutes = timeMinutes;
     }
 
@@ -59,13 +62,13 @@ public class Recipe {
         this.name = name;
     }
 
-    public Map<Ingredient, String> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(Map<Ingredient, String> ingredients) {
-        this.ingredients = ingredients;
-    }
+//    public Map<Ingredient, String> getIngredients() {
+//        return ingredients;
+//    }
+//
+//    public void setIngredients(Map<Ingredient, String> ingredients) {
+//        this.ingredients = ingredients;
+//    }
 
     public List<String> getSteps() {
         return steps;
@@ -83,13 +86,13 @@ public class Recipe {
         this.status = status;
     }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
+//    public List<Tag> getTags() {
+//        return tags;
+//    }
+//
+//    public void setTags(List<Tag> tags) {
+//        this.tags = tags;
+//    }
 
     public int getAuthor_id() {
         return author_id;
@@ -99,11 +102,11 @@ public class Recipe {
         this.author_id = author_id;
     }
 
-    public boolean isLiked() {
-        return isLiked;
+    public int getLikes() {
+        return likes;
     }
 
-    public void setLiked(boolean liked) {
-        isLiked = liked;
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

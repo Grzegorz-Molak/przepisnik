@@ -9,6 +9,10 @@ public class Ingredient {
     private Integer id;
     private String name;
 
+    public Ingredient(String name) {
+        this.name = name;
+    }
+
     public Ingredient(Integer id, String name) {
         this.id = id;
         this.name = name;
