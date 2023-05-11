@@ -1,10 +1,15 @@
 package pw.paint.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 import java.util.Map;
 
+@Document(collection = "recipe")
 public class Recipe {
-    private int id;
+    @Id
+    private Integer id;
     private String name;
     private Map<Ingredient, String> ingredients;
     private List<String> steps;
@@ -18,7 +23,7 @@ public class Recipe {
 
     public  Recipe(){};
 
-    public Recipe(int id, String name, Map<Ingredient, String> ingredients, List<String> steps, boolean status, List<Tag> tags, int author_id, boolean isLiked, int timeMinutes) {
+    public Recipe(Integer id, String name, Map<Ingredient, String> ingredients, List<String> steps, boolean status, List<Tag> tags, int author_id, boolean isLiked, int timeMinutes) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
@@ -38,11 +43,11 @@ public class Recipe {
         this.timeMinutes = timeMinutes;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

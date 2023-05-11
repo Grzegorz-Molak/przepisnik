@@ -1,19 +1,24 @@
 package pw.paint.model;
 
-public class Ingredient {
-    int id;
-    String name;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    public Ingredient(int id, String name) {
+@Document(collection = "ingredient")
+public class Ingredient {
+    @Id
+    private Integer id;
+    private String name;
+
+    public Ingredient(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
