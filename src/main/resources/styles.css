@@ -1,0 +1,120 @@
+/*Nice fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@600&family=Great+Vibes&display=swap');
+
+/*Body*/
+.body {
+  background-color: #000; /*a czemu to mi nie zmienia koloru to nwm*/
+}
+
+/*Main container*/
+.maincontainer {
+  margin-left: 15%;
+  margin-right: 15%;
+  background-color: #000; /*a to czemu to też nwm*/
+}
+
+/*Header*/
+
+/*Title*/
+.title {
+/*  -webkit-text-fill-color: inherit;*/
+  background-image: url(title_bgrd.jpg);
+  background-size:70%;
+  background-repeat: repeat;
+  background-clip: border-box;
+
+  border-bottom: 1px solid #000;
+  height: 100px;
+  margin-top: 0px;
+}
+
+.titletext {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 0px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 70px;
+  font-style: normal;
+  line-height: 50px;
+  margin-top: 0px;
+  display: block;
+}
+
+/*Menu*/
+
+.menubutton {
+  color: #fff;
+  background-color: #333;
+  order: 1;
+  font-family: Exo, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+  width: 20%;
+}
+
+.menubutton:hover {
+  color: #333;
+  text-align: center;
+  background-color: #e9f4d9;
+  font-weight: 600;
+}
+
+.menu {
+  width: 100%;
+  text-align: left;
+  object-fit: fill;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
+  flex-wrap: nowrap;
+  display: flex;
+  overflow: visible;
+}
+
+/*Search section*/
+.imSearch {
+  margin: 5px;
+  padding-top: 0px;
+  line-height: 40px;
+}
+
+.search {
+  width: 60%;
+  margin-bottom: 0;
+  display: flex;
+}
+
+.searchinput {
+  width: 95%;
+  min-width: 10%;
+  border: none;
+  flex: 0 auto;
+  align-self: flex-end;
+  margin-bottom: 0;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+}
+
+.searchinput:focus {
+  outline: none;
+}
+
+.search-button{
+  font-family: Exo, sans-serif;
+}
+
+/*Login form*/
+
+
+/*Main page*/
+
+.mainpage{
+  background-color: #e9f4d9;
+}
+
