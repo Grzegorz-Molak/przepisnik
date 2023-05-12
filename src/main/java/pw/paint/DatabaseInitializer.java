@@ -19,7 +19,6 @@ import java.util.Map;
 @Configuration
 //@Profile("development")
 public class DatabaseInitializer implements CommandLineRunner {
-
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
 
@@ -32,8 +31,8 @@ public class DatabaseInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception{
         // Tworzenie początkowych obiektów
         System.out.println("elo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\nelo\n");
-        userRepository.deleteAll();
-        recipeRepository.deleteAll();
+//        userRepository.deleteAll();
+//        recipeRepository.deleteAll();
 
         User user1 = new User(0, "Filip", "abcde", "emailFilip@pw.edu.pl");
         User user2 = new User(1, "Piotr", "12345", "emailPiotr@pw.edu.pl");
