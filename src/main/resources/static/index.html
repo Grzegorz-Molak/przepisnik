@@ -24,7 +24,16 @@
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
         <a href="" class="menubutton w-button">Co masz w kuchni?</a>
-        <a href="" class="menubutton w-button">Zaloguj</a>
+        <div class="dropdown menubutton w-button">
+          <span>Zaloguj</span>
+          <div class="dropdown-content">
+            <label class="margin-bottom-5">Nazwa użytkownika: </label><br>
+              <input class="margin-bottom-5" type="text" placeholder="nazwa użytkownika" required><br>
+              <label class="margin-bottom-5">Hasło: </label><br>
+                <input class="margin-bottom-5" type="password" placeholder="hasło" required><br>
+                <input class="margin-bottom-5" type="submit" value="Zaloguj">
+          </div>
+        </div>
         <a href="" class="menubutton w-button">Zarejestruj</a>
       </div>
     </div>
@@ -50,5 +59,4 @@
 
 </body>
 </html>
-
 
