@@ -1,7 +1,9 @@
 package pw.paint.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import pw.paint.DTOs.model.UserDto;
 
 public interface UserService {
+
+    void signup(UserDto userDto);
+
 }

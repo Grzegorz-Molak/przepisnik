@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,33 +17,20 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "user")
+@Document(collection = "users")
 public class User implements UserDetails {
     @Id
-    private Integer id;
+    private ObjectId id;
     private String username;
     private String password;
     private String email;
+    private List<Folder> folders;
 
-//    public User(Integer id, String username, String password, String email) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//    }
-//
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
-//
-//
-//    public void setUserName(String userName) {
-//        this.username = userName;
-//    }
+    public User(String username , String password, String email){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
