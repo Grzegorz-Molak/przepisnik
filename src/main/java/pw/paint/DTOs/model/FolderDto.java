@@ -1,23 +1,19 @@
 package pw.paint.DTOs.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-import pw.paint.model.Folder;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+@Builder
+public class FolderDto {
 
-    private ObjectId id;
-    private String userName;
-    private String password;
-    private String email;
-    private List<FolderDto> folders;
-
-
+    private String name;
+    private List<ObjectId> recipes;
 }

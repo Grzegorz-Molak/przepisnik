@@ -16,13 +16,10 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    //stąd ten kontroler ma zniknąć potem
     private UserService userService;
-    private final UserRepository userRepository;
     @Autowired
-    public  UserController(UserService userService, UserRepository userRepository){
+    public  UserController(UserService userService){
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @PostMapping
@@ -35,8 +32,8 @@ public class UserController {
     //strefa testów do usnięcia na koniec
 
    @GetMapping
-    public List<User> retrieveAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
     }
 
 }
