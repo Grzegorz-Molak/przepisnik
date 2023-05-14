@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pw.paint.DTOs.model.FolderDto;
+import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
@@ -27,13 +28,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void signup(UserDto userDto) {
+    public void signup(SignUpRequest signUpRequest) {
 
         User user = new User();
-        user.setUsername(userDto.getUserName());
-        user.setPassword(userDto.getPassword());
-        user.setEmail(userDto.getEmail());
+        user.setUsername(signUpRequest.getUserName());
+        user.setPassword(signUpRequest.getPassword());
+        user.setEmail(signUpRequest.getEmail());
         userRepository.save(user);
+
     }
 
     @Override

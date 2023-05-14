@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
 import pw.paint.model.User;
 import pw.paint.repository.UserRepository;
@@ -23,14 +24,14 @@ public class UserController {
     }
 
     @PostMapping
-    public String signUp(UserDto userDto){
-        userService.signup(userDto);
+    public String signUp(SignUpRequest signUpRequest){
+        userService.signup(signUpRequest);
         return "user added successfully";
     }
 
 
-    //strefa testów do usnięcia na koniec
 
+    //strefa testów do usnięcia na koniec
    @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
