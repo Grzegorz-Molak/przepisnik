@@ -1,4 +1,4 @@
-package pw.paint.security;
+package pw.paint.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Folder {
-
     private String name;
     @DBRef
     private List<Recipe> recipes;

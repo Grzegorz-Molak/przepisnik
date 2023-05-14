@@ -1,5 +1,6 @@
 package pw.paint.service;
 
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,17 +20,12 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
     public void signup(SignUpRequest signUpRequest) {
-
         User user = new User();
         user.setUsername(signUpRequest.getUserName());
         user.setPassword(signUpRequest.getPassword());
@@ -68,7 +64,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userDtos.add(userDto);
         }
         return userDtos;
-
     }
 
     @Override

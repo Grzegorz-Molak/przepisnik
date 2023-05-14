@@ -5,12 +5,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pw.paint.controller.AuthenticationRequest;
-import pw.paint.controller.AuthenticationResponse;
-import pw.paint.controller.RegisterRequest;
+import pw.paint.DTOs.model.AuthenticationRequest;
+import pw.paint.DTOs.model.AuthenticationResponse;
+import pw.paint.DTOs.model.RegisterRequest;
 import pw.paint.model.User;
 import pw.paint.repository.UserRepository;
-import pw.paint.security.JwtService;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +21,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .id(request.getId())
+//                .id(request.getId())
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))

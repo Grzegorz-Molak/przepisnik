@@ -1,4 +1,4 @@
-package pw.paint.controller;
+package pw.paint.DTOs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    private ObjectId id;
+//    private ObjectId id;
     private String username;
     private String email;
     private String password;

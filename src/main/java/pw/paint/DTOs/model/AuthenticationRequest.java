@@ -1,4 +1,4 @@
-package pw.paint.controller;
+package pw.paint.DTOs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

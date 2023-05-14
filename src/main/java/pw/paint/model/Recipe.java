@@ -17,7 +17,6 @@ import java.util.List;
 @ToString
 @Document(collection = "recipes")
 public class Recipe {
-
     @Id
     private ObjectId id;
     private String name;

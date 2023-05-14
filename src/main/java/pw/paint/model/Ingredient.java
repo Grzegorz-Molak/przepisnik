@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Ingredient {
-
     private String name;
     private String amount;
 

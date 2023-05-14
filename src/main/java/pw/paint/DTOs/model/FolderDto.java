@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class FolderDto {
-
     private String name;
     private List<ObjectId> recipes;
 }

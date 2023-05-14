@@ -1,5 +1,6 @@
 package pw.paint;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,15 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class DatabaseInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
-
-    @Autowired
-    public DatabaseInitializer(UserRepository userRepository, RecipeRepository recipeRepository) {
-        this.userRepository = userRepository;
-        this.recipeRepository = recipeRepository;
-    }
 
     @Override
     public void run(String... args) throws Exception {
