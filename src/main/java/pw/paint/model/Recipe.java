@@ -17,7 +17,7 @@ import java.util.List;
 public class Recipe {
 
     @Id
-    private ObjectId recipe_id;
+    private ObjectId id;
     private String name;
     private List<Ingredient> ingredients;
     private List<String> steps;
@@ -30,11 +30,4 @@ public class Recipe {
 
     //TO DO PHOTO VARIABLE
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
 }
