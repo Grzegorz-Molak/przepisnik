@@ -17,16 +17,11 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
-
-
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
+
     @Override
     public void signup(SignUpRequest signUpRequest) {
         User user = new User();
