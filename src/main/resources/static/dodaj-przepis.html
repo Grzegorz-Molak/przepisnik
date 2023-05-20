@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Przepiśnik</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
+</style>
+<body>
+<div class = "maincontainer">
+
+  <div class = "header">
+
+    <div class="title">
+      <h1 class = "titletext"> Przepiśnik </h1>
+    </div>
+
+    <div class="menu">
+      <form action="/search" class="search w-form">
+        <img src="img/search.png" height = "25" alt="" class="imSearch">
+        <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
+      </form>
+      <a href="" class="menubutton w-button">Co masz w kuchni?</a>
+      <a href="" class="menubutton w-button">Mój przepiśnik</a>
+      <a href="" class="menubutton w-button">Wyloguj</a>
+    </div>
+  </div>
+
+  <div class="mainpage">
+    <h3 class="subtitle"> ~ Dodaj swój przepis ~ </h3>
+    <form class="recipe w-form">
+
+      <fieldset class="nameblock">
+        Nazwa
+        <input type="text" class = "nameinput w-input" maxlength="256" id="r-name" required = "">
+        <a href="" class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></a>
+      </fieldset>
+
+
+      <fieldset class="formblock">
+        Wybierz tagi
+        <div class="tagcontainer">
+          <button class="tagbutton">
+            <img src="img/vegetarian.png" alt = "" height="40">
+            <br> Wegetariańskie
+          </button>
+          <button class="tagbutton">
+            <img src="img/vegan.png" alt = "" height="40">
+            <br> Wegańskie
+          </button>
+          <button class="tagbutton">
+            <img src="img/mild.png" alt = "" height="40">
+            <br> Łagodne
+          </button>
+          <button class="tagbutton">
+            <img src="img/spicy.png" alt = "" height="40">
+            <br> Pikantne
+          </button>
+          <button class="tagbutton">
+            <img src="img/hot.png" alt = "" height="40">
+            <br> Ostre
+          </button>
+          <button class="tagbutton">
+            <img src="img/gluten.png" alt = "" height="40">
+            <br> Bez glutenu
+          </button>
+          <button class="tagbutton">
+            <img src="img/lactose.png" alt = "" height="40">
+            <br> Bez laktozy
+          </button>
+          <button class="tagbutton">
+            <img src="img/breakfast.png" alt = "" height="40">
+            <br> Śniadanie
+          </button>
+          <button class="tagbutton">
+            <img src="img/lunch.png" alt = "" height="40">
+            <br> Obiad
+          </button>
+          <button class="tagbutton">
+            <img src="img/supper.png" alt = "" height="40">
+            <br> Kolacja
+          </button>
+          <button class="tagbutton">
+            <img src="img/dessert.png" alt = "" height="40">
+            <br> Deser
+          </button>
+          <button class="tagbutton">
+            <img src="img/snack.png" alt = "" height="40">
+            <br> Przekąska
+          </button>
+          <button class="tagbutton">
+            <img src="img/soup.png" alt = "" height="40">
+            <br> Zupa
+          </button>
+          <button class="tagbutton">
+            <img src="img/italian.png" alt = "" height="40">
+            <br> Włoskie
+          </button>
+          <button class="tagbutton">
+            <img src="img/asian.png" alt = "" height="40">
+            <br> Azjatyckie
+          </button>
+          <button class="tagbutton">
+            <img src="img/polish.png" alt = "" height="40">
+            <br> Polskie
+          </button>
+          <button class="tagbutton">
+            <img src="img/american.png" alt = "" height="40">
+            <br> Amerykańskie
+          </button>
+          <button class="tagbutton">
+            <img src="img/mexican.png" alt = "" height="40">
+            <br> Meksykańskie
+          </button>
+        </div>
+      </fieldset>
+
+      <fieldset class="formblock">
+        Składniki
+        <ol class="listblock" id="ing-list">
+          <li class="ingredient">
+            <input type="text" class = "ingname w-input" maxlength="256" id="ing-name" required = "" placeholder="Podaj składnik">
+            <input type="text" class = "amount w-input" maxlength="5" id="amount" required = "" placeholder="Ilość">
+            <input type="text" class = "unit w-input" maxlength="10" id="unit" required = "" placeholder="Np. kg">
+          </li>
+        </ol>
+        <button class="addbutton">
+          <img src="img/add.png" alt = "" height="20">
+          &nbsp;&nbsp;Dodaj składnik
+        </button>
+      </fieldset>
+
+      <fieldset class="formblock" id="step-list">
+        Przygotowanie krok po kroku
+        <ol class="listblock">
+          <li class="steps">
+            <input type="text" class = "step w-input" maxlength="256" id="step" required = "" placeholder="Wprowadź instrukcje">
+          </li>
+        </ol>
+        <button class="addbutton">
+          <img src="img/add.png" alt = "" height="20">
+          &nbsp;&nbsp;Dodaj krok
+        </button>
+      </fieldset>
+      <fieldset class="submitset">
+        <input type="submit" class="submitbutton" value="Gotowe!">
+      </fieldset>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
+
+
