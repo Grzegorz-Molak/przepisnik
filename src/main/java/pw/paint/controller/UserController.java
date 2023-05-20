@@ -1,24 +1,34 @@
 package pw.paint.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pw.paint.model.User;
-import pw.paint.repository.UserRepository;
+import pw.paint.DTOs.model.SignUpRequest;
+import pw.paint.DTOs.model.UserDto;
+import pw.paint.service.UserService;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @PostMapping
+    public String signUp(SignUpRequest signUpRequest){
+        userService.signup(signUpRequest);
+        return "user added successfully";
     }
 
+
+
+    //strefa testów do usunięcia na koniec
     @GetMapping
-    public List<User> retrieveAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
     }
+
 }

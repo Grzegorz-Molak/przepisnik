@@ -1,24 +1,24 @@
 package pw.paint.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pw.paint.model.Recipe;
-import pw.paint.repository.RecipeRepository;
+import pw.paint.DTOs.model.RecipeDto;
+import pw.paint.service.RecipeService;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/recipes")
 public class RecipeController {
-    private final RecipeRepository recipeRepository;
 
-    public RecipeController(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
-    }
+    private final RecipeService recipeService;
 
     @GetMapping
-    public List<Recipe> retrieveAllUsers() {
-        return recipeRepository.findAll();
+    public List<RecipeDto> getAllRecipes() {
+        return recipeService.getAllRecipes();
     }
 }
