@@ -137,6 +137,7 @@
 
 .mainpage{
   background-color: #eef7e1;
+  font-family: 'Exo', sans-serif;
 }
 
 /*New recipe form*/
@@ -235,13 +236,14 @@
 }
 
 /*Ingredients*/
-.listblock{
-  display: flex;
+ol.listblock{
   width: 1fr;
 }
 
 .ingredient{
   width: 100%;
+  display: list-item;
+  margin-bottom: 5px;
 }
 
 .ingname{
@@ -346,6 +348,8 @@
 
 .steps{
   width: 100%;
+  margin-bottom: 5px;
+  display: list-item;
 }
 
 /*submit button*/
@@ -367,4 +371,138 @@
 .submitbutton:hover{
   color: #e9f4d9;
   background-color: #333;
+}
+
+/*Search for recipe*/
+
+.nameinput2{
+  width: 100%;
+  min-width: 10%;
+  flex: 0 auto;
+  margin-top: 5px;
+  align-self: flex-end;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+  border: solid;
+  border-width: thin;
+}
+
+.radio{
+  margin-top: 10px;
+}
+
+/*Show recipe*/
+.rec{
+  border: double;
+  border-color: #333;
+  margin: 20px;
+  display: block;
+  background-color: #FFF;
+}
+
+.rec-name{
+  text-align: center;
+}
+.rec-half{
+  display: flex;
+  margin-top: 10px;
+}
+
+.rec-info{
+  width: 70%;
+  margin: 5px;
+}
+
+.rec-tags{
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1fr;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tag{
+  background-color: #FFF;
+  display: block;
+  font-family: Exo, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  justify-self: stretch;
+  align-items: center;
+  border: solid;
+  border-width: thin;
+  border-radius: 20px;
+  height: 25px;
+  padding-top: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 3px;
+  flex-shrink: 0;
+}
+
+.rec-img{
+  width: 50%;
+  max-width: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  margin: 20px;
+  margin-right: 40px;
+}
+
+.rec-author{
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+.rec-button{
+  border: solid;
+  border-width: thin;
+  background-color: #eef7e1;
+  display: flex;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+  font-weight: 500;
+  align-items: center;
+  margin: 15px;
+}
+
+.rec-button:hover{
+  color: #e9f4d9;
+  background-color: #333;
+}
+
+.btnimg{
+  margin-right: 5px;
+}
+
+.rec-button:active{
+/* wymień btnimg na wersję done: favourite-done.png lub share-done.png*/
+}
+
+.rec-ing{
+  display: block;
+  width: 50%;
+  border: solid;
+  border-width: thin;
+  margin: 20px;
+  background-color: #e9f4d9;
+}
+
+.rec-steps{
+  display: block;
+  width: 50%;
+  border: solid;
+  border-width: thin;
+  margin: 20px;
+  background-color: #e9f4d9;
+}
+
+.rec-step{
+
 }
