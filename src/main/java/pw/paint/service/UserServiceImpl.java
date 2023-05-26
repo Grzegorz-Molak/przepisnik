@@ -1,7 +1,6 @@
 package pw.paint.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,11 +8,13 @@ import org.springframework.stereotype.Service;
 import pw.paint.DTOs.mappers.UserMapper;
 import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
+import pw.paint.model.Folder;
 import pw.paint.model.User;
 import pw.paint.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -40,6 +41,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userDtos.add(UserMapper.toUserDto(user));
         }
         return userDtos;
+    }
+
+    @Override
+    public String createNewFolder(String userName, String folderName) {
+
+        Optional<User> user = userRepository.findByUsername(userName);
+
+        if(!user.isPresent()){
+            return "Nie ma takiego użytkownika";
+        }
+
+        List<Folder> userFolders = user.get().getFolders();
+        for(Folder folder : userFolders){
+            if(folder.getName().equals(folderName)){
+                return "Folder o takiej nazwie już istnieje";
+            }
+        }
+
+        user.get().getFolders().add(new Folder(folderName));
+
+        userRepository.save(user.get());
+
+
+        return "Utworzono nowy folder";
     }
 
     @Override

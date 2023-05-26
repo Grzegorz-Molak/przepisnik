@@ -1,6 +1,8 @@
 package pw.paint.controller;
 
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
@@ -26,6 +28,11 @@ public class UserController {
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @PostMapping("/newFolder/{userName}/{folderName}")
+    public String createNewFolder(@PathVariable String userName, @PathVariable String folderName){
+        return userService.createNewFolder(userName,folderName);
     }
 
 }

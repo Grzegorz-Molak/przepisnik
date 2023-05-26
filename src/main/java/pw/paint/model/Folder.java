@@ -16,4 +16,8 @@ public class Folder {
     private String name;
     @DBRef
     private List<Recipe> recipes;
+
+    public Folder(String name){
+        this.name = name;
+    }
 }
