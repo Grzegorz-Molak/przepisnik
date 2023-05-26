@@ -20,7 +20,7 @@ public class RecipeDto {
     private List<Ingredient> ingredients;
     private List<String> steps;
     private Boolean status;
-    private List<String> tags;
+    //private List<ObjectId> tags;
     private Integer likes;
     private Integer timeMinutes;
     private ObjectId author_id;

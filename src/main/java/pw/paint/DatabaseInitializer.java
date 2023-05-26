@@ -1,11 +1,11 @@
 package pw.paint;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pw.paint.model.*;
 import pw.paint.repository.RecipeRepository;
+import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -17,9 +17,20 @@ import java.util.Optional;
 public class DatabaseInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
+    private  final TagRepository tagRepository;
 
     @Override
     public void run(String... args) throws Exception {
+
+        tagRepository.save(new Tag("wegańskie"));
+        tagRepository.save(new Tag("z mięsem"));
+        tagRepository.save(new Tag("ostre"));
+        tagRepository.save(new Tag("obiad"));
+        tagRepository.save(new Tag("kolacja"));
+        tagRepository.save(new Tag("śniadanie"));
+        tagRepository.save(new Tag("kuchnia chińska"));
+        tagRepository.save(new Tag("kuchnia włoska"));
+        tagRepository.save(new Tag("kuchnia polska"));
 
         Optional<User> checkUser = userRepository.findByUsername("Piotr");
         if (!checkUser.isPresent()) {
@@ -64,9 +75,11 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Piekarnik nagrzej do 180 st. Celsjusza. Naczynie przykryj folią aluminiową. Szybką zapiekankę z mięsem mielonym i ziemniakami piecz przez 60 minut, do miękkości ziemniaków. Usuń folię i kontynuuj pieczenie przez kolejne 20 minut, do zrumienienia.");
             recipe1.setSteps(steps);
 
-            List<String> tags = new ArrayList<>();
-            tags.add("obiad");
-            tags.add("mięsne");
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("obiad");
+            tags.add(tag);
+            tag = tagRepository.findByName("z mięsem");
+            tags.add(tag);
             recipe1.setTags(tags);
 
             recipe1.setStatus(true);

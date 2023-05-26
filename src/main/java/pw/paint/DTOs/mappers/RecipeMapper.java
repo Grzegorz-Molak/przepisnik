@@ -14,7 +14,6 @@ public class RecipeMapper {
         recipeDto.setIngredients(recipe.getIngredients());
         recipeDto.setSteps(recipe.getSteps());
         recipeDto.setStatus(recipe.getStatus());
-        recipeDto.setTags(recipe.getTags());
         recipeDto.setLikes(recipe.getLikes());
         recipeDto.setTimeMinutes(recipe.getTimeMinutes());
         recipeDto.setAuthor_id(recipe.getAuthor().getId());

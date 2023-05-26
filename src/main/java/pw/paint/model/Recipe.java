@@ -23,7 +23,8 @@ public class Recipe {
     private List<Ingredient> ingredients;
     private List<String> steps;
     private Boolean status;
-    private List<String> tags;
+    @DBRef
+    private List<Tag> tags;
     private Integer likes;
     private Integer timeMinutes;
     @DBRef
