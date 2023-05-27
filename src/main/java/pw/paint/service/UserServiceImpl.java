@@ -14,6 +14,7 @@ import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
 import pw.paint.model.Folder;
+import pw.paint.model.Ingredient;
 import pw.paint.model.Recipe;
 import pw.paint.model.User;
 import pw.paint.repository.RecipeRepository;
@@ -138,6 +139,36 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }
         return recipes;
+    }
+
+    @Override
+    public String addToFolder(RecipeDto recipeDto, String folderName) {
+        Optional<User> user = userRepository.findById(recipeDto.getAuthor_id());
+        if(user.isEmpty())
+            return "Nie znaleziono Użytkownika";
+
+        Recipe recipe = Recipe.builder()
+                .id(recipeDto.getId())
+                .name(recipeDto.getName())
+                .ingredients(recipeDto.getIngredients())
+                .steps(recipeDto.getSteps())
+                .status(recipeDto.getStatus())
+                .likes(recipeDto.getLikes())
+                .timeMinutes(recipeDto.getTimeMinutes())
+                .author(user.orElse(null))
+                .build();
+
+        recipeRepository.save(recipe);
+
+        for (Folder folder : user.get().getFolders()) {
+            if (folder.getName().equals(folderName)) {
+                folder.getRecipes().add(recipe);
+                userRepository.save(user.get());
+                return "Dodano przepis";
+            }
+        }
+
+        return "Nie znaleziono folderu";
     }
 
     @Override
