@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TagRepository extends MongoRepository<Tag, String> {
-    Tag findByName(String names);
+    Optional<Tag> findByName(String names);
 }

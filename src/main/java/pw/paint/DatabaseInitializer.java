@@ -22,15 +22,25 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        tagRepository.save(new Tag("wegańskie"));
-        tagRepository.save(new Tag("z mięsem"));
-        tagRepository.save(new Tag("ostre"));
-        tagRepository.save(new Tag("obiad"));
-        tagRepository.save(new Tag("kolacja"));
-        tagRepository.save(new Tag("śniadanie"));
-        tagRepository.save(new Tag("kuchnia chińska"));
-        tagRepository.save(new Tag("kuchnia włoska"));
-        tagRepository.save(new Tag("kuchnia polska"));
+        List<String> tags_s = new ArrayList<>();
+        tags_s.add("z mięsem");
+        tags_s.add("ostre");
+        tags_s.add("obiad");
+        tags_s.add("kolacja");
+        tags_s.add("śniadanie");
+        tags_s.add("kuchnia chińska");
+        tags_s.add("kuchnia włoska");
+        tags_s.add("kuchnia polska");
+
+        Optional<Tag> tag_s;
+        for(String tagName: tags_s) {
+            tag_s = tagRepository.findByName(tagName);
+            if (!tag_s.isPresent()) {
+                tagRepository.save(new Tag(tagName));
+            }
+        }
+
+
 
         Optional<User> checkUser = userRepository.findByUsername("Piotr");
         if (!checkUser.isPresent()) {
@@ -76,10 +86,16 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe1.setSteps(steps);
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("obiad");
-            tags.add(tag);
+            Optional<Tag> tag = tagRepository.findByName("obiad");
+            if(tag.isPresent()){
+                tags.add(tag.get());
+            }
+
             tag = tagRepository.findByName("z mięsem");
-            tags.add(tag);
+            if(tag.isPresent()){
+                tags.add(tag.get());
+            }
+
             recipe1.setTags(tags);
 
             recipe1.setStatus(true);

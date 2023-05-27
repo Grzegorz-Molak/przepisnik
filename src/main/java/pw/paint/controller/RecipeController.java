@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pw.paint.DTOs.model.RecipeDto;
+import pw.paint.model.Tag;
 import pw.paint.service.RecipeService;
 
 import java.util.List;
@@ -20,5 +21,10 @@ public class RecipeController {
     @GetMapping
     public List<RecipeDto> getAllRecipes() {
         return recipeService.getAllRecipes();
+    }
+
+    @GetMapping("/tags")
+    public List<String> getAllTags(){
+        return recipeService.getAllTags();
     }
 }

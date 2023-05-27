@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RecipeService {
     List<RecipeDto> getAllRecipes();
+
+    List<String> getAllTags();
 }
