@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="styles.css">
+  <script src="index.js"></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -36,7 +37,28 @@
             </form>
           </div>
         </div>
-        <a href="" class="menubutton w-button">Zarejestruj</a>
+        <button class="menubutton w-button register-open" onclick="openForm()">Zarejestruj</button>
+        <div class="form-popup" id="rejestracja">
+          <button type="button" class="close-btn" onclick="closeForm()">&times;</button>
+          <form action="/register" class="formContainer">
+            <h2>Zarejestruj</h2>
+            <div class="form-element">
+              <label for="name">Nazwa</label>
+              <input type="text" id="name" placeholder="nazwa" name="name" required>
+            </div>
+            <div class="form-element">
+              <label for="email">E-mail</label>
+              <input type="text" id="email" placeholder="email" name="email" required>
+            </div>
+            <div class="form-element">
+              <label for="psw">Hasło</label>
+              <input type="password" id="psw" placeholder="hasło" name="psw" required>
+            </div>
+            <div class ="form-element">
+              <button type="submit" class="register-btn">Zarejestruj</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 

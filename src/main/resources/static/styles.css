@@ -133,6 +133,79 @@
   margin-bottom: 5px;
 }
 
+/*Register form*/
+.form-popup {
+  font-family: Exo, sans-serif;
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid #999999;
+  z-index: 9;
+  text-align: center;
+  width: 400px;
+  padding: 20px 30px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 5px 5px rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.register-open{
+  border: none;
+  outline: none;
+}
+
+.form-popup .close-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+.form-popup .form h2{
+  text-align: center;
+  margin: 10px 0px 20px;
+  font-size: 25px;
+}
+
+.form-element{
+  margin: 15px 20px 15px 0px;
+}
+
+.form-element label{
+  font-size: 14px;
+}
+
+.form-element input[type="text"],
+.form-element input[type="password"]{
+  margin-top: 5px;
+  display: block;
+  margin-right: 40px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  font-size: 14px;
+}
+.register-btn{
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #333;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: -20px;
+}
+
 /*Main page*/
 
 .mainpage{
