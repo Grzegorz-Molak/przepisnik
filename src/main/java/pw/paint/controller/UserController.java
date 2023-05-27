@@ -1,27 +1,45 @@
 package pw.paint.controller;
 
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
-import pw.paint.DTOs.model.SignUpRequest;
-import pw.paint.DTOs.model.UserDto;
+import pw.paint.DTOs.model.*;
 import pw.paint.service.UserService;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
-    @PostMapping
-    public String signUp(@RequestBody SignUpRequest signUpRequest){
+    @PostMapping()
+    public String signUp(@RequestBody SignUpRequest signUpRequest) {
         userService.signup(signUpRequest);
         return "user added successfully";
     }
 
+    @GetMapping("/recipes")
+    public List<RecipeDto> getUserRecipes(@RequestBody String username) {
+        return userService.getUserRecipes(username);
+    }
+
+    @GetMapping("/folders")
+    public List<FolderDto> getUserFolders(@RequestBody String username) {
+        return userService.getFolders(username);
+    }
+
+    @GetMapping("/folders/")
+    public List<RecipeDto> getFolderRecipes(@RequestBody UserDto userDto, @RequestParam("name") String name) {
+        return userService.getFolderRecipes(userDto, name);
+    }
+
+    @GetMapping("/id")
+    public UserDto getUser(@RequestBody String idStr) {
+        ObjectId id = new ObjectId(idStr);
+        return userService.getUserById(id);
+    }
 
 
     //strefa testów do usunięcia na koniec
