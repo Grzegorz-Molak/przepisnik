@@ -14,6 +14,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    //Do wywalenia bo już reg i log jest w AuthenticationController
     @PostMapping()
     public String signUp(@RequestBody SignUpRequest signUpRequest) {
         userService.signup(signUpRequest);
@@ -39,6 +40,11 @@ public class UserController {
     public UserDto getUser(@RequestBody String idStr) {
         ObjectId id = new ObjectId(idStr);
         return userService.getUserById(id);
+    }
+
+    @PutMapping("/folder-add")
+    public String addToFolder(@RequestBody RecipeDto recipeDto, @RequestParam String name) {
+        return userService.addToFolder(recipeDto, name);
     }
 
 
