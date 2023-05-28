@@ -177,14 +177,31 @@
 
 .form-element{
   margin: 15px 20px 15px 0px;
+  display: block;
+  flex-direction: column;
 }
+
+.form-element.success input{
+  border-color: darkgreen;
+}
+
+.form-element.error input{
+  border-color: darkred;
+}
+
+.err {
+  color: #ff3860;
+  font-size: 9px;
+  font-family: Exo, sans-serif;
+  height: 13px;
+}
+
 
 .form-element label{
   font-size: 14px;
 }
 
-.form-element input[type="text"],
-.form-element input[type="password"]{
+.form-element input {
   margin-top: 5px;
   display: block;
   margin-right: 40px;
