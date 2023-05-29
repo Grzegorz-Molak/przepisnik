@@ -26,18 +26,18 @@ const validate = (e) => {
     const password2Value = password2.value.trim();
 
     if(usernameValue === '') {
-        setError(username, 'Username is required');
+        setError(username, 'Podaj nazwę użytkownika');
         e.preventDefault();
     } else {
         setSuccess(username);
     }
 
     if(emailValue === '') {
-        setError(email, 'Email is required');
+        setError(email, 'Podaj adres email');
         e.preventDefault();
 
     } else if (!isValidEmail(emailValue)) {
-        setError(email, 'Provide a valid email address');
+        setError(email, 'Email nieprawidłowy');
         e.preventDefault();
 
     } else {
@@ -45,11 +45,11 @@ const validate = (e) => {
     }
 
     if(passwordValue === '') {
-        setError(password, 'Password is required');
+        setError(password, 'Podaj hasło');
         e.preventDefault();
 
     } else if (passwordValue.length < 6 ) {
-        setError(password, 'Password must be at least 6 character.')
+        setError(password, 'Hasło musi mieć przynjamniej 6 znaków.')
         e.preventDefault();
 
     } else {
@@ -57,11 +57,11 @@ const validate = (e) => {
     }
 
     if(password2Value === '') {
-        setError(password2, 'Please confirm your password');
+        setError(password2, 'Potwierdź hasło');
         e.preventDefault();
 
     } else if (password2Value !== passwordValue) {
-        setError(password2, "Passwords doesn't match");
+        setError(password2, "Hasła są różne");
         e.preventDefault();
 
     } else {
