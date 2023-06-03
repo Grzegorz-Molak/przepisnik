@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
     @GetMapping("/")
     public ModelAndView index() {
-        return new ModelAndView("index.html");
+        return new ModelAndView("dodaj-przepis.html");
     }
 
     @PostMapping("/login")

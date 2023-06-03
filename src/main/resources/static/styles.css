@@ -324,6 +324,20 @@
   background-color: #eef7e1;
 }
 
+.tagbutton label span {
+  text-align: center;
+  display: block;
+}
+
+.tagbutton label input {
+  position: absolute;
+  display: none;
+}
+
+.tagbutton input:checked + span {
+  background-color: #eef7e1;
+}
+
 /*Ingredients*/
 .listblock{
   display: flex;
