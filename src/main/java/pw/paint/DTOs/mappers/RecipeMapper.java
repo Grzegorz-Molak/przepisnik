@@ -30,4 +30,15 @@ public class RecipeMapper {
         recipeDto.setTags(tags);
         return recipeDto;
     }
-}
+
+    public static List<RecipeDto> toRecipeDto(List<Recipe> recipes) {
+        List<RecipeDto> recipesDto = new ArrayList<>();
+
+        for(Recipe recipe : recipes){
+            recipesDto.add(toRecipeDto(recipe));
+        }
+
+        return recipesDto;
+    }
+
+    }

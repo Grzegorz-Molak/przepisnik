@@ -1,7 +1,14 @@
 package pw.paint.service;
 
+import com.mongodb.DBRef;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.model.Folder;
@@ -21,19 +28,15 @@ import java.util.Optional;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
-    private final RecipeMapper  recipeMapper;
+    private final RecipeMapper recipeMapper;
     private final TagRepository tagRepository;
     private final UserRepository userRepository;
     private final String defaultFolderName = "Moje przepisy";
 
     @Override
     public List<RecipeDto> getAllRecipes() {
-        List<Recipe> recipes = recipeRepository.findAll();
-        List<RecipeDto> recipeDtos= new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            recipeDtos.add(recipeMapper.toRecipeDto(recipe));
-        }
-        return recipeDtos;
+
+        return recipeMapper.toRecipeDto(recipeRepository.findAll());
 
     }
 
@@ -44,10 +47,10 @@ public class RecipeServiceImpl implements RecipeService {
 
         List<String> tags_s = new ArrayList<>();
 
-        for(Tag tag :tags){
+        for (Tag tag : tags) {
             tags_s.add(tag.getName());
         }
-        return  tags_s;
+        return tags_s;
 
     }
 
@@ -55,17 +58,17 @@ public class RecipeServiceImpl implements RecipeService {
     public String createNewRecipe(RecipeDto recipeDto) {
         Optional<User> user = userRepository.findByUsername(recipeDto.getAuthor());
 
-        if(!user.isPresent()){
+        if (!user.isPresent()) {
             return "Nie ma takiego użytkownika";
         }
 
         Folder defaultFolder = user.get().findFolderByName(defaultFolderName);
-            List<Recipe> recipes = defaultFolder.getRecipes();
-            for(Recipe recipe: recipes){
-                if(recipe.getName().equals(recipeDto.getName())){
-                    return "Przepis o takiej nazwie już istnieje";
-                }
+        List<Recipe> recipes = defaultFolder.getRecipes();
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeDto.getName())) {
+                return "Przepis o takiej nazwie już istnieje";
             }
+        }
         Recipe recipe = Recipe.builder()
                 .id(recipeDto.getId())
                 .name(recipeDto.getName())
@@ -76,12 +79,64 @@ public class RecipeServiceImpl implements RecipeService {
                 .timeMinutes(recipeDto.getTimeMinutes())
                 .author(user.orElse(null))
                 .build();
-            defaultFolder.getRecipes().add(recipe);
+        defaultFolder.getRecipes().add(recipe);
 
         recipeRepository.save(recipe);
         userRepository.save(user.get());
 
 
         return "Utworzono nowy folder";
+    }
+
+    @Override
+    public List<RecipeDto> search(String author, String keyword, List<String> tags, Pageable pageable) {
+
+        if (keyword.isBlank()&&tags.isEmpty()&&author.isBlank()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findAll(pageable).getContent());
+        }
+
+        List<DBRef> tagsRef = new ArrayList<>();
+        Optional<Tag> tag;
+        for (String tagName : tags) {
+            tag = tagRepository.findByName(tagName);
+            if (tag.isPresent()) {
+                tagsRef.add(new DBRef("tags", tag.get().getId()));
+            }
+        }
+
+        Optional<User> userWithId = userRepository.findByUsername(author);
+        DBRef authorRef = null;
+        if(userWithId.isPresent()){
+            authorRef = new DBRef("users", userWithId.get().getId());
+        }
+
+        if (keyword.isBlank()&&tags.isEmpty()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findByAuthor(authorRef, pageable).getContent());
+        }
+
+        if (keyword.isBlank()&&author.isBlank()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findByTagsAll(tagsRef, pageable).getContent());
+        }
+
+        if (tags.isEmpty()&&author.isBlank()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findByNameContaining(keyword,pageable).getContent());
+        }
+
+        if (author.isBlank()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword,tagsRef,pageable).getContent());
+        }
+
+        if (tags.isEmpty()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword,authorRef,pageable).getContent());
+        }
+
+        if (keyword.isBlank()) {
+            return recipeMapper.toRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef,authorRef,pageable).getContent());
+        }
+
+
+        return recipeMapper.toRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, pageable).getContent());
+
+
     }
 }
