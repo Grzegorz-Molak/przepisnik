@@ -78,6 +78,7 @@ public class RecipeServiceImpl implements RecipeService {
                 .build();
             defaultFolder.getRecipes().add(recipe);
 
+        recipeRepository.save(recipe);
         userRepository.save(user.get());
 
 
