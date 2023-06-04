@@ -30,16 +30,19 @@
   </div>
 
   <div class="mainpage">
-    <h3 class="subtitle"> ~ Dodaj swój przepis ~ </h3>
+    <h3 class="subtitle"> ~ Wyszukaj przepis ~ </h3>
     <form class="recipe w-form">
-
-      <fieldset class="nameblock">
-        Nazwa
-        <input type="text" class = "nameinput w-input" maxlength="256" id="r-name" required = "">
-        <a href="" class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></a>
+      <fieldset class="formblock">
+        Przeszukaj <br>
+        <input type="radio" class="radio" id="all">
+        <label for="all">Wszystkie przepisy</label><br>
+        <input type="radio" class="radio" id="own">
+        <label for="own">Mój przepiśnik</label><br>
       </fieldset>
-
-
+      <fieldset class="formblock">
+        Nazwa <br>
+        <input type="text" class = "nameinput2 w-input" maxlength="256" id="r-name" required = "" placeholder="Wprowadź interesującą Cię frazę">
+        </fieldset>
       <fieldset class="formblock">
         Wybierz tagi
         <div class="tagcontainer">
@@ -117,43 +120,8 @@
           </button>
         </div>
       </fieldset>
-
-      <fieldset class="formblock">
-        Składniki
-        <ol class="listblock" id="ing-list">
-          <li class="ingredient">
-            <input type="text" class = "ingname w-input" maxlength="256" id="ing-name" required = "" placeholder="Podaj składnik">
-            <input type="text" class = "amount w-input" maxlength="5" id="amount" required = "" placeholder="Ilość">
-            <input type="text" class = "unit w-input" maxlength="10" id="unit" required = "" placeholder="Np. kg">
-          </li>
-        </ol>
-        <button class="addbutton">
-          <img src="img/add.png" alt = "" height="20">
-          &nbsp;&nbsp;Dodaj składnik
-        </button>
-      </fieldset>
-
-      <fieldset class="formblock" id="step-list">
-        Przygotowanie krok po kroku
-        <ol class="listblock">
-          <li class="steps">
-            <input type="text" class = "step w-input" maxlength="256" id="step" required = "" placeholder="Wprowadź instrukcje">
-          </li>
-        </ol>
-        <button class="addbutton">
-          <img src="img/add.png" alt = "" height="20">
-          &nbsp;&nbsp;Dodaj krok
-        </button>
-      </fieldset>
-      <fieldset class="formblock">
-        Ustaw przepis jako:<br>
-        <input type="radio" class="radio" id="private">
-        <label for="private">Prywatny</label><br>
-        <input type="radio" class="radio" id="public">
-        <label for="public">Publiczny</label><br>
-      </fieldset>
       <fieldset class="submitset">
-        <input type="submit" class="submitbutton" value="Gotowe!">
+        <input type="submit" class="submitbutton" value="Wyszukaj">
       </fieldset>
 
     </form>
@@ -162,5 +130,3 @@
 
 </body>
 </html>
-
-
