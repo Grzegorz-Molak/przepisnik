@@ -286,6 +286,11 @@
   outline: none;
 }
 
+.upload{
+  height:0px;
+  overflow:hidden;
+  width: 0px;
+}
 /*Tags*/
 
 .tagcontainer{
@@ -340,12 +345,31 @@
 
 /*Ingredients*/
 .listblock{
-  display: flex;
+  /*display: flex;*/
   width: 1fr;
 }
 
 .ingredient{
   width: 100%;
+}
+
+ol li{
+  width: 100%;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.inginput{
+  margin-left: 40px;
+  padding-bottom: 15px;
 }
 
 .ingname{

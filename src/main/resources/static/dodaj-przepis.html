@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
+  <script src="dodaj-przepis.js" defer ></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -36,7 +37,10 @@
       <fieldset class="nameblock">
         Nazwa
         <input type="text" class = "nameinput w-input" maxlength="256" id="r-name" required = "">
-        <button type="button" class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></button>
+        <div class="upload">
+          <input type="file" id="fileInput" name="fileInput" />
+        </div>
+        <button type="button" onclick=chooseFile() class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></button>
       </fieldset>
 
 
@@ -157,26 +161,28 @@
       <fieldset class="formblock">
         Składniki
         <ol class="listblock" id="ing-list">
-          <li class="ingredient">
-            <input type="text" class = "ingname w-input" maxlength="256" id="ing-name" required = "" placeholder="Podaj składnik">
-            <input type="text" class = "amount w-input" maxlength="5" id="amount" required = "" placeholder="Ilość">
-            <input type="text" class = "unit w-input" maxlength="10" id="unit" required = "" placeholder="Np. kg">
-          </li>
+
         </ol>
-        <button  type="button" class="addbutton">
+        <div class="inginput">
+          <input type="text" class = "ingname w-input" maxlength="256" id="ing-name"  placeholder="Podaj składnik">
+          <input type="text" class = "amount w-input" maxlength="5" id="amount"  placeholder="Ilość">
+          <input type="text" class = "unit w-input" maxlength="10" id="unit"  placeholder="Np. kg">
+        </div>
+        <button class="addbutton" onclick="newElement('ing-list')" type="button">
           <img src="img/add.png" alt = "" height="20">
           &nbsp;&nbsp;Dodaj składnik
         </button>
       </fieldset>
 
-      <fieldset class="formblock" id="step-list">
+      <fieldset class="formblock">
         Przygotowanie krok po kroku
-        <ol class="listblock">
-          <li class="steps">
-            <input type="text" class = "step w-input" maxlength="256" id="step" required = "" placeholder="Wprowadź instrukcje">
-          </li>
+        <ol id="step-list" class="listblock">
         </ol>
-        <button type="button" class="addbutton">
+        <div class="inginput">
+          <input type="text" class = "step w-input" maxlength="256" id="step"  placeholder="Wprowadź instrukcje">
+
+        </div>
+        <button onclick="newElement('step-list')" type="button" class="addbutton">
           <img src="img/add.png" alt = "" height="20">
           &nbsp;&nbsp;Dodaj krok
         </button>
