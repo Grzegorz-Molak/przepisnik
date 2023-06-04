@@ -54,8 +54,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/newFolder/{userName}/{folderName}")
-    public String createNewFolder(@PathVariable String userName, @PathVariable String folderName){
+//    @PostMapping("/newFolder/{userName}/{folderName}")
+//    public String createNewFolder(@PathVariable String userName, @PathVariable String folderName){
+//        return userService.createNewFolder(userName,folderName);
+//    }
+
+    @PostMapping("/newFolder")
+    public String createNewFolder(@RequestBody String userName, @RequestBody String folderName){
         return userService.createNewFolder(userName,folderName);
     }
 
