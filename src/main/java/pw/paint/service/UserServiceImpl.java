@@ -143,7 +143,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public String addToFolder(RecipeDto recipeDto, String folderName) {
-        Optional<User> user = userRepository.findById(recipeDto.getAuthor_id());
+
+        Optional<User> user = userRepository.findByUsername(recipeDto.getAuthor());
         if(user.isEmpty())
             return "Nie znaleziono Użytkownika";
 

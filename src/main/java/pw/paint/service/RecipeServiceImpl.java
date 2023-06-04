@@ -53,7 +53,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public String createNewRecipe(RecipeDto recipeDto) {
-        Optional<User> user = userRepository.findById(recipeDto.getAuthor_id());
+        Optional<User> user = userRepository.findByUsername(recipeDto.getAuthor());
 
         if(!user.isPresent()){
             return "Nie ma takiego użytkownika";
