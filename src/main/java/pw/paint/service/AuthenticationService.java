@@ -15,6 +15,7 @@ import pw.paint.repository.UserRepository;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -27,6 +28,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
 //                .role(Role.USER)
                 .build();
+        userService.createNewFolder(request.getUsername(), "Moje przepisy");
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
