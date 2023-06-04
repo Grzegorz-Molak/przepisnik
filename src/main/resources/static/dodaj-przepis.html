@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
+  <script src="dodaj-przepis.js" defer ></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -31,116 +32,157 @@
 
   <div class="mainpage">
     <h3 class="subtitle"> ~ Dodaj swój przepis ~ </h3>
-    <form class="recipe w-form">
+    <form action="/recipes/add" class="recipe w-form">
 
       <fieldset class="nameblock">
         Nazwa
         <input type="text" class = "nameinput w-input" maxlength="256" id="r-name" required = "">
-        <a href="" class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></a>
+        <div class="upload">
+          <input type="file" id="fileInput" name="fileInput" />
+        </div>
+        <button type="button" onclick=chooseFile() class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></button>
       </fieldset>
 
 
       <fieldset class="formblock">
         Wybierz tagi
         <div class="tagcontainer">
-          <button class="tagbutton">
-            <img src="img/vegetarian.png" alt = "" height="40">
-            <br> Wegetariańskie
-          </button>
-          <button class="tagbutton">
-            <img src="img/vegan.png" alt = "" height="40">
-            <br> Wegańskie
-          </button>
-          <button class="tagbutton">
-            <img src="img/mild.png" alt = "" height="40">
-            <br> Łagodne
-          </button>
-          <button class="tagbutton">
-            <img src="img/spicy.png" alt = "" height="40">
-            <br> Pikantne
-          </button>
-          <button class="tagbutton">
-            <img src="img/hot.png" alt = "" height="40">
-            <br> Ostre
-          </button>
-          <button class="tagbutton">
-            <img src="img/gluten.png" alt = "" height="40">
-            <br> Bez glutenu
-          </button>
-          <button class="tagbutton">
-            <img src="img/lactose.png" alt = "" height="40">
-            <br> Bez laktozy
-          </button>
-          <button class="tagbutton">
-            <img src="img/breakfast.png" alt = "" height="40">
-            <br> Śniadanie
-          </button>
-          <button class="tagbutton">
-            <img src="img/lunch.png" alt = "" height="40">
-            <br> Obiad
-          </button>
-          <button class="tagbutton">
-            <img src="img/supper.png" alt = "" height="40">
-            <br> Kolacja
-          </button>
-          <button class="tagbutton">
-            <img src="img/dessert.png" alt = "" height="40">
-            <br> Deser
-          </button>
-          <button class="tagbutton">
-            <img src="img/snack.png" alt = "" height="40">
-            <br> Przekąska
-          </button>
-          <button class="tagbutton">
-            <img src="img/soup.png" alt = "" height="40">
-            <br> Zupa
-          </button>
-          <button class="tagbutton">
-            <img src="img/italian.png" alt = "" height="40">
-            <br> Włoskie
-          </button>
-          <button class="tagbutton">
-            <img src="img/asian.png" alt = "" height="40">
-            <br> Azjatyckie
-          </button>
-          <button class="tagbutton">
-            <img src="img/polish.png" alt = "" height="40">
-            <br> Polskie
-          </button>
-          <button class="tagbutton">
-            <img src="img/american.png" alt = "" height="40">
-            <br> Amerykańskie
-          </button>
-          <button class="tagbutton">
-            <img src="img/mexican.png" alt = "" height="40">
-            <br> Meksykańskie
-          </button>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="vegetarian"><span><img src="img/vegetarian.png" alt = "" height="40">
+            <br> Wegetariańskie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="vegan"><span><img src="img/vegan.png" alt = "" height="40">
+            <br> Wegańskie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="mild"><span><img src="img/mild.png" alt = "" height="40">
+            <br> Łagodne</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="spicy"><span><img src="img/spicy.png" alt = "" height="40">
+            <br> Pikantne</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="hot"><span><img src="img/hot.png" alt = "" height="40">
+            <br> Ostre</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="gluten"><span><img src="img/gluten.png" alt = "" height="40">
+            <br> Bez glutenu</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="lactose"><span><img src="img/lactose.png" alt = "" height="40">
+            <br> Bez laktozy</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="breakfast"><span><img src="img/breakfast.png" alt = "" height="40">
+            <br> Śniadanie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="lunch"><span><img src="img/lunch.png" alt = "" height="40">
+            <br> Obiad</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="supper"><span><img src="img/supper.png" alt = "" height="40">
+            <br> Kolacja</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="dessert"><span><img src="img/dessert.png" alt = "" height="40">
+            <br> Deser</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="snack"><span><img src="img/snack.png" alt = "" height="40">
+            <br> Przekąska</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="soup"><span><img src="img/soup.png" alt = "" height="40">
+            <br> Zupa</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="italian"><span><img src="img/italian.png" alt = "" height="40">
+            <br> Włoskie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="asian"><span><img src="img/asian.png" alt = "" height="40">
+            <br> Azjatyckie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="polish"><span><img src="img/polish.png" alt = "" height="40">
+            <br> Polskie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="american"><span><img src="img/american.png" alt = "" height="40">
+            <br> Amerykańskie</span>
+            </label>
+          </div>
+          <div class="tagbutton">
+            <label>
+              <input type="checkbox" value="mexican"><span><img src="img/mexican.png" alt = "" height="40">
+            <br> Meksykańskie</span>
+            </label>
+          </div>
         </div>
       </fieldset>
 
       <fieldset class="formblock">
         Składniki
         <ol class="listblock" id="ing-list">
-          <li class="ingredient">
-            <input type="text" class = "ingname w-input" maxlength="256" id="ing-name" required = "" placeholder="Podaj składnik">
-            <input type="text" class = "amount w-input" maxlength="5" id="amount" required = "" placeholder="Ilość">
-            <input type="text" class = "unit w-input" maxlength="10" id="unit" required = "" placeholder="Np. kg">
-          </li>
+
         </ol>
-        <button class="addbutton">
+        <div class="inginput">
+          <input type="text" class = "ingname w-input" maxlength="256" id="ing-name"  placeholder="Podaj składnik">
+          <input type="text" class = "amount w-input" maxlength="5" id="amount"  placeholder="Ilość">
+          <input type="text" class = "unit w-input" maxlength="10" id="unit"  placeholder="Np. kg">
+        </div>
+        <button class="addbutton" onclick="newElement('ing-list')" type="button">
           <img src="img/add.png" alt = "" height="20">
           &nbsp;&nbsp;Dodaj składnik
         </button>
       </fieldset>
 
-      <fieldset class="formblock" id="step-list">
+      <fieldset class="formblock">
         Przygotowanie krok po kroku
-        <ol class="listblock">
-          <li class="steps">
-            <input type="text" class = "step w-input" maxlength="256" id="step" required = "" placeholder="Wprowadź instrukcje">
-          </li>
+        <ol id="step-list" class="listblock">
         </ol>
-        <button class="addbutton">
+        <div class="inginput">
+          <input type="text" class = "step w-input" maxlength="256" id="step"  placeholder="Wprowadź instrukcje">
+
+        </div>
+        <button onclick="newElement('step-list')" type="button" class="addbutton">
           <img src="img/add.png" alt = "" height="20">
           &nbsp;&nbsp;Dodaj krok
         </button>

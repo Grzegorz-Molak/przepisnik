@@ -287,6 +287,11 @@
   outline: none;
 }
 
+.upload{
+  height:0px;
+  overflow:hidden;
+  width: 0px;
+}
 /*Tags*/
 
 .tagcontainer{
@@ -325,8 +330,23 @@
   background-color: #eef7e1;
 }
 
+.tagbutton label span {
+  text-align: center;
+  display: block;
+}
+
+.tagbutton label input {
+  position: absolute;
+  display: none;
+}
+
+.tagbutton input:checked + span {
+  background-color: #eef7e1;
+}
+
 /*Ingredients*/
-ol.listblock{
+.listblock{
+  /*display: flex;*/
   width: 1fr;
 }
 
@@ -334,6 +354,25 @@ ol.listblock{
   width: 100%;
   display: list-item;
   margin-bottom: 5px;
+}
+
+ol li{
+  width: 100%;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.inginput{
+  margin-left: 40px;
+  padding-bottom: 15px;
 }
 
 .ingname{
