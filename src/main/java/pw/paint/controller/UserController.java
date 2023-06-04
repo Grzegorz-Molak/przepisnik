@@ -14,12 +14,6 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    //Do wywalenia bo już reg i log jest w AuthenticationController
-    @PostMapping()
-    public String signUp(@RequestBody SignUpRequest signUpRequest) {
-        userService.signup(signUpRequest);
-        return "user added successfully";
-    }
 
     @GetMapping("/recipes")
     public List<RecipeDto> getUserRecipes(@RequestBody String username) {

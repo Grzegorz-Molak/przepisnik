@@ -9,7 +9,7 @@ import pw.paint.DTOs.model.UserDto;
 import java.util.List;
 
 public interface UserService {
-    void signup(SignUpRequest signUpRequest);
+
     List<UserDto> getAllUsers();
 
     String createNewFolder(String userName, String folderName);

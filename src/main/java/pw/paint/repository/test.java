@@ -1,4 +1,4 @@
-/*package pw.paint.repository;
+/* package pw.paint.repository;
 
 
 import com.mongodb.DBRef;
@@ -64,7 +64,7 @@ public class test implements CommandLineRunner {
             System.out.println(recipe.getName());
         }
 
-        Page<Recipe> recipePage3 = recipeRepository.findByTags(keyword,tags,pageable);
+        Page<Recipe> recipePage3 = recipeRepository.findByTagsAllAndNameContaining(keyword,tags,pageable);
 
         for (Recipe recipe : recipePage3) {
             System.out.println(recipe.getName());
@@ -79,8 +79,17 @@ public class test implements CommandLineRunner {
             }
         }
 
+        userWithId = userRepository.findByUsername("Ania");
+        DBRef author = new DBRef("users",userWithId.get().getId());
+        Page<Recipe> recipePage4 = recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword,tags,author,pageable);
+
+        for (Recipe recipe : recipePage4) {
+            System.out.println(recipe.getName());
+        }
+
+
     }
 }
-*/
 
+*/
 

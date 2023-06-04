@@ -7,11 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import pw.paint.model.Recipe;
-import pw.paint.model.Tag;
-import pw.paint.model.User;
 
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,16 +17,23 @@ public interface RecipeRepository extends MongoRepository<Recipe, ObjectId> {
 
     Optional<Recipe> findByName(String name);
 
+    Page<Recipe> findAll(Pageable pageable);
     @Query("{'name': { $regex: ?0, $options: 'i' }}")
     Page<Recipe> findByNameContaining(String keyword, Pageable pageable);
-
     @Query("{'tags': { $all: ?0 }}")
     Page<Recipe> findByTagsAll(List<DBRef> tags, Pageable pageable);
-
+    @Query("{'author': ?0}")
+    Page<Recipe> findByAuthor(DBRef author, Pageable pageable);
     @Query("{'name': { $regex: ?0, $options: 'i' }, 'tags': { $all: ?1 }}")
-    Page<Recipe> findByTags(String keyword,List<DBRef> tags, Pageable pageable);
+    Page<Recipe> findByTagsAllAndNameContaining(String keyword,List<DBRef> tags, Pageable pageable);
+    @Query("{ 'tags': { $all: ?0 },'author': ?1}")
+    Page<Recipe> findByTagsAndAuthor(List<DBRef> tags, DBRef author,Pageable pageable);
+    @Query("{'name': { $regex: ?0, $options: 'i' },'author': ?1}")
+    Page<Recipe> findByNameContainingAndAuthor(String keyword, DBRef author,Pageable pageable);
+    @Query("{'name': { $regex: ?0, $options: 'i' }, 'tags': { $all: ?1 },'author': ?2}")
+    Page<Recipe> findByTagsAllAndNameContainingAndAuthor(String keyword,List<DBRef> tags, DBRef author, Pageable pageable);
 
-    List<Recipe> findByAuthor(User author);
+
 
 
 

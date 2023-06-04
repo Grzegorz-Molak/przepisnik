@@ -14,7 +14,6 @@ import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
 import pw.paint.model.Folder;
-import pw.paint.model.Ingredient;
 import pw.paint.model.Recipe;
 import pw.paint.model.User;
 import pw.paint.repository.RecipeRepository;
@@ -22,7 +21,6 @@ import pw.paint.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 
@@ -32,14 +30,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
 
-    @Override
-    public void signup(SignUpRequest signUpRequest) {
-        User user = new User();
-        user.setUsername(signUpRequest.getUserName());
-        user.setPassword(signUpRequest.getPassword());
-        user.setEmail(signUpRequest.getEmail());
-        userRepository.save(user);
-    }
 
     @Override
     public List<UserDto> getAllUsers() {
