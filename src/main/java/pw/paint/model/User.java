@@ -32,6 +32,14 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public Folder findFolderByName(String name){
+        for(Folder folder : folders){
+            if(folder.getName().equals(name))
+                return folder;
+        }
+        return null;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "read");
