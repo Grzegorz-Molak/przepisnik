@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import pw.paint.model.Recipe;
-import pw.paint.model.User;
 
 
 import java.util.List;

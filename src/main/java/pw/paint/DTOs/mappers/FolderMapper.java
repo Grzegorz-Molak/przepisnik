@@ -1,7 +1,6 @@
 package pw.paint.DTOs.mappers;
 
 import org.bson.types.ObjectId;
-import pw.paint.DTOs.model.AuthenticationResponse;
 import pw.paint.DTOs.model.FolderDto;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
