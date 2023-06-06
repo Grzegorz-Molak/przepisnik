@@ -23,11 +23,10 @@ import java.util.Optional;
 public class FolderServiceImpl implements FolderService {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
-
     private final RecipeMapper recipeMapper;
 
     @Override
-    public List<FolderDto> getFolders(String username) {
+    public List<String> getFoldersNames(String username) {
 
         Optional<User> user = userRepository.findByUsername(username);
         if (!user.isPresent())
@@ -35,7 +34,11 @@ public class FolderServiceImpl implements FolderService {
         if (user.get().getFolders().isEmpty()) {
             return null;
         }
-        return FolderMapper.toFolderDto(user.get().getFolders());
+        List<String> foldersNames = new ArrayList<>();
+        for(Folder folder :user.get().getFolders()) {
+            foldersNames.add(folder.getName());
+        }
+        return foldersNames;
     }
 
     @Override

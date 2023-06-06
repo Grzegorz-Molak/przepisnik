@@ -20,5 +20,5 @@ public interface UserService {
 
     //List<RecipeDto> getFolderRecipes(UserDto userDto, String name);
 
-    String addToFolder(RecipeDto recipeDto, String folderName);
+
 }

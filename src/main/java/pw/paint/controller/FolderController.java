@@ -15,8 +15,8 @@ public class FolderController {
     private final FolderService folderService;
 
     @GetMapping("/{username}")
-    public List<FolderDto> getUserFolders(@PathVariable String username) {
-        return folderService.getFolders(username);
+    public List<String> getUserFolders(@PathVariable String username) {
+        return folderService.getFoldersNames(username);
     }
     @GetMapping("/{username}/{folderName}")
     public List<ShortRecipeDto> getRecipesFromFolder(@PathVariable String username,@PathVariable String folderName){
