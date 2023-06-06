@@ -1,4 +1,4 @@
-package pw.paint.DTOs.model;
+package pw.paint.DTOs.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeDto {
+public class NewRecipeRequest {
 
-    private String id;
     private String name;
     private String author;
     private Boolean status;

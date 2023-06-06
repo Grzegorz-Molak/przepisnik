@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -13,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class FolderDto {
+
     private String name;
-    private List<ObjectId> recipes;
+    private List<String> recipes;
+
 }

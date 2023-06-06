@@ -18,15 +18,15 @@ public class Recipe {
     @Id
     private ObjectId id;
     private String name;
-    private List<Ingredient> ingredients;
-    private List<String> steps;
+    @DBRef
+    private User author;
     private Boolean status;
     @DBRef
     private List<Tag> tags;
-    private Integer likes;
+    private List<String> ingredients;
+    private List<String> steps;
     private Integer timeMinutes;
-    @DBRef
-    private User author;
+
 
     //TO DO PHOTO VARIABLE
 
