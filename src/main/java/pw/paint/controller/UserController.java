@@ -15,20 +15,15 @@ public class UserController {
     private final UserService userService;
 
 
-    @GetMapping("/recipes")
-    public List<RecipeDto> getUserRecipes(@RequestBody String username) {
-        return userService.getUserRecipes(username);
-    }
+    //@GetMapping("/recipes")
+    //public List<RecipeDto> getUserRecipes(@RequestBody String username) {
+      //  return userService.getUserRecipes(username);
+    //}
 
-    @GetMapping("/folders")
-    public List<FolderDto> getUserFolders(@RequestBody String username) {
-        return userService.getFolders(username);
-    }
-
-    @GetMapping("/folders/")
-    public List<RecipeDto> getFolderRecipes(@RequestBody UserDto userDto, @RequestParam("name") String name) {
-        return userService.getFolderRecipes(userDto, name);
-    }
+//    @GetMapping("/folders/")
+//    public List<RecipeDto> getFolderRecipes(@RequestBody UserDto userDto, @RequestParam("name") String name) {
+//        return userService.getFolderRecipes(userDto, name);
+//    }
 
     @GetMapping("/id")
     public UserDto getUser(@RequestBody String idStr) {
@@ -36,10 +31,10 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PutMapping("/folder-add")
-    public String addToFolder(@RequestBody RecipeDto recipeDto, @RequestParam String name) {
-        return userService.addToFolder(recipeDto, name);
-    }
+//    @PutMapping("/folder-add")
+//    public String addToFolder(@RequestBody RecipeDto recipeDto, @RequestParam String name) {
+//        return userService.addToFolder(recipeDto, name);
+//    }
 
 
     //strefa testów do usunięcia na koniec
@@ -53,9 +48,6 @@ public class UserController {
 //        return userService.createNewFolder(userName,folderName);
 //    }
 
-    @PostMapping("/newFolder")
-    public String createNewFolder(@RequestBody String userName, @RequestBody String folderName){
-        return userService.createNewFolder(userName,folderName);
-    }
+
 
 }

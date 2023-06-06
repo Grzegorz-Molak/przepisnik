@@ -59,11 +59,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             userRepository.save(user);
             Optional<User> userWithId = userRepository.findByUsername("Ania");
             List<Folder> folders = new ArrayList<>();
-            Folder folder = new Folder();
-            folder.setName("moje autorksie przepisy");
-            folders.add(folder);
-            folder.setName("moje ulubione przepisy");
-            folders.add(folder);
+            Folder folder1 = new Folder("moje autorskie przepisy");
+            Folder folder2 = new Folder("moje ulubione przepisy");
+            folders.add(folder1);
+            folders.add(folder2);
             userWithId.get().setFolders(folders);
             userRepository.save(userWithId.get());
         }
@@ -75,11 +74,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             userRepository.save(user);
             Optional<User> userWithId = userRepository.findByUsername("Agnieszka");
             List<Folder> folders = new ArrayList<>();
-            Folder folder = new Folder();
-            folder.setName("moje autorksie przepisy");
-            folders.add(folder);
-            folder.setName("moje ulubione przepisy");
-            folders.add(folder);
+            Folder folder1 = new Folder("moje autorskie przepisy");
+            Folder folder2 = new Folder("moje ulubione przepisy");
+            folders.add(folder1);
+            folders.add(folder2);
             userWithId.get().setFolders(folders);
             userRepository.save(userWithId.get());
         }
@@ -134,7 +132,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             List<Folder> folders2 = userWithId.get().getFolders();
 
             for (Folder folder2 : folders2) {
-                if (folder2.getName().equals("moje autorksie przepisy")) {
+                if (folder2.getName().equals("moje autorskie przepisy")) {
                     if (folder2.getRecipes() == null) {
                         folder2.setRecipes(new ArrayList<>());
                         folder2.getRecipes().add(recipe1);
@@ -191,7 +189,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             List<Folder> folders2 = userWithId.get().getFolders();
 
             for (Folder folder2 : folders2) {
-                if (folder2.getName().equals("moje autorksie przepisy")) {
+                if (folder2.getName().equals("moje autorskie przepisy")) {
                     if (folder2.getRecipes() == null) {
                         folder2.setRecipes(new ArrayList<>());
                         folder2.getRecipes().add(recipe2);
@@ -255,7 +253,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             List<Folder> folders2 = userWithId.get().getFolders();
 
             for (Folder folder2 : folders2) {
-                if (folder2.getName().equals("moje autorksie przepisy")) {
+                if (folder2.getName().equals("moje autorskie przepisy")) {
                     if (folder2.getRecipes() == null) {
                         folder2.setRecipes(new ArrayList<>());
                         folder2.getRecipes().add(recipe3);

@@ -1,15 +1,30 @@
 package pw.paint.DTOs.mappers;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
+import pw.paint.DTOs.model.ShortRecipeDto;
+import pw.paint.DTOs.requests.NewRecipeRequest;
 import pw.paint.model.Recipe;
 import pw.paint.model.Tag;
+import pw.paint.model.User;
+import pw.paint.repository.TagRepository;
+import pw.paint.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class RecipeMapper {
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private TagRepository tagRepository;
 
     public static RecipeDto toRecipeDto(Recipe recipe) {
         return RecipeDto.builder()
@@ -38,6 +53,53 @@ public class RecipeMapper {
             recipesDto.add(toRecipeDto(recipe));
         }
         return recipesDto;
+    }
+
+    public static ShortRecipeDto toShortRecipeDto(Recipe recipe) {
+        return ShortRecipeDto.builder()
+                .id(recipe.getId().toString())
+                .name(recipe.getName())
+                .author(recipe.getAuthor().getUsername())
+                .tags(getTags(recipe.getTags()))
+                .build();
+    }
+
+    public static List<ShortRecipeDto> toShortRecipeDto(List<Recipe> recipes) {
+        List<ShortRecipeDto> shortRecipesDto = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            shortRecipesDto.add(toShortRecipeDto(recipe));
+        }
+        return shortRecipesDto;
+    }
+
+    public Recipe toModelRecipeObject (NewRecipeRequest request){
+
+        Optional<User> author = userRepository.findByUsername(request.getAuthor());
+
+        if (!author.isPresent()) {
+            return null;
+        }
+
+        List<Tag> tags = new ArrayList<>();
+        Optional<Tag> tag;
+        for (String tagName : request.getTags()) {
+            tag = tagRepository.findByName(tagName);
+            if (tag.isPresent()) {
+                tags.add(tag.get());
+            }
+        }
+
+
+        return Recipe.builder()
+                .name(request.getName())
+                .ingredients(request.getIngredients())
+                .steps(request.getSteps())
+                .status(request.getStatus())
+                .timeMinutes(request.getTimeMinutes())
+                .author(author.get())
+                .tags(tags)
+                .build();
+
     }
 
 }

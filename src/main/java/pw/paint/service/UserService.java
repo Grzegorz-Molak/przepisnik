@@ -11,15 +11,14 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    String createNewFolder(String userName, String folderName);
 
     List<RecipeDto> getUserRecipes(String username);
 
     UserDto getUserById(ObjectId id);
 
-    List<FolderDto> getFolders(String username);
 
-    List<RecipeDto> getFolderRecipes(UserDto userDto, String name);
+
+    //List<RecipeDto> getFolderRecipes(UserDto userDto, String name);
 
     String addToFolder(RecipeDto recipeDto, String folderName);
 }

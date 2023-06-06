@@ -40,29 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDtos;
     }
 
-    @Override
-    public String createNewFolder(String userName, String folderName) {
 
-        Optional<User> user = userRepository.findByUsername(userName);
-
-        if(!user.isPresent()){
-            return "Nie ma takiego użytkownika";
-        }
-
-        List<Folder> userFolders = user.get().getFolders();
-        for(Folder folder : userFolders){
-            if(folder.getName().equals(folderName)){
-                return "Folder o takiej nazwie już istnieje";
-            }
-        }
-
-        user.get().getFolders().add(new Folder(folderName));
-
-        userRepository.save(user.get());
-
-
-        return "Utworzono nowy folder";
-    }
 
     @Override
     public List<RecipeDto> getUserRecipes(String username) {
@@ -97,38 +75,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return UserMapper.toUserDto(user.orElse(null));
     }
 
-    @Override
-    public List<FolderDto> getFolders(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
-        if(user.isEmpty())
-            return null;
-        List<FolderDto> folders = new ArrayList<>();
-        for (Folder folder : user.get().getFolders()) {
-            folders.add(FolderMapper.toFolderDto(folder));
-        }
-        return folders;
-    }
-
-    @Override
-    public List<RecipeDto> getFolderRecipes(UserDto userDto, String name) {
-        Optional<User> user = userRepository.findByUsername(userDto.getUserName());
-        if(user.isEmpty())
-            return null;
-
-        List<RecipeDto> recipes = new ArrayList<>();
-        for (Folder folder : user.get().getFolders()) {
-            if (folder.getName().equals(name)) {
-                for (Recipe recipe : folder.getRecipes()) {
-                    Optional<Recipe> r = recipeRepository.findById(recipe.getId());
-                    if (r.isEmpty())
-                        continue;
-                    recipes.add(RecipeMapper.toRecipeDto(r.orElse(null)));
-                }
-                return recipes;
-            }
-        }
-        return recipes;
-    }
+//    @Override
+//    public List<RecipeDto> getFolderRecipes(UserDto userDto, String name) {
+//        Optional<User> user = userRepository.findByUsername(userDto.getUserName());
+//        if(user.isEmpty())
+//            return null;
+//
+//        List<RecipeDto> recipes = new ArrayList<>();
+//        for (Folder folder : user.get().getFolders()) {
+//            if (folder.getName().equals(name)) {
+//                for (Recipe recipe : folder.getRecipes()) {
+//                    Optional<Recipe> r = recipeRepository.findById(recipe.getId());
+//                    if (r.isEmpty())
+//                        continue;
+//                    recipes.add(RecipeMapper.toRecipeDto(r.orElse(null)));
+//                }
+//                return recipes;
+//            }
+//        }
+//        return recipes;
+//    }
 
     @Override
     public String addToFolder(RecipeDto recipeDto, String folderName) {

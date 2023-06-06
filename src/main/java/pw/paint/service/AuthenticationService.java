@@ -29,7 +29,7 @@ public class AuthenticationService {
         var user = userRepository.findByUsername(request.getUsername());
         if(!user.isPresent()){
             List<Folder> baseFolders = new ArrayList<>();
-            baseFolders.add(new Folder("moje autorksie przepisy"));
+            baseFolders.add(new Folder("moje autorskie przepisy"));
             baseFolders.add(new Folder("moje ulubione przepisy"));
 
             var newUser = User.builder()

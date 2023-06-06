@@ -11,9 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FolderDto {
+public class ShortRecipeDto {
 
+    private String id;
     private String name;
-    private List<String> recipes;
+    private String author;
+    private List<String> tags;
 
 }
