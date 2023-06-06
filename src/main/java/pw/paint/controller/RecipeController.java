@@ -2,6 +2,7 @@ package pw.paint.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,12 @@ public class RecipeController {
     @PostMapping("/new")
     public String createNewRecipe(@RequestBody RecipeDto recipeDto){
         return recipeService.createNewRecipe(recipeDto);
+    }
+
+    @GetMapping("/{id}")
+    public RecipeDto getRecipeById(@PathVariable String id){
+        ObjectId objectId =new ObjectId(id);
+        return recipeService.getRecipeById(objectId);
     }
 
     @PostMapping("/search")

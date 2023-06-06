@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import pw.paint.model.Ingredient;
 
 import java.util.List;
 
@@ -15,13 +13,14 @@ import java.util.List;
 @Builder
 public class RecipeDto {
 
-    private ObjectId id;
+    private String id;
     private String name;
-    private List<Ingredient> ingredients;
-    private List<String> steps;
-    private Boolean status;
-    private List<String> tags;
-    private Integer likes;
-    private Integer timeMinutes;
     private String author;
+    private Boolean status;
+
+    private List<String> tags;
+    private List<String> ingredients;
+    private List<String> steps;
+    private Integer timeMinutes;
+
 }

@@ -2,6 +2,7 @@ package pw.paint.service;
 
 import com.mongodb.DBRef;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
@@ -66,12 +67,11 @@ public class RecipeServiceImpl implements RecipeService {
             }
         }
         Recipe recipe = Recipe.builder()
-                .id(recipeDto.getId())
+                .id(new ObjectId(recipeDto.getId()))
                 .name(recipeDto.getName())
                 .ingredients(recipeDto.getIngredients())
                 .steps(recipeDto.getSteps())
                 .status(recipeDto.getStatus())
-                .likes(recipeDto.getLikes())
                 .timeMinutes(recipeDto.getTimeMinutes())
                 .author(user.orElse(null))
                 .build();
@@ -134,5 +134,16 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeMapper.toRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, pageable).getContent());
 
 
+    }
+
+    @Override
+    public RecipeDto getRecipeById(ObjectId id) {
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        if(recipe.isPresent()){
+            return recipeMapper.toRecipeDto(recipe.get());
+        }
+        else{
+            return null;
+        }
     }
 }

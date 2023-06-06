@@ -3,7 +3,6 @@ package pw.paint.service;
 import org.bson.types.ObjectId;
 import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
-import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
 
 import java.util.List;

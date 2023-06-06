@@ -11,7 +11,6 @@ import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.mappers.UserMapper;
 import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
-import pw.paint.DTOs.model.SignUpRequest;
 import pw.paint.DTOs.model.UserDto;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
@@ -139,12 +138,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return "Nie znaleziono Użytkownika";
 
         Recipe recipe = Recipe.builder()
-                .id(recipeDto.getId())
+                .id(new ObjectId(recipeDto.getId()))
                 .name(recipeDto.getName())
                 .ingredients(recipeDto.getIngredients())
                 .steps(recipeDto.getSteps())
                 .status(recipeDto.getStatus())
-                .likes(recipeDto.getLikes())
                 .timeMinutes(recipeDto.getTimeMinutes())
                 .author(user.orElse(null))
                 .build();

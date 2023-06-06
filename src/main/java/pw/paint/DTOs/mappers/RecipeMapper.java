@@ -12,33 +12,32 @@ import java.util.List;
 public class RecipeMapper {
 
     public static RecipeDto toRecipeDto(Recipe recipe) {
+        return RecipeDto.builder()
+                .id(recipe.getId().toString())
+                .name(recipe.getName())
+                .ingredients(recipe.getIngredients())
+                .steps(recipe.getSteps())
+                .status(recipe.getStatus())
+                .timeMinutes(recipe.getTimeMinutes())
+                .author(recipe.getAuthor().getUsername())
+                .tags(getTags(recipe.getTags()))
+                .build();
+    }
 
-        RecipeDto recipeDto = new RecipeDto();
-
-        recipeDto.setId(recipe.getId());
-        recipeDto.setName(recipe.getName());
-        recipeDto.setIngredients(recipe.getIngredients());
-        recipeDto.setSteps(recipe.getSteps());
-        recipeDto.setStatus(recipe.getStatus());
-        recipeDto.setLikes(recipe.getLikes());
-        recipeDto.setTimeMinutes(recipe.getTimeMinutes());
-        recipeDto.setAuthor(recipe.getAuthor().getUsername());
-        List<String> tags = new ArrayList<>();
-        for(Tag tag:recipe.getTags()){
-            tags.add(tag.getName());
+    private static List<String> getTags(List<Tag> tags) {
+        List<String> tagNames = new ArrayList<>();
+        for (Tag tag : tags) {
+            tagNames.add(tag.getName());
         }
-        recipeDto.setTags(tags);
-        return recipeDto;
+        return tagNames;
     }
 
     public static List<RecipeDto> toRecipeDto(List<Recipe> recipes) {
         List<RecipeDto> recipesDto = new ArrayList<>();
-
-        for(Recipe recipe : recipes){
+        for (Recipe recipe : recipes) {
             recipesDto.add(toRecipeDto(recipe));
         }
-
         return recipesDto;
     }
 
-    }
+}

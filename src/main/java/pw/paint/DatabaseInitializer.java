@@ -2,6 +2,7 @@ package pw.paint;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pw.paint.model.*;
 import pw.paint.repository.RecipeRepository;
@@ -18,6 +19,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
     private final TagRepository tagRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -53,11 +55,14 @@ public class DatabaseInitializer implements CommandLineRunner {
         Optional<User> checkUser = userRepository.findByUsername("Ania");
         if (!checkUser.isPresent()) {
             User user = new User("Ania", "tajnehaslo", "ania.gotuje@gmail.com");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             Optional<User> userWithId = userRepository.findByUsername("Ania");
             List<Folder> folders = new ArrayList<>();
             Folder folder = new Folder();
             folder.setName("moje autorksie przepisy");
+            folders.add(folder);
+            folder.setName("moje ulubione przepisy");
             folders.add(folder);
             userWithId.get().setFolders(folders);
             userRepository.save(userWithId.get());
@@ -66,11 +71,14 @@ public class DatabaseInitializer implements CommandLineRunner {
         checkUser = userRepository.findByUsername("Agnieszka");
         if (!checkUser.isPresent()) {
             User user = new User("Agnieszka", "quackquack", "agnieszka.gotuje@gmail.com");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             Optional<User> userWithId = userRepository.findByUsername("Agnieszka");
             List<Folder> folders = new ArrayList<>();
             Folder folder = new Folder();
             folder.setName("moje autorksie przepisy");
+            folders.add(folder);
+            folder.setName("moje ulubione przepisy");
             folders.add(folder);
             userWithId.get().setFolders(folders);
             userRepository.save(userWithId.get());
@@ -80,21 +88,20 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (!checkRecipe.isPresent()) {
             Recipe recipe1 = new Recipe();
             recipe1.setName("Szybka zapiekanka z mięsem mielonym i ziemniakami");
-            recipe1.setLikes(10);
 
 
-            List<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient("mielona wołowina", "500 g"));
-            ingredients.add(new Ingredient("cebula", "1 sztuka"));
-            ingredients.add(new Ingredient("ziemniaki", "2 kg"));
-            ingredients.add(new Ingredient("ser żółty", "220 g"));
-            ingredients.add(new Ingredient("ser cheddar", "100 g"));
-            ingredients.add(new Ingredient("bulion", "100 ml"));
-            ingredients.add(new Ingredient("jajko", "1 sztuka"));
-            ingredients.add(new Ingredient("natka pietruszki", "4 gałązki"));
-            ingredients.add(new Ingredient("sól", "1/2 łyżeczki"));
-            ingredients.add(new Ingredient("pieprz", "1/4 łyżeczki"));
-            ingredients.add(new Ingredient("oliwa", "3 łyżki"));
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("mielona wołowina 500 g");
+            ingredients.add("cebula 1 sztuka");
+            ingredients.add("ziemniaki 2 kg");
+            ingredients.add("ser żółty 220 g");
+            ingredients.add("ser cheddar 100 g");
+            ingredients.add("bulion 100 ml");
+            ingredients.add("jajko 1 sztuka");
+            ingredients.add("natka pietruszki 4 gałązki");
+            ingredients.add("sól 1/2 łyżeczki");
+            ingredients.add("pieprz 1/4 łyżeczki");
+            ingredients.add("oliwa 3 łyżki");
             recipe1.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
@@ -120,7 +127,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             recipe1.setTags(tags);
             recipe1.setStatus(true);
-            recipe1.setTimeMinutes(5);
+            recipe1.setTimeMinutes(60);
             recipeRepository.save(recipe1);
 
 
@@ -143,14 +150,13 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (!checkRecipe.isPresent()) {
             Recipe recipe2 = new Recipe();
             recipe2.setName("Placki z serkiem");
-            recipe2.setLikes(0);
 
-            List<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient("serek waniliowy", "400 g"));
-            ingredients.add(new Ingredient("jajka", "2 sztuki"));
-            ingredients.add(new Ingredient("mąka", "1 szklanka"));
-            ingredients.add(new Ingredient("proszek do pieczenia", "1 łyżeczka"));
-            ingredients.add(new Ingredient("olej", "2 łyżki"));
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("serek waniliowy 400 g");
+            ingredients.add("jajka 2 sztuki");
+            ingredients.add("mąka 1 szklanka");
+            ingredients.add("proszek do pieczenia 1 łyżeczka");
+            ingredients.add("olej 2 łyżki");
             recipe2.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
@@ -179,7 +185,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             recipe2.setTags(tags);
             recipe2.setStatus(true);
-            recipe2.setTimeMinutes(5);
+            recipe2.setTimeMinutes(40);
             recipeRepository.save(recipe2);
 
             List<Folder> folders2 = userWithId.get().getFolders();
@@ -204,15 +210,14 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (!checkRecipe.isPresent()) {
             Recipe recipe3 = new Recipe();
             recipe3.setName("Placki ziemniaczane");
-            recipe3.setLikes(0);
 
-            List<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient("ziemniaki", "0.5 kg"));
-            ingredients.add(new Ingredient("mąka pszenna", "0.5 łyżki"));
-            ingredients.add(new Ingredient("cebula", "1/4 sztuki"));
-            ingredients.add(new Ingredient("jajko", "1 sztuka"));
-            ingredients.add(new Ingredient("sól", "2 szczypty"));
-            ingredients.add(new Ingredient("olej roślinny", "2 łyżki"));
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("ziemniaki 0.5 kg");
+            ingredients.add("mąka pszenna 0.5 łyżki");
+            ingredients.add("cebula 1/4 sztuki");
+            ingredients.add("jajko 1 sztuka");
+            ingredients.add("sól 2 szczypty");
+            ingredients.add("olej roślinny 2 łyżki");
             recipe3.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
@@ -244,7 +249,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             recipe3.setTags(tags);
             recipe3.setStatus(true);
-            recipe3.setTimeMinutes(5);
+            recipe3.setTimeMinutes(30);
             recipeRepository.save(recipe3);
 
             List<Folder> folders2 = userWithId.get().getFolders();
