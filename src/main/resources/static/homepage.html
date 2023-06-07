@@ -15,56 +15,17 @@
 
     <div class = "header">
 
-      <a href="index.html">
+      <a href="homepage.html">
         <div class="title">
           <h1 class = "titletext"> Przepiśnik </h1>
         </div>
       </a>
 
       <div class="menu">
-        <a href="wyszukaj-niezalogowany.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
-        <div class="dropdown menubutton w-button">
-          <span>Zaloguj</span>
-          <div class="dropdown-content">
-            <form action="/auth/authenticate" method="post" id="login-form">
-              <label class="margin-bottom-5">Nazwa użytkownika: </label><br>
-              <input class="margin-bottom-5" type="text" name="username" placeholder="nazwa użytkownika" required><br>
-              <label class="margin-bottom-5">Hasło: </label><br>
-              <input class="margin-bottom-5" type="password" name="password" placeholder="hasło" required><br>
-              <input class="margin-bottom-5" type="submit" value="Zaloguj">
-            </form>
-          </div>
-        </div>
-        <button class="menubutton w-button register-open" onclick="openForm()">Zarejestruj</button>
-        <div class="form-popup" id="rejestracja">
-          <button type="button" class="close-btn" onclick="closeForm()">&times;</button>
-          <form action="/auth/register" class="formContainer" id="form" method="post">
-            <h2>Zarejestruj</h2>
-            <div class="form-element">
-              <label for="name">Nazwa</label>
-              <input type="text" id="name" placeholder="nazwa" name="name">
-              <div class="err"></div>
-            </div>
-            <div class="form-element">
-              <label for="email">E-mail</label>
-              <input type="text" id="email" placeholder="email" name="email">
-              <div class="err"></div>
-            </div>
-            <div class="form-element">
-              <label for="psw">Hasło</label>
-              <input type="password" id="psw" placeholder="hasło" name="psw">
-              <div class="err"></div>
-            </div>
-            <div class="form-element">
-              <label for="psw2">Powtórz hasło</label>
-              <input type="password" id="psw2" placeholder="powtórz hasło" name="psw">
-              <div class="err"></div>
-            </div>
-            <div class ="form-element">
-              <button type="submit" class="register-btn">Zarejestruj</button>
-            </div>
-          </form>
-        </div>
+        <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
+        <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
+        <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
+        <a href="" class="menubutton w-button">Wyloguj</a>
       </div>
     </div>
 

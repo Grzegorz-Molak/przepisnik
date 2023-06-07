@@ -16,13 +16,16 @@
 /*Header*/
 
 /*Title*/
+a {
+    text-decoration: none;
+}
+
 .title {
 /*  -webkit-text-fill-color: inherit;*/
   background-image: url(img/title_bgrd.jpg);
   background-size:70%;
   background-repeat: repeat;
   background-clip: border-box;
-
   border-bottom: 1px solid #000;
   height: 100px;
   margin-top: 0px;
@@ -38,9 +41,20 @@
   line-height: 50px;
   margin-top: 0px;
   display: block;
+  color: black;
 }
 
 /*Menu*/
+
+.menu {
+  width: 1fr;
+  height: 40px;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
+  flex-wrap: nowrap;
+  display: flex;
+  justify-content: space-between;
+}
 
 .menubutton {
   color: #fff;
@@ -51,9 +65,12 @@
   font-size: 15px;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-around;
   text-decoration: none;
-  width: 20%;
+  align-self:stretch;
+  width: 25%;
+  padding: 5px;
 }
 
 .menubutton:hover {
@@ -61,52 +78,6 @@
   text-align: center;
   background-color: #e9f4d9;
   font-weight: 600;
-}
-
-.menu {
-  width: 100%;
-  text-align: left;
-  object-fit: fill;
-  background-color: #fff;
-  border-bottom: 1px solid #000;
-  flex-wrap: nowrap;
-  display: flex;
-  overflow: visible;
-}
-
-/*Search section*/
-.imSearch {
-  margin: 5px;
-  padding-top: 0px;
-  line-height: 40px;
-}
-
-.search {
-  width: 60%;
-  margin-bottom: 0;
-  display: flex;
-}
-
-.searchinput {
-  width: 95%;
-  min-width: 10%;
-  border: none;
-  flex: 0 auto;
-  align-self: flex-end;
-  margin-bottom: 0;
-  font-size: 15px;
-  font-family: Exo, sans-serif;
-  line-height: 30px;
-  padding-left: 5px;
-  padding-bottom: 2px;
-}
-
-.searchinput:focus {
-  outline: none;
-}
-
-.search-button{
-  font-family: Exo, sans-serif;
 }
 
 /*Login form*/
@@ -292,6 +263,21 @@
   overflow:hidden;
   width: 0px;
 }
+
+.photobutton:hover{
+  color: #e9f4d9;
+  background-color: #333;
+}
+
+.photobutton{
+  border: solid;
+  border-width: thin;
+  background-color: #eef7e1;
+  align-items: center;
+  justify-content: space-around;
+  height: 35px;
+}
+
 /*Tags*/
 
 .tagcontainer{
@@ -632,6 +618,38 @@ ol li{
   background-color: #e9f4d9;
 }
 
-.rec-step{
+/*Show the recipe book*/
 
+.folder-content{
+  min-height: 500px;
+  border: double;
+  border-color: #333;
+  margin: 20px;
+  display: block;
+  background-color: #FFF;
+}
+
+/*Homepage, index and search results*/
+.recipead{
+  border: solid;
+  border-width: thin;
+  display: flex;
+  margin: 20px;
+  padding: 5px;
+  background-color: white;
+}
+
+.recad-img{
+  width: 20%;
+  max-width: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  margin: 20px;
+  margin-right: 40px;
+}
+
+.recad-tags{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
