@@ -46,6 +46,16 @@ a {
 
 /*Menu*/
 
+.menu {
+  width: 1fr;
+  height: 40px;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
+  flex-wrap: nowrap;
+  display: flex;
+  justify-content: space-between;
+}
+
 .menubutton {
   color: #fff;
   background-color: #333;
@@ -58,7 +68,9 @@ a {
   text-align: center;
   justify-content: space-around;
   text-decoration: none;
-  width: 20%;
+  align-self:stretch;
+  width: 25%;
+  padding: 5px;
 }
 
 .menubutton:hover {
@@ -66,52 +78,6 @@ a {
   text-align: center;
   background-color: #e9f4d9;
   font-weight: 600;
-}
-
-.menu {
-  width: 100%;
-  text-align: left;
-  object-fit: fill;
-  background-color: #fff;
-  border-bottom: 1px solid #000;
-  flex-wrap: nowrap;
-  display: flex;
-  overflow: visible;
-}
-
-/*Search section*/
-.imSearch {
-  margin: 5px;
-  padding-top: 0px;
-  line-height: 40px;
-}
-
-.search {
-  width: 60%;
-  margin-bottom: 0;
-  display: flex;
-}
-
-.searchinput {
-  width: 95%;
-  min-width: 10%;
-  border: none;
-  flex: 0 auto;
-  align-self: flex-end;
-  margin-bottom: 0;
-  font-size: 15px;
-  font-family: Exo, sans-serif;
-  line-height: 30px;
-  padding-left: 5px;
-  padding-bottom: 2px;
-}
-
-.searchinput:focus {
-  outline: none;
-}
-
-.search-button{
-  font-family: Exo, sans-serif;
 }
 
 /*Login form*/
@@ -663,38 +629,27 @@ ol li{
   background-color: #FFF;
 }
 
-aside {
-  display: block;
-  position: relative;
-  margin: 40px 0;
+/*Homepage, index and search results*/
+.recipead{
+  border: solid;
+  border-width: thin;
+  display: flex;
+  margin: 20px;
+  padding: 5px;
+  background-color: white;
 }
 
-aside h3 {
-  font: bold 12px Sans-Serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: #369;
-  color: #fff;
-  padding: 5px 10px;
-  margin: 0 0 10px 0;
-  line-height: 24px;
+.recad-img{
+  width: 20%;
+  max-width: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  margin: 20px;
+  margin-right: 40px;
 }
 
-/* Class name via Modernizr */
-.csstransforms aside {
-  border-left: 34px solid #369;
-  padding-left: 10px;
-}
-.csstransforms aside h3 {
-  /* Abs positioning makes it not take up vert space */
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  /* Border is the new background */
-  background: none;
-
-  /* Rotate from top left corner (not default) */
-  transform-origin: 0 0;
-  transform: rotate(90deg);
+.recad-tags{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
