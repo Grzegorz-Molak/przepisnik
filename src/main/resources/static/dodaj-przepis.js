@@ -1,7 +1,10 @@
+const recipeForm = document.getElementById('recipe-form');
+//Adding image
 function chooseFile() {
     document.getElementById("fileInput").click();
 }
 
+//Adding steps and ingredients
 let close = document.getElementsByClassName("close");
 for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
@@ -39,6 +42,82 @@ function newElement(elementID) {
     document.getElementById("amount").value = "";
     document.getElementById("step").value = "";
     document.getElementById("unit").value = "";
-
-
 }
+
+//Radio buttons
+
+const privateRadio = document.getElementById('private');
+const publicRadio = document.getElementById('public');
+
+let status;
+privateRadio.addEventListener('click', function() {
+    status = privateRadio.value;
+});
+publicRadio.addEventListener('click', function() {
+    status = publicRadio.value;
+});
+
+//Processing submitting recipe
+recipeForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const token = localStorage.getItem('jwtToken');
+
+    //Get tags
+    const tags = document.querySelectorAll('input[type="checkbox"]');
+    const checkedValues = [];
+    tags.forEach(tag => {
+        if (tag.checked) {
+            checkedValues.push(tag.value);
+        }
+    });
+    console.log(checkedValues);
+
+    //get ingredients
+    const ingList = document.getElementById('ing-list');
+    const ingredients = ingList.getElementsByTagName('li');
+    const ingText = Array.from(ingredients).map(item => item.textContent);
+
+    console.log(ingText);
+
+    //get steps
+    const stepsList = document.getElementById('step-list');
+    const steps = stepsList.getElementsByTagName('li');
+    const stepsText = Array.from(steps).map(item => item.textContent);
+
+    console.log(stepsText);
+
+    const requestBody = {
+        name: document.getElementById('r-name').value,
+        author: localStorage.getItem('username'),
+        status: status,
+        tags: checkedValues,
+        ingredients: ingText,
+        steps: stepsText,
+        timeMinutes: 30
+    }
+
+    fetch('/recipes/new', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Request failed');
+            }
+        })
+        .then(data => {
+            alert('Przepis został dodany');
+            recipeForm.reset();
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Coś poszło nie tak');
+        });
+});

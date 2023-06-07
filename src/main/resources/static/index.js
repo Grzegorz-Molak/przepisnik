@@ -1,9 +1,46 @@
-const form = document.getElementById('form');
+const registrationForm = document.getElementById('form');
 const username = document.getElementById('name');
 const email = document.getElementById('email');
 const password = document.getElementById('psw');
 const password2 = document.getElementById('psw2');
+const loginForm = document.getElementById('login-form');
 
+//Processing login form
+loginForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(loginForm);
+
+    fetch('/auth/authenticate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Authentication failed');
+            }
+        })
+        .then(data => {
+            console.log(data);
+            const jwtToken = data.token;
+
+            localStorage.setItem('jwtToken', jwtToken);
+            localStorage.setItem('username', formData.get('username').toString());
+
+            window.location.href = 'localhost:8080/homepage';
+        })
+        .catch(error => {
+            console.error(error.message);
+            alert('Niepoprawny login lub hasło');
+        });
+});
+
+//Opening registration form
 function openForm() {
     document.getElementById("rejestracja").style.display = "block";
 }
@@ -15,10 +52,47 @@ function closeForm() {
     setDefault(password2);
     document.getElementById("rejestracja").style.display = "none";
 }
-form.addEventListener('submit', e => {
-    validate(e);
+
+//Processing registration form
+registrationForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if(validate(e)){
+        const formData = new FormData(registrationForm);
+
+        const requestBody = {
+            username: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('psw')
+        };
+        fetch('/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    alert('Gratulacje! Zarejestrowałeś się');
+                    closeForm();
+                } else {
+                    throw new Error('Registration failed');
+                }
+            })
+            .catch(error => {
+                console.error(error.message);
+                alert('Istnieje już użytkownik o takiej nazwie');
+                document.getElementById("form").reset();
+                setDefault(username);
+                setDefault(email);
+                setDefault(password);
+                setDefault(password2);
+            });
+    }
 });
 
+//Validating registration input
 const validate = (e) => {
     const usernameValue = username.value.trim();
     const emailValue = email.value.trim();
@@ -27,18 +101,18 @@ const validate = (e) => {
 
     if(usernameValue === '') {
         setError(username, 'Podaj nazwę użytkownika');
-        e.preventDefault();
+        return false;
     } else {
         setSuccess(username);
     }
 
     if(emailValue === '') {
         setError(email, 'Podaj adres email');
-        e.preventDefault();
+        return false;
 
     } else if (!isValidEmail(emailValue)) {
         setError(email, 'Email nieprawidłowy');
-        e.preventDefault();
+        return false;
 
     } else {
         setSuccess(email);
@@ -46,28 +120,25 @@ const validate = (e) => {
 
     if(passwordValue === '') {
         setError(password, 'Podaj hasło');
-        e.preventDefault();
+        return false;
 
     } else if (passwordValue.length < 6 ) {
         setError(password, 'Hasło musi mieć przynjamniej 6 znaków.')
-        e.preventDefault();
-
+        return false;
     } else {
         setSuccess(password);
     }
 
     if(password2Value === '') {
         setError(password2, 'Potwierdź hasło');
-        e.preventDefault();
-
+        return false;
     } else if (password2Value !== passwordValue) {
         setError(password2, "Hasła są różne");
-        e.preventDefault();
-
+        return false;
     } else {
         setSuccess(password2);
     }
-
+    return true;
 };
 
 const setError = (element, message) => {
