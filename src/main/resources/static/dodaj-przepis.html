@@ -31,7 +31,7 @@
 
   <div class="mainpage">
     <h3 class="subtitle"> ~ Dodaj swój przepis ~ </h3>
-    <form action="/recipes/new" class="recipe w-form">
+    <form action="/recipes/new" class="recipe w-form" method="post" id ="recipe-form">
 
       <fieldset class="nameblock">
         Nazwa
@@ -188,9 +188,9 @@
       </fieldset>
       <fieldset class="formblock">
         Ustaw przepis jako:<br>
-        <input type="radio" class="radio" id="private" name="type_rec">
+        <input type="radio" class="radio" id="private" name="status" value="false">
         <label for="private">Prywatny</label><br>
-        <input type="radio" class="radio" id="public" name="type_rec">
+        <input type="radio" class="radio" id="public" name="status" value="true">
         <label for="public">Publiczny</label><br>
       </fieldset>
       <fieldset class="submitset">
