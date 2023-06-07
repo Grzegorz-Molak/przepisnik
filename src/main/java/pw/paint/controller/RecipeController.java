@@ -5,13 +5,19 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
 import pw.paint.DTOs.requests.SearchRequest;
+import pw.paint.exception.RecipeNotFoundException;
+import pw.paint.exception.UserNotFoundException;
 import pw.paint.service.RecipeService;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -20,33 +26,42 @@ import java.util.List;
 public class RecipeController {
     private final RecipeService recipeService;
 
-   // @GetMapping
-   // public List<RecipeDto> getAllRecipes() {
-     //   return recipeService.getAllRecipes();
-   // }
-
     @GetMapping("/tags")
-    public List<String> getAllTags(){
-        return recipeService.getAllTags();
+    public ResponseEntity<List<String>> getAllTags() {
+        return ResponseEntity.ok(recipeService.getAllTags());
     }
 
     @PostMapping("/new")
-    public String createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest){
-        return recipeService.createNewRecipe(newRecipeRequest);
+    public ResponseEntity<Void> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest) {
+        try {
+            return ResponseEntity.created(new URI("/recipe/" +
+                    recipeService.createNewRecipe(newRecipeRequest))).build();
+        } catch (UserNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .header("Error-message", ex.getMessage())
+                    .build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .header("Error-message", ex.getMessage())
+                    .build();
+        }
     }
 
     @GetMapping("/{id}")
-    public RecipeDto getRecipeById(@PathVariable String id){
-        ObjectId objectId = new ObjectId(id);
-        return recipeService.getRecipeById(objectId);
+    public ResponseEntity<RecipeDto> getRecipeById(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(recipeService.getRecipeById(new ObjectId(id)));
+        } catch (RecipeNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
     }
 
     @PostMapping("/search")
-    public List<ShortRecipeDto> search(@RequestBody SearchRequest searchRequest){
-
+    public ResponseEntity<List<ShortRecipeDto>> search(@RequestBody SearchRequest searchRequest){
         Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
-        return recipeService.search(searchRequest.getAuthor(), searchRequest.getKeyword(),searchRequest.getTags(),pageable);
-
+        return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
+                searchRequest.getKeyword(), searchRequest.getTags(), pageable));
     }
-
 }

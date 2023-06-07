@@ -1,5 +1,6 @@
 package pw.paint.service;
 
+import org.bson.types.ObjectId;
 import pw.paint.DTOs.model.ShortRecipeDto;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface FolderService {
 
     List<ShortRecipeDto> getRecipesFromFolder(String username, String folderName);
 
-    String createNewFolder(String userName, String folderName);
+    void createNewFolder(String userName, String folderName);
 
-    String addRecipeToFolder(String username, String folderName, String recipeId);
+    ObjectId addRecipeToFolder(String username, String folderName, String recipeId);
 }
