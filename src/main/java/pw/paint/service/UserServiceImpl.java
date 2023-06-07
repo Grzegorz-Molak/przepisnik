@@ -6,12 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pw.paint.DTOs.mappers.FolderMapper;
 import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.mappers.UserMapper;
-import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.UserDto;
+import pw.paint.exception.UserNotFoundException;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
 import pw.paint.model.User;
@@ -55,43 +54,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDto getUserById(ObjectId id) {
+    public UserDto getUserById(ObjectId id){
         System.out.println(id);
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty())
-            return null;
-        return UserMapper.toUserDto(user.orElse(null));
+            throw new UserNotFoundException();
+        return UserMapper.toUserDto(user.orElseThrow(UserNotFoundException::new));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        UserDetails u = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("ni ma"));
+        UserDetails u = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         System.out.println(u.getUsername());
         System.out.println(u.getPassword());
         return u;
     }
-
-    //    @Override
-//    public List<RecipeDto> getFolderRecipes(UserDto userDto, String name) {
-//        Optional<User> user = userRepository.findByUsername(userDto.getUserName());
-//        if(user.isEmpty())
-//            return null;
-//
-//        List<RecipeDto> recipes = new ArrayList<>();
-//        for (Folder folder : user.get().getFolders()) {
-//            if (folder.getName().equals(name)) {
-//                for (Recipe recipe : folder.getRecipes()) {
-//                    Optional<Recipe> r = recipeRepository.findById(recipe.getId());
-//                    if (r.isEmpty())
-//                        continue;
-//                    recipes.add(RecipeMapper.toRecipeDto(r.orElse(null)));
-//                }
-//                return recipes;
-//            }
-//        }
-//        return recipes;
-//    }
 
     //Strefa testów do usnięcia  pózniej
     @Override

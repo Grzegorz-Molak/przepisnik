@@ -1,4 +1,4 @@
-package pw.paint.DTOs.model;
+package pw.paint.DTOs.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
-
+public class AuthenticationRequest {
     private String username;
-    private String email;
     private String password;
 }

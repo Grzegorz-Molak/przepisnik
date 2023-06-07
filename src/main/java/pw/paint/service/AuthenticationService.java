@@ -5,9 +5,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pw.paint.DTOs.model.AuthenticationRequest;
+import pw.paint.DTOs.requests.AuthenticationRequest;
 import pw.paint.DTOs.model.AuthenticationResponse;
-import pw.paint.DTOs.model.RegisterRequest;
+import pw.paint.DTOs.requests.RegisterRequest;
+import pw.paint.exception.DataConflictException;
 import pw.paint.model.Folder;
 import pw.paint.model.User;
 import pw.paint.repository.UserRepository;
@@ -27,7 +28,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
 
         var user = userRepository.findByUsername(request.getUsername());
-        if(!user.isPresent()){
+        if(user.isEmpty()){
             List<Folder> baseFolders = new ArrayList<>();
             baseFolders.add(new Folder("moje autorskie przepisy"));
             baseFolders.add(new Folder("moje ulubione przepisy"));
@@ -46,13 +47,8 @@ public class AuthenticationService {
                     .token(jwtToken)
                     .build();
         }
-        else {
-
-            //TODO: tu ładna odpowiedź że ta nazwa użytkownika jest już zajęta
-            return null;
-
-        }
-
+        else
+            throw new DataConflictException("This username is already taken");
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
