@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Przepiśnik</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles.css">
-  <script defer src="index.js"></script>
+  <title>Przepiśnik</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
 </style>
 <body>
-  <div class = "maincontainer">
+<div class = "maincontainer">
 
-    <div class = "header">
+  <div class = "header">
 
-      <a href="index.html">
-        <div class="title">
-          <h1 class = "titletext"> Przepiśnik </h1>
-        </div>
-      </a>
-
-      <div class="menu">
+    <a href="index.html">
+    <div class="title">
+      <h1 class = "titletext"> Przepiśnik </h1>
+    </div>
+    </a>
+    <div class="menu">
         <form action="/search" class="search w-form"> 
           <img src="img/search.png" height = "25" alt="" class="imSearch">
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
@@ -70,26 +68,55 @@
           </form>
         </div>
       </div>
+  </div>
+
+  <div class="mainpage">
+    <div class="rec">
+      <div class="rec-half">
+      <div class="rec-info">
+        <h3 class="rec-name">Tutaj nazwa przepisu</h3>
+        <div class="rec-tags">
+          <div class="tag">
+              <img src="img/vegetarian.png" alt = "" height="14">
+              Tag 1
+          </div>
+          <div class="tag">
+              <img src="img/vegetarian.png" alt = "" height="14">
+              Tag 2
+          </div>
+          <div class="tag">
+              <img src="img/vegetarian.png" alt = "" height="14">
+              Tag 3
+          </div>
+          <div class="tag">
+              <img src="img/vegetarian.png" alt = "" height="14">
+              Tag 4
+          </div>
+        </div>
+        <h4 class="rec-author"> Autor: BlaBla </h4>
+      </div>
+      <img class="rec-img" src="img/example.jpg">
+      </div>
+      <div class="rec-half">
+        <div class="rec-ing">
+          <h3 class="rec-name">Składniki</h3>
+          <ol class="listblock">
+            <li class="ingredient">Składnik 1</li>
+            <li class="ingredient">Składnik 2</li>
+            <li class="ingredient">Składnik 3</li>
+          </ol>
+        </div>
+        <div class="rec-steps">
+          <h3 class="rec-name">Wykonanie krok po kroku</h3>
+          <ol class="listblock">
+            <li class="rec-step">Lorem ipsum balalablba blblablbslab lsbablbalbl alabblablab laa lbalb</li>
+            <li class="rec-step">Lorem ipsum balalablba blblablbslab lsbablbalbl alabblablab laa lbalb</li>
+            <li class="rec-step">Lorem ipsum balalablba blblablbslab lsbablbalbl alabblablab laa lbalb</li>
+          </ol>
+        </div>
+      </div>
     </div>
-
-    <div class="mainpage">
-      <div class="recipead">
-        blob
-      </div>
-      <div class="recipead">
-        blob
-      </div>
-      <div class="recipead">
-        blob
-      </div>
-      <div class="recipead">
-        blob
-      </div>
-
-    </div>
-
+  </div>
   </div>
 </body>
 </html>
-
-

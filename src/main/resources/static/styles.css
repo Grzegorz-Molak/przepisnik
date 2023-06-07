@@ -16,13 +16,16 @@
 /*Header*/
 
 /*Title*/
+a {
+    text-decoration: none;
+}
+
 .title {
 /*  -webkit-text-fill-color: inherit;*/
   background-image: url(img/title_bgrd.jpg);
   background-size:70%;
   background-repeat: repeat;
   background-clip: border-box;
-
   border-bottom: 1px solid #000;
   height: 100px;
   margin-top: 0px;
@@ -38,6 +41,7 @@
   line-height: 50px;
   margin-top: 0px;
   display: block;
+  color: black;
 }
 
 /*Menu*/
@@ -51,6 +55,7 @@
   font-size: 15px;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-around;
   text-decoration: none;
   width: 20%;
@@ -292,6 +297,21 @@
   overflow:hidden;
   width: 0px;
 }
+
+.photobutton:hover{
+  color: #e9f4d9;
+  background-color: #333;
+}
+
+.photobutton{
+  border: solid;
+  border-width: thin;
+  background-color: #eef7e1;
+  align-items: center;
+  justify-content: space-around;
+  height: 35px;
+}
+
 /*Tags*/
 
 .tagcontainer{
@@ -632,6 +652,49 @@ ol li{
   background-color: #e9f4d9;
 }
 
-.rec-step{
+/*Show the recipe book*/
 
+.folder-content{
+  min-height: 500px;
+  border: double;
+  border-color: #333;
+  margin: 20px;
+  display: block;
+  background-color: #FFF;
+}
+
+aside {
+  display: block;
+  position: relative;
+  margin: 40px 0;
+}
+
+aside h3 {
+  font: bold 12px Sans-Serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #369;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 0 0 10px 0;
+  line-height: 24px;
+}
+
+/* Class name via Modernizr */
+.csstransforms aside {
+  border-left: 34px solid #369;
+  padding-left: 10px;
+}
+.csstransforms aside h3 {
+  /* Abs positioning makes it not take up vert space */
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* Border is the new background */
+  background: none;
+
+  /* Rotate from top left corner (not default) */
+  transform-origin: 0 0;
+  transform: rotate(90deg);
 }

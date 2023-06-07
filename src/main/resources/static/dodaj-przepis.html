@@ -15,19 +15,22 @@
 
   <div class = "header">
 
-    <div class="title">
-      <h1 class = "titletext"> Przepiśnik </h1>
-    </div>
+    <a href="homepage.html">
+        <div class="title">
+          <h1 class = "titletext"> Przepiśnik </h1>
+        </div>
+      </a>
 
     <div class="menu">
-      <form action="/search" class="search w-form">
-        <img src="img/search.png" height = "25" alt="" class="imSearch">
-        <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
-      </form>
-      <a href="" class="menubutton w-button">Co masz w kuchni?</a>
-      <a href="" class="menubutton w-button">Mój przepiśnik</a>
-      <a href="" class="menubutton w-button">Wyloguj</a>
-    </div>
+        <form action="/search" class="search w-form">
+          <img src="img/search.png" height = "25" alt="" class="imSearch">
+          <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
+        </form>
+        <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
+        <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
+        <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
+        <a href="" class="menubutton w-button">Wyloguj</a>
+      </div>
   </div>
 
   <div class="mainpage">
@@ -189,9 +192,9 @@
       </fieldset>
       <fieldset class="formblock">
         Ustaw przepis jako:<br>
-        <input type="radio" class="radio" id="private">
+        <input type="radio" class="radio" id="private" name="type_rec">
         <label for="private">Prywatny</label><br>
-        <input type="radio" class="radio" id="public">
+        <input type="radio" class="radio" id="public" name="type_rec">
         <label for="public">Publiczny</label><br>
       </fieldset>
       <fieldset class="submitset">
