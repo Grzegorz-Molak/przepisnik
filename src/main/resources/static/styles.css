@@ -467,9 +467,22 @@ ol li{
   display: list-item;
 }
 
+/*Cooking time*/
+.rec-time{
+  margin-left: 5px;
+  margin-top: 10px;
+  height: 30px;
+  font-family: Exo, sans-serif;
+  border-width: thin;
+}
+
+.rec-time:focus {
+  outline: thin;
+}
+
 /*submit button*/
 .submitbutton{
-  width: 10%;
+  min-width: 10%;
   font-size: 15px;
   font-family: Exo, sans-serif;
   line-height: 30px;
@@ -596,8 +609,24 @@ ol li{
   margin-right: 5px;
 }
 
-.rec-button:active{
-/* wymień btnimg na wersję done: favourite-done.png lub share-done.png*/
+.sel-folder{
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  border: solid;
+  border-width: thin;
+  height: 33px;
+  width: 30%;
+  padding: 2px;
+}
+
+.sel-folder:focus {
+  outline: thin;
+}
+
+.favourite{
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .rec-ing{
@@ -616,17 +645,6 @@ ol li{
   border-width: thin;
   margin: 20px;
   background-color: #e9f4d9;
-}
-
-/*Show the recipe book*/
-
-.folder-content{
-  min-height: 500px;
-  border: double;
-  border-color: #333;
-  margin: 20px;
-  display: block;
-  background-color: #FFF;
 }
 
 /*Homepage, index and search results*/
@@ -652,4 +670,80 @@ ol li{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+/*Show the recipe book*/
+
+.book{
+  display: flex;
+  flex-direction: row;
+}
+
+.tabs{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 20px;
+  margin-right: 0px;
+  margin-top: 0px;
+  width: 25%;
+  background-color: #333;
+}
+
+.folder-tab{
+  padding: 10px;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+  border: none;
+  color: #fff;
+  background-color: #333;
+}
+
+.folder-tab:hover{
+  color: #333;
+  background-color: #e9f4d9;
+  font-weight: 600;
+}
+
+.folder-tab:active{
+  color: #333;
+  background-color: #e9f4d9;
+  font-weight: 600;
+}
+
+.folder-content{
+  min-height: 500px;
+  width: 100%;
+  border: none;
+  margin: 20px;
+  margin-left: 0px;
+  margin-top: 0px;
+  display: block;
+  background-color: #FFF;
+}
+
+.folder-name{
+  text-align: center;
+}
+
+.folder-rec{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 20px;
+  border: none;
+  width: 95%;
+  background-color: #FFF;
+}
+
+.recip-name{
+  margin-left: 10px;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+}
+
+.folder-rec:hover{
+  background-color: #f0f0f0;
 }
