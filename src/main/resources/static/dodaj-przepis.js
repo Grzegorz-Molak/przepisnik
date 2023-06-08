@@ -51,10 +51,10 @@ const publicRadio = document.getElementById('public');
 
 let status;
 privateRadio.addEventListener('click', function() {
-    status = privateRadio.value;
+    status = false;
 });
 publicRadio.addEventListener('click', function() {
-    status = publicRadio.value;
+    status = true;
 });
 
 //Processing submitting recipe
@@ -96,6 +96,11 @@ recipeForm.addEventListener('submit', function(event) {
         timeMinutes: 30
     }
 
+    const jsonBody = JSON.stringify(requestBody);
+    console.log(jsonBody)
+
+    console.log(requestBody);
+
     fetch('/recipes/new', {
         method: 'POST',
         headers: {
@@ -105,6 +110,7 @@ recipeForm.addEventListener('submit', function(event) {
         body: JSON.stringify(requestBody)
     })
         .then(response => {
+            console.log(response);
             if (response.ok) {
                 return response.json();
             } else {

@@ -22,7 +22,8 @@ loginForm.addEventListener('submit', function(event) {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Authentication failed');
+                message = response.getAllResponseHeaders()
+                throw new Error(message);
             }
         })
         .then(data => {
@@ -32,7 +33,7 @@ loginForm.addEventListener('submit', function(event) {
             localStorage.setItem('jwtToken', jwtToken);
             localStorage.setItem('username', formData.get('username').toString());
 
-            window.location.href = 'localhost:8080/homepage';
+            window.location.href = 'dodaj-przepis.html';
         })
         .catch(error => {
             console.error(error.message);
