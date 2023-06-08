@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
+  <script type="module" defer src="wyszukaj.js"></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -28,7 +29,7 @@
     </div>
   </div>
 
-  <div class="mainpage">
+  <div class="mainpage" id="mainpage">
     <h3 class="subtitle"> ~ Wyszukaj przepis ~ </h3>
     <form class="recipe w-form" action="/search">
       <fieldset class="formblock">
@@ -156,7 +157,7 @@
         </div>
       </fieldset>
       <fieldset class="submitset">
-        <input type="submit" class="submitbutton" value="Wyszukaj">
+        <input type="submit" class="submitbutton" id="submitbutton" value="Wyszukaj">
       </fieldset>
 
     </form>

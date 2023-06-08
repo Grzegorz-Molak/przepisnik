@@ -1,7 +1,15 @@
+export class Recipe{
+    constructor(id, name, author, image, tags) {
+        this.id = id
+        this.name = name
+        this.author = author
+        this.image = image
+        this.tags = tags
+    }
+}
+export function addRecipeAd(recipe) {
 
-export function addRecipeAd(recipe){
-
-    const mainPage = document.getElementById('mainpage');
+    const mainPage = document.getElementById("mainpage");
     let divRecipeAd = document.createElement("div");
     let imgRecipe = document.createElement("img");
     let divInfo = document.createElement("div");
@@ -17,7 +25,7 @@ export function addRecipeAd(recipe){
     h5Author.className = "recad-author";
     divTags.className = "recad-tags";
     divRecipeAd.addEventListener("click", function () {
-    //     tutaj chcemy przejść do szczegółow
+        //     tutaj chcemy przejść do szczegółow
         window.alert("przechodzimy")
     })
     //imgRecipe.src = recipe.image;
@@ -26,30 +34,49 @@ export function addRecipeAd(recipe){
     h5Author.textContent = `Autor: ${recipe.author}`;
     divRecipeAd.appendChild(imgRecipe);
     divRecipeAd.appendChild(divInfo);
-    divInfo.appendChild(divTags);
     divInfo.appendChild(h3Name)
     divInfo.appendChild(h5Author)
-    for (let tag of recipe.tags){
+    divInfo.appendChild(divTags);
+    let id = document.createElement("span");
+    id.textContent = recipe.id;
+    id.style.display = "none";
+    divInfo.appendChild(id)
+    createTags(recipe.tags, divTags)
+    // for (let tag of recipe.tags){
+    //     let divTag = document.createElement("div");
+    //     divTag.className = "tag"
+    //     let imgTag = document.createElement("img");
+    //     imgTag.src = `img/${tag}.png`;
+    //     imgTag.alt=""
+    //     imgTag.height="14"
+    //     divTag.appendChild(imgTag)
+    //     divTag.appendChild(document.createTextNode(tag))
+    //     divTags.appendChild(divTag)
+    //
+    // }
+}
+
+
+export function createTags(tags, divTags){
+    for (let tag of tags) {
         let divTag = document.createElement("div");
         divTag.className = "tag"
         let imgTag = document.createElement("img");
         imgTag.src = `img/${tag}.png`;
-        imgTag.alt=""
-        imgTag.height="14"
+        imgTag.alt = ""
+        imgTag.height = "14"
         divTag.appendChild(imgTag)
         divTag.appendChild(document.createTextNode(tag))
         divTags.appendChild(divTag)
     }
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
 
 // <div className="recipead">
 //     <img className="recad-img" src="img/example.jpg">

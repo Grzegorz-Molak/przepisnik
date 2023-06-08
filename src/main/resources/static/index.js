@@ -1,15 +1,8 @@
-import {addRecipeAd} from "./common.js";
+import {addRecipeAd, Recipe} from "./common.js";
 
-class Recipe{
-    constructor(name, author, image, tags) {
-        this.name = name
-        this.author = author
-        this.image = image
-        this.tags = tags
-    }
-}
-let recipe = new Recipe("placki ziemniaczane", "babcia Zosia", "sth", ["śniadanie", "obiad", "kolacja"])
-let recipe2 = new Recipe("placki z serkiem", "Agnieszka", "sth", ["śniadanie", "łagodne"])
+
+let recipe = new Recipe(1234, "placki ziemniaczane", "babcia Zosia", "sth", ["śniadanie", "obiad", "kolacja"])
+let recipe2 = new Recipe(1234, "placki z serkiem", "Agnieszka", "sth", ["śniadanie", "łagodne"])
 addRecipeAd(recipe)
 addRecipeAd(recipe2)
 
