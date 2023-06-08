@@ -647,17 +647,6 @@ ol li{
   background-color: #e9f4d9;
 }
 
-/*Show the recipe book*/
-
-.folder-content{
-  min-height: 500px;
-  border: double;
-  border-color: #333;
-  margin: 20px;
-  display: block;
-  background-color: #FFF;
-}
-
 /*Homepage, index and search results*/
 .recipead{
   border: solid;
@@ -681,4 +670,80 @@ ol li{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+/*Show the recipe book*/
+
+.book{
+  display: flex;
+  flex-direction: row;
+}
+
+.tabs{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 20px;
+  margin-right: 0px;
+  margin-top: 0px;
+  width: 25%;
+  background-color: #333;
+}
+
+.folder-tab{
+  padding: 10px;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+  border: none;
+  color: #fff;
+  background-color: #333;
+}
+
+.folder-tab:hover{
+  color: #333;
+  background-color: #e9f4d9;
+  font-weight: 600;
+}
+
+.folder-tab:active{
+  color: #333;
+  background-color: #e9f4d9;
+  font-weight: 600;
+}
+
+.folder-content{
+  min-height: 500px;
+  width: 100%;
+  border: none;
+  margin: 20px;
+  margin-left: 0px;
+  margin-top: 0px;
+  display: block;
+  background-color: #FFF;
+}
+
+.folder-name{
+  text-align: center;
+}
+
+.folder-rec{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 20px;
+  border: none;
+  width: 95%;
+  background-color: #FFF;
+}
+
+.recip-name{
+  margin-left: 10px;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 30px;
+}
+
+.folder-rec:hover{
+  background-color: #f0f0f0;
 }
