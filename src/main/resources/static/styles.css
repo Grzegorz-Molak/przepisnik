@@ -467,9 +467,22 @@ ol li{
   display: list-item;
 }
 
+/*Cooking time*/
+.rec-time{
+  margin-left: 5px;
+  margin-top: 10px;
+  height: 30px;
+  font-family: Exo, sans-serif;
+  border-width: thin;
+}
+
+.rec-time:focus {
+  outline: thin;
+}
+
 /*submit button*/
 .submitbutton{
-  width: 10%;
+  min-width: 10%;
   font-size: 15px;
   font-family: Exo, sans-serif;
   line-height: 30px;
@@ -596,8 +609,24 @@ ol li{
   margin-right: 5px;
 }
 
-.rec-button:active{
-/* wymień btnimg na wersję done: favourite-done.png lub share-done.png*/
+.sel-folder{
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  border: solid;
+  border-width: thin;
+  height: 33px;
+  width: 30%;
+  padding: 2px;
+}
+
+.sel-folder:focus {
+  outline: thin;
+}
+
+.favourite{
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .rec-ing{
