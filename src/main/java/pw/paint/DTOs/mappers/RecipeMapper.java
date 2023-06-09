@@ -8,12 +8,17 @@ import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
+import pw.paint.exception.ImageProcessingException;
 import pw.paint.model.Recipe;
 import pw.paint.model.Tag;
 import pw.paint.model.User;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +32,30 @@ public class RecipeMapper {
     private TagRepository tagRepository;
 
     public static RecipeDto toRecipeDto(Recipe recipe) {
+
+        byte[] imageData = null;
+
+        try {
+            Path startPath = Paths.get("..\\przepisnik\\src\\main\\resources\\static\\recipejpg");
+
+            Optional<String> filePath = Files.walk(startPath)
+                    .filter(path -> path.toFile().isFile())
+                    .filter(path -> path.getFileName().toString().equals(recipe.getId() + ".jpg"))
+                    .map(Path::toString)
+                    .findFirst();
+
+            if (filePath.isPresent())
+                imageData = Files.readAllBytes(Paths.get(filePath.get()));
+
+//            String imagePath = "..\\przepisnik\\test.jpg";
+//            Path path = Paths.get(imagePath);
+//            imageData = Files.readAllBytes(path);
+
+
+        } catch (Exception e) {
+            throw new ImageProcessingException();
+        }
+
         return RecipeDto.builder()
                 .id(recipe.getId().toString())
                 .name(recipe.getName())
@@ -36,6 +65,7 @@ public class RecipeMapper {
                 .timeMinutes(recipe.getTimeMinutes())
                 .author(recipe.getAuthor().getUsername())
                 .tags(getTags(recipe.getTags()))
+                .image(imageData)
                 .build();
     }
 

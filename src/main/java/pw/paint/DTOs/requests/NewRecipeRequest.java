@@ -22,4 +22,6 @@ public class NewRecipeRequest {
     private List<String> steps;
     private Integer timeMinutes;
 
+    private byte[] image;
+
 }
