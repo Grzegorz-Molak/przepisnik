@@ -35,26 +35,26 @@ public class RecipeMapper {
 
         byte[] imageData = null;
 
-        try {
-            Path startPath = Paths.get("..\\przepisnik\\src\\main\\resources\\static\\recipejpg");
-
-            Optional<String> filePath = Files.walk(startPath)
-                    .filter(path -> path.toFile().isFile())
-                    .filter(path -> path.getFileName().toString().equals(recipe.getId() + ".jpg"))
-                    .map(Path::toString)
-                    .findFirst();
-
-            if (filePath.isPresent())
-                imageData = Files.readAllBytes(Paths.get(filePath.get()));
-
-//            String imagePath = "..\\przepisnik\\test.jpg";
-//            Path path = Paths.get(imagePath);
-//            imageData = Files.readAllBytes(path);
-
-
-        } catch (Exception e) {
-            throw new ImageProcessingException();
-        }
+//        try {
+//            Path startPath = Paths.get("..\\przepisnik\\src\\main\\resources\\static\\recipejpg");
+//
+//            Optional<String> filePath = Files.walk(startPath)
+//                    .filter(path -> path.toFile().isFile())
+//                    .filter(path -> path.getFileName().toString().equals(recipe.getId() + ".jpg"))
+//                    .map(Path::toString)
+//                    .findFirst();
+//
+//            if (filePath.isPresent())
+//                imageData = Files.readAllBytes(Paths.get(filePath.get()));
+//
+////            String imagePath = "..\\przepisnik\\test.jpg";
+////            Path path = Paths.get(imagePath);
+////            imageData = Files.readAllBytes(path);
+//
+//
+//        } catch (Exception e) {
+//            throw new ImageProcessingException();
+//        }
 
         return RecipeDto.builder()
                 .id(recipe.getId().toString())

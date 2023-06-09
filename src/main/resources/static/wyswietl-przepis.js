@@ -1,28 +1,26 @@
 import {createTags, Recipe, search} from "./common.js";
 
-let ingredients = ["jajka 2 sztuki", "mąka 1 szklanka", "proszek do pieczenia 1 łyżeczka", "olej 2 łyżki"]
-let steps = ["Ubić pianę z białek", "Dodać cukier", "Wymieszać z żółtkami i serkiem waniliowym", "Dodać proszek do pieczenia",
-    "Smażyć na oleju"]
-let recipe = new Recipe(1234, "placki ziemniaczane", "babcia Zosia",  ["śniadanie", "obiad", "kolacja"], steps, ingredients, 30)
-let recipe2 = new Recipe(1234, "placki z serkiem", "Agnieszka",  ["śniadanie", "łagodne"], steps, ingredients, 30)
-document.getElementById("rec-name").innerText = recipe.name
-document.getElementById("rec-author").innerText = `Autor: ${recipe.author}`
-document.getElementById("time").innerText = `Czas przygotowania: ${recipe.time}min`
-let divTags = document.getElementById("rec-tags")
-createTags(recipe.tags,divTags )
-createOrderedList(recipe.ingredients, "ingredients-list")
-createOrderedList(recipe.steps, "steps-list")
-let folders = ["moje przepisy", "przepisy babci Zosi"]
-addFolders(folders)
+const recipeId = localStorage.getItem('recipeId');
 
-//tutaj rzeczy sprawdzajace czyj to przepis
-let isUserRecipe = true
+fetch(`/recipe/${recipeId}`)
+    .then(response => response.json())
+    .then(recipe => {
+        console.log(recipe);
+        if(recipe.author === localStorage.getItem('username')){
+            let shareButton = document.getElementById("share-button");
+            shareButton.style.display = "block";
+        }
+        document.getElementById("rec-name").innerText = recipe.name
+        document.getElementById("rec-author").innerText = `Autor: ${recipe.author}`
+        document.getElementById("time").innerText = `Czas przygotowania: ${recipe.timeMinutes}min`
+        let divTags = document.getElementById("rec-tags")
+        createTags(recipe.tags,divTags )
+        createOrderedList(recipe.ingredients, "ingredients-list")
+        createOrderedList(recipe.steps, "steps-list")
+        let folders = ["moje przepisy", "przepisy babci Zosi"]
+        addFolders(folders)
+    });
 
- if(isUserRecipe){
-     let shareButton = document.getElementById("share-button");
-     shareButton.style.display = "block";
-
- }
 function createOrderedList(list, id){
     let listOrdered = document.getElementById(id)
     for (let item of list){

@@ -103,7 +103,7 @@ export function addRecipeAd(recipe) {
     h5Author.className = "recad-author";
     divTags.className = "recad-tags";
     divRecipeAd.addEventListener("click", function () {
-        localStorage.setItem('recipe', recipe.id);
+        localStorage.setItem('recipeId', recipe.id);
         if(localStorage.getItem('username')!=null){
             window.location.href = 'wyswietl-przepis.html';
         }else{
