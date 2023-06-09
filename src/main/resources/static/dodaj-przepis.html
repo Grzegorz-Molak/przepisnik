@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
-  <script src="dodaj-przepis.js" defer ></script>
+  <script typr="module" src="dodaj-przepis.js" defer ></script>
+  <script type="module" defer src="zalogowany.js"></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -207,7 +208,7 @@
       </fieldset>
       <fieldset class="formblock">
         Czas przygotowania: <br>
-        <input type="time" class="rec-time" value="00:00">
+        <input type="time" class="rec-time" value="00:00" id="minutes">
       </fieldset>
       <fieldset class="submitset">
         <input type="submit" class="submitbutton" value="Gotowe!">

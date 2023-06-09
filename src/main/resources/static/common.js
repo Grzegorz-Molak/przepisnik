@@ -322,14 +322,12 @@ const isValidEmail = email => {
     return re.test(String(email).toLowerCase());
 }
 
-const searchForm= document.getElementById('searchForm')
 
-searchForm.addEventListener("submit", e =>  {
-    e.preventDefault();
-    search("short",true);
-});
+export function logout(){
+    localStorage.clear();
+    window.location.href = '';
 
-
+}
 
 
 

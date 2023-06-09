@@ -1,12 +1,12 @@
 import {createTags, Recipe, search} from "./common.js";
 
 const recipeId = localStorage.getItem('recipeId');
-
+const username = localStorage.getItem('username');
 fetch(`/recipe/${recipeId}`)
     .then(response => response.json())
     .then(recipe => {
         console.log(recipe);
-        if(recipe.author === localStorage.getItem('username')){
+        if(recipe.author === username){
             let shareButton = document.getElementById("share-button");
             shareButton.style.display = "block";
         }
@@ -17,8 +17,6 @@ fetch(`/recipe/${recipeId}`)
         createTags(recipe.tags,divTags )
         createOrderedList(recipe.ingredients, "ingredients-list")
         createOrderedList(recipe.steps, "steps-list")
-        let folders = ["moje przepisy", "przepisy babci Zosi"]
-        addFolders(folders)
     });
 
 function createOrderedList(list, id){
@@ -32,13 +30,24 @@ function createOrderedList(list, id){
     }
 
 }
+
+fetch(`/folder/${username}`)
+    .then(response => response.json())
+    .then(names => {
+        addFolders(names)
+    })
+
 function addFolders(names) {
     let select = document.getElementById("sel-folder");
+    names.shift();
 
     names.forEach((name) => {
         let option = document.createElement("option");
         option.text = name;
         option.value = name;
+        if (name === "moje ulubione przepisy") {
+            option.selected = true;
+        }
         select.appendChild(option);
     });
 }

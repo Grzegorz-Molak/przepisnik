@@ -117,7 +117,7 @@ recipeForm.addEventListener('submit', function(event) {
         tags: checkedValues,
         ingredients: ingText,
         steps: stepsText,
-        timeMinutes: 30
+        timeMinutes: document.getElementById('time').value
     }
 
     const jsonBody = JSON.stringify(requestBody);
