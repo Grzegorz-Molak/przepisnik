@@ -22,14 +22,26 @@
       </a>
 
     <div class="menu">
-        <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
-        <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
-        <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
-        <a href="" class="menubutton w-button">Wyloguj</a>
-      </div>
+      <form action="/search" class="search w-form" method="get">
+        <img src="img/search.png" height = "25" alt="" class="imSearch">
+        <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
+      </form>
+      <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
+      <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
+      <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
+      <a href="" class="menubutton w-button">Wyloguj</a>
+    </div>
   </div>
 
   <div class="mainpage" id="mainpage">
+    <label>
+      <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+      <div class="alert info">
+        <span class="alertClose">X</span>
+        <span class="alertText">Przepis został dodany pomyślnie!
+        <br class="clear"/></span>
+      </div>
+    </label>
     <h3 class="subtitle"> ~ Dodaj swój przepis ~ </h3>
     <form action="/recipes/new" class="recipe w-form" method="post" id ="recipe-form">
 
