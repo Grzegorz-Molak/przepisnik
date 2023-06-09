@@ -119,7 +119,7 @@ recipeForm.addEventListener('submit', function(event) {
 
     console.log(requestBody);
 
-    fetch('/recipes/new', {
+    fetch('/recipe/new', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

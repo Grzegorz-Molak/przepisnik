@@ -23,4 +23,6 @@ public class RecipeDto {
     private List<String> steps;
     private Integer timeMinutes;
 
+    private byte[] image;
+
 }

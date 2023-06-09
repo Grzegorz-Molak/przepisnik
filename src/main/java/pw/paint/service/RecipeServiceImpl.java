@@ -10,6 +10,7 @@ import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
+import pw.paint.exception.ImageProcessingException;
 import pw.paint.exception.RecipeNotFoundException;
 import pw.paint.exception.UserNotFoundException;
 import pw.paint.model.Folder;
@@ -20,6 +21,9 @@ import pw.paint.repository.RecipeRepository;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -87,6 +91,25 @@ public class RecipeServiceImpl implements RecipeService {
 
         recipeRepository.save(recipe);
         userRepository.save(author.get());
+
+        try {
+//            String imagePath = "..\\przepisnik\\test.jpg";
+//            Path path = Paths.get(imagePath);
+//            byte[] imageData = Files.readAllBytes(path);
+
+            byte[] imageData = newRecipeRequest.getImage();
+
+            if (imageData != null && imageData.length > 0) {
+                String fileName = recipe.getId() + ".jpg";
+                String directory = "..\\przepisnik\\src\\main\\resources\\static\\recipejpg";
+                Path filePath = Paths.get(directory, fileName);
+                Files.write(filePath, imageData);
+            }
+
+        } catch (Exception ex) {
+            throw new ImageProcessingException();
+        }
+
         return recipe.getId();
     }
 
