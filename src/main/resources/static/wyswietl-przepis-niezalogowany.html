@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
   <script type="module" defer src="wyswietl-przepis.js"></script>
+  <script type="module" defer src="niezalogowany.js"></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -38,10 +39,10 @@
             </form>
           </div>
         </div>
-        <button class="menubutton w-button register-open" onclick="openForm()">Zarejestruj</button>
-        <div class="form-popup" id="rejestracja">
-          <button type="button" class="close-btn" onclick="closeForm()">&times;</button>
-          <form action="/auth/register" class="formContainer" id="form">
+      <button class="menubutton w-button register-open" id="register-open">Zarejestruj</button>
+      <div class="form-popup" id="rejestracja">
+        <button type="button" class="close-btn" id="register-close">&times;</button>
+        <form action="/auth/register" class="formContainer" id="form" method="post">
             <h2>Zarejestruj</h2>
             <div class="form-element">
               <label for="name">Nazwa</label>
