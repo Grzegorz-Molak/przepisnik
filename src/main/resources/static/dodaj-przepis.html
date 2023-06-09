@@ -22,8 +22,8 @@
       </a>
 
     <div class="menu">
-      <form action="/search" class="search w-form" method="get">
-        <img src="img/search.png" height = "25" alt="" class="imSearch">
+      <form action="/search" class="search w-form" method="post" id="serchForm">
+        <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
         <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
       </form>
       <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
@@ -47,7 +47,7 @@
 
       <fieldset class="nameblock">
         Nazwa
-        <input type="text" class = "nameinput w-input" maxlength="256" id="r-name" required = "">
+        <input type="text" class = "nameinput w-input" maxlength="256" id="ra-name" required = "">
         <div class="upload">
           <input type="file" id="fileInput" name="fileInput" />
         </div>
@@ -213,6 +213,9 @@
         <input type="submit" class="submitbutton" value="Gotowe!">
       </fieldset>
     </form>
+  </div>
+  <div id="searchResult">
+
   </div>
 </div>
 

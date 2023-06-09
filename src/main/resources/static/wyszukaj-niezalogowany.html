@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
   <script type="module" defer src="wyszukaj.js"></script>
+  <script type="module" defer src="index.js"></script>
+
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -22,15 +24,15 @@
     </a>
 
     <div class="menu">
-      <form action="/search" class="search w-form" method="get">
-          <img src="img/search.png" height = "25" alt="" class="imSearch">
+      <form action="/search" class="search w-form" method="post" id="searchForm">
+          <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
         <a href="wyszukaj-niezalogowany.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
         <div class="dropdown menubutton w-button">
           <span>Zaloguj</span>
           <div class="dropdown-content">
-            <form action="/auth/authenticate" method="post">
+            <form action="/auth/authenticate" method="post" id="login-form">
               <label class="margin-bottom-5">Nazwa użytkownika: </label><br>
               <input class="margin-bottom-5" type="text" name="username" placeholder="nazwa użytkownika" required><br>
               <label class="margin-bottom-5">Hasło: </label><br>
@@ -73,7 +75,7 @@
 
     <div class="mainpage" id="mainpage">
     <h3 class="subtitle"> ~ Wyszukaj przepis ~ </h3>
-    <form class="recipe w-form" action="/search">
+    <form class="recipe w-form" action="/search" id="long-search-form">
       <fieldset class="formblock">
         Nazwa <br>
         <input type="text" class = "nameinput2 w-input" maxlength="256" id="r-name" required = "" placeholder="Wprowadź interesującą Cię frazę">
@@ -197,6 +199,9 @@
 
     </form>
   </div>
+    <div id="searchResult">
+
+    </div>
 </div>
 </div>
 </body>

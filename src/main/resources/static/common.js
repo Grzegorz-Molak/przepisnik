@@ -9,9 +9,87 @@ export class Recipe{
         this.time = time
     }
 }
+
+export function search(searchType,status){
+    const token = localStorage.getItem('jwtToken');
+    let requestBody;
+    if(searchType === "short"){
+        requestBody = {
+            pageNumber: 0,
+            pageSize: 10,
+            author: "",
+            keyword: document.getElementById('search').value,
+            tags: []
+        }
+        document.getElementById("searchResult").innerHTML = "";
+    }else{
+        //Get tags
+        const tags = document.querySelectorAll('input[type="checkbox"]');
+        const checkedValues = [];
+        tags.forEach(tag => {
+            if (tag.checked) {
+                checkedValues.push(tag.value);
+            }
+        });
+        console.log(checkedValues);
+
+        let author;
+
+        if(!status){
+             author = localStorage.getItem('username');
+        }else{
+            author = "";
+        }
+        requestBody = {
+            pageNumber: 0,
+            pageSize: 10,
+            author: author,
+            keyword: document.getElementById('r-name').value,
+            tags: checkedValues
+        }
+        document.getElementById("searchResult").innerHTML = "";
+    }
+    console.log(requestBody);
+    fetch('/recipe/search', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Request failed');
+            }
+        })
+        .then(data => {
+            console.log(data);
+            data.forEach(recipe => {
+                const id = recipe.id;
+                const name = recipe.name;
+                const author = recipe.author;
+                const tags = recipe.tags;
+
+                console.log(`Recipe ID: ${id}`);
+                console.log(`Recipe Name: ${name}`);
+                console.log(`Recipe Author: ${author}`);
+                console.log(`Recipe Tags: ${tags}`);
+
+                let recipeDisplay = new Recipe(id,name,author,tags,[],[],0);
+                addRecipeAd(recipeDisplay);
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Coś poszło nie tak');
+        });
+}
 export function addRecipeAd(recipe) {
 
-    const mainPage = document.getElementById("mainpage");
+    const mainPage = document.getElementById("searchResult");
     let divRecipeAd = document.createElement("div");
     let imgRecipe = document.createElement("img");
     let divInfo = document.createElement("div");
@@ -66,7 +144,7 @@ export function createTags(tags, divTags){
         let imgTag = document.createElement("img");
         imgTag.src = `img/${tag}.png`;
         imgTag.alt = ""
-        imgTag.height = "14"
+        imgTag.height = 14
         divTag.appendChild(imgTag)
         divTag.appendChild(document.createTextNode(tag))
         divTags.appendChild(divTag)

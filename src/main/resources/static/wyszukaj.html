@@ -22,8 +22,8 @@
     </a>
 
     <div class="menu">
-      <form action="/search" class="search w-form" method="get">
-          <img src="img/search.png" height = "25" alt="" class="imSearch">
+      <form action="/search" class="search w-form" method="post" id="searchForm">
+          <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
       <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
@@ -35,7 +35,7 @@
 
   <div class="mainpage" id="mainpage">
     <h3 class="subtitle"> ~ Wyszukaj przepis ~ </h3>
-    <form class="recipe w-form" action="/search">
+    <form class="recipe w-form" action="/search" id="long-search-form">
       <fieldset class="formblock">
         Przeszukaj <br>
         <input type="radio" class="radio" id="all" name="whose" value="all">
@@ -161,10 +161,13 @@
         </div>
       </fieldset>
       <fieldset class="submitset">
-        <input type="submit" class="submitbutton" id="submitbutton" value="Wyszukaj">
+        <input type="button" class="submitbutton" id="submitbutton" value="Wyszukaj">
       </fieldset>
 
     </form>
+  </div>
+  <div id="searchResult">
+
   </div>
 </div>
 

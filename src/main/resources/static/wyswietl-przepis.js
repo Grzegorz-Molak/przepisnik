@@ -1,4 +1,4 @@
-import {createTags, Recipe} from "./common.js";
+import {createTags, Recipe, search} from "./common.js";
 
 let ingredients = ["jajka 2 sztuki", "mąka 1 szklanka", "proszek do pieczenia 1 łyżeczka", "olej 2 łyżki"]
 let steps = ["Ubić pianę z białek", "Dodać cukier", "Wymieszać z żółtkami i serkiem waniliowym", "Dodać proszek do pieczenia",
@@ -44,3 +44,10 @@ function addFolders(names) {
         select.appendChild(option);
     });
 }
+
+const searchForm= document.getElementById('searchForm')
+
+searchForm.addEventListener("submit", e =>  {
+    e.preventDefault();
+    search("short",true);
+});

@@ -1,14 +1,4 @@
-import {addRecipeAd, Recipe} from "./common.js";
-
-let ingredients = ["jajka 2 sztuki", "mąka 1 szklanka", "proszek do pieczenia 1 łyżeczka", "olej 2 łyżki"]
-let steps = ["Ubić pianę z białek", "Dodać cukier", "Wymieszać z żółtkami i serkiem waniliowym", "Dodać proszek do pieczenia",
-    "Smażyć na oleju"]
-let recipe = new Recipe(1234, "placki ziemniaczane", "babcia Zosia",  ["śniadanie", "obiad", "kolacja"], steps, ingredients, 30)
-let recipe2 = new Recipe(1234, "placki z serkiem", "Agnieszka",  ["śniadanie", "łagodne"], steps, ingredients, 30)
-addRecipeAd(recipe)
-addRecipeAd(recipe2)
-
-
+import {addRecipeAd, Recipe, search} from "./common.js";
 
 const registrationForm = document.getElementById('form');
 const username = document.getElementById('name');
@@ -45,7 +35,7 @@ loginForm.addEventListener('submit', function(event) {
             localStorage.setItem('jwtToken', jwtToken);
             localStorage.setItem('username', formData.get('username').toString());
 
-            window.location.href = 'dodaj-przepis.html';
+            window.location.href = 'homepage.html';
         })
         .catch(error => {
             console.error(error.message);
@@ -186,5 +176,9 @@ const isValidEmail = email => {
     return re.test(String(email).toLowerCase());
 }
 
+const searchForm= document.getElementById('searchForm')
 
-
+searchForm.addEventListener("submit", e =>  {
+    e.preventDefault();
+    search("short",true);
+});
