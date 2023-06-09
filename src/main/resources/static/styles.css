@@ -53,7 +53,7 @@ a {
   border-bottom: 1px solid #000;
   flex-wrap: nowrap;
   display: flex;
-  justify-content: space-between;
+  
 }
 
 .menubutton {
@@ -69,8 +69,9 @@ a {
   justify-content: space-around;
   text-decoration: none;
   align-self:stretch;
-  width: 25%;
+  width: 20%;
   padding: 5px;
+  flex-grow: 1;
 }
 
 .menubutton:hover {
@@ -79,6 +80,42 @@ a {
   background-color: #e9f4d9;
   font-weight: 600;
 }
+
+/*Search section*/
+.imSearch {
+  margin: 5px;
+  padding-top: 0px;
+  line-height: 40px;
+}
+
+.search {
+  width: 60%;
+  margin-bottom: 0;
+  display: flex;
+}
+
+.searchinput {
+  width: 95%;
+  min-width: 10%;
+  border: none;
+  flex: 0 auto;
+  align-self: flex-end;
+  margin-bottom: 0;
+  font-size: 15px;
+  font-family: Exo, sans-serif;
+  line-height: 35px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+}
+
+.searchinput:focus {
+  outline: none;
+}
+
+.search-button{
+  font-family: Exo, sans-serif;
+}
+
 
 /*Login form*/
 .dropdown:hover .dropdown-content {
@@ -783,4 +820,49 @@ ol li{
   align-items: center;
   text-align: center;
   height: auto;
+}
+
+/*Alerty*/
+.alert {
+  position: relative;
+  top: 10;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  margin: 10px;
+  line-height: 1.8;
+  border: none;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.alertCheckbox {
+  display: none;
+}
+
+:checked + .alert {
+  display: none;
+}
+
+.alertText {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 16px;
+}
+
+.alertClose {
+  float: right;
+  padding-top: 5px;
+  font-size: 10px;
+}
+
+.clear {
+  clear: both;
+}
+
+.info {
+  background-color: #FFF;
+  color: #333;
 }
