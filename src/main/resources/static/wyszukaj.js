@@ -1,12 +1,30 @@
-import {addRecipeAd, Recipe} from "./common.js";
+import {addRecipeAd, Recipe, search} from "./common.js";
 
-document.getElementById("submitbutton").addEventListener("click",function () {
-    let ingredients = ["jajka 2 sztuki", "mąka 1 szklanka", "proszek do pieczenia 1 łyżeczka", "olej 2 łyżki"]
-    let steps = ["Ubić pianę z białek", "Dodać cukier", "Wymieszać z żółtkami i serkiem waniliowym", "Dodać proszek do pieczenia",
-        "Smażyć na oleju"]
-    let recipe = new Recipe(1234, "placki ziemniaczane", "babcia Zosia",  ["śniadanie", "obiad", "kolacja"], steps, ingredients, 30)
-    let recipe2 = new Recipe(1234, "placki z serkiem", "Agnieszka",  ["śniadanie", "łagodne"], steps, ingredients, 30)
-    addRecipeAd(recipe)
-    addRecipeAd(recipe2)
+const privateRadio = document.getElementById('own');
+const publicRadio = document.getElementById('all');
+
+let status = true;
+if(privateRadio!=null) {
+    privateRadio.addEventListener('click', function () {
+        status = false;
+    });
+    publicRadio.addEventListener('click', function () {
+        status = true;
+    });
+}
+const searchForm= document.getElementById('searchForm')
+const longSearchForm = document.getElementById("long-search-form")
+longSearchForm.addEventListener("submit", e =>  {
+    e.preventDefault();
+    search("detailed", status);
+});
+searchForm.addEventListener("submit", e =>  {
+    e.preventDefault();
+    search("short",true);
+});
+
+const submitButton = document.getElementById('submitbutton');
+
+submitButton.addEventListener("click", function (){
+    search("detailed", status);
 })
-
