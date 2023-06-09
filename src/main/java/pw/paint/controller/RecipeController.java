@@ -62,6 +62,31 @@ public class RecipeController {
     public ResponseEntity<List<ShortRecipeDto>> search(@RequestBody SearchRequest searchRequest){
         Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
         return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
-                searchRequest.getKeyword(), searchRequest.getTags(), pageable));
+                searchRequest.getKeyword(), searchRequest.getTags(), true,pageable));
     }
+
+    @PostMapping("/search/private")
+    public ResponseEntity<List<ShortRecipeDto>> searchPrivate(@RequestBody SearchRequest searchRequest){
+
+        //TO DO sprawdzanie uprawnień czy podany autor w request body to user z tokenu
+
+        Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
+        return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
+                searchRequest.getKeyword(), searchRequest.getTags(), false,pageable));
+    }
+
+
+    @DeleteMapping("{recipeId}")
+    public ResponseEntity<String> deleteRecipe(@PathVariable String recipeId){
+        try {
+            return ResponseEntity.ok(recipeService.deleteRecipe(new ObjectId(recipeId)));
+        } catch (RecipeNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
+
+
+
 }

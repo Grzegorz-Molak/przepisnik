@@ -3,15 +3,9 @@ package pw.paint.service;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
-import pw.paint.DTOs.mappers.FolderMapper;
 import pw.paint.DTOs.mappers.RecipeMapper;
-import pw.paint.DTOs.model.FolderDto;
-import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
-import pw.paint.exception.DataConflictException;
-import pw.paint.exception.FolderNotFoundException;
-import pw.paint.exception.RecipeNotFoundException;
-import pw.paint.exception.UserNotFoundException;
+import pw.paint.exception.*;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
 import pw.paint.model.User;
@@ -27,7 +21,6 @@ import java.util.Optional;
 public class FolderServiceImpl implements FolderService {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
-    private final RecipeMapper recipeMapper;
 
     @Override
     public List<String> getFoldersNames(String username) {
@@ -81,7 +74,59 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public ObjectId addRecipeToFolder(String username, String folderName, String recipeId) {
+    public String addRecipeToFolder(String username, String folderName, String recipeId) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty())
+            throw new UserNotFoundException();
+
+        Folder folder = user.get().findFolderByName(folderName);
+
+        if (folder == null)
+            throw new FolderNotFoundException();
+
+
+        ObjectId id = new ObjectId(recipeId);
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        if(recipe.isEmpty())
+            throw new RecipeNotFoundException();
+
+        if(folder.getRecipes() == null){
+            folder.setRecipes(new ArrayList<>());
+            folder.getRecipes().add(recipe.get());
+            userRepository.save(user.get());
+            return recipeId;
+        }
+        else{
+            for(Recipe recipeInFolder : folder.getRecipes()){
+                if(recipeInFolder.getId().equals(id)){
+                    throw new RecipeAlreadyInFolder();
+                }
+            }
+        }
+
+        folder.getRecipes().add(recipe.get());
+        userRepository.save(user.get());
+        return recipeId;
+    }
+
+    @Override
+    public String deleteFolder(String username, String folderName) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty())
+            throw new UserNotFoundException();
+
+        Folder folder = user.get().findFolderByName(folderName);
+
+        if (folder == null)
+            throw new FolderNotFoundException();
+
+        user.get().getFolders().remove(folder);
+        userRepository.save(user.get());
+        return "Usunięto folder";
+    }
+
+    @Override
+    public String deleteRecipeFromFolder(String username, String folderName, String recipeId) {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isEmpty())
             throw new UserNotFoundException();
@@ -97,13 +142,19 @@ public class FolderServiceImpl implements FolderService {
             throw new RecipeNotFoundException();
 
         if(folder.getRecipes() == null){
-            folder.setRecipes(new ArrayList<>());
-            folder.getRecipes().add(recipe.get());
+            throw new RecipeNotFoundException();
         }
-        else
-            folder.getRecipes().add(recipe.get());
+        else{
 
-        userRepository.save(user.get());
-        return id;
+            for(Recipe recipeInFolder : folder.getRecipes()){
+                if(recipeInFolder.getId().equals(id)){
+                    folder.getRecipes().remove(recipeInFolder);
+                    userRepository.save(user.get());
+                    return "success";
+                }
+            }
+        }
+
+        throw new RecipeNotFoundException();
     }
 }

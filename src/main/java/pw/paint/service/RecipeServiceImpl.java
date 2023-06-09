@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,10 +114,19 @@ public class RecipeServiceImpl implements RecipeService {
         return recipe.getId();
     }
 
+
     @Override
-    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Pageable pageable) {
+    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags,Boolean status, Pageable pageable) {
+
+        List<ShortRecipeDto> recipes  = new ArrayList<>();
+
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findAll(pageable).getContent());
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false,pageable).getContent()));
+            }
+
+            return recipes;
         }
 
         List<DBRef> tagsRef = new ArrayList<>();
@@ -133,32 +143,65 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         if (keyword.isBlank() && tags.isEmpty()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, pageable).getContent());
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, true,pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, false,pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (keyword.isBlank() && author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, false, pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (tags.isEmpty() && author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, pageable).getContent());
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, false, pageable).getContent()));
+            }
+            return recipes;
+
         }
 
         if (author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, false, pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (tags.isEmpty()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, false, pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (keyword.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, false, pageable).getContent()));
+            }
+            return recipes;
+
         }
 
 
-        return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, pageable).getContent());
-
+        recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, true,pageable).getContent()));
+        if(status == false){
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, false,pageable).getContent()));
+        }
+        return recipes;
 
     }
 
@@ -166,5 +209,42 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeDto getRecipeById(ObjectId id) {
         Optional<Recipe> recipe = recipeRepository.findById(id);
         return recipe.map(RecipeMapper::toRecipeDto).orElseThrow(RecipeNotFoundException::new);
+    }
+
+    @Override
+    public String deleteRecipe(ObjectId id) {
+        List<User> users = userRepository.findAll();
+
+        if(users == null) throw new UserNotFoundException();
+
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+
+        if(!recipe.isPresent()) throw new RecipeNotFoundException();
+
+
+
+        for (User user : users) {
+            if (user.getFolders() != null) {
+                Iterator<Folder> folderIterator = user.getFolders().iterator();
+                while (folderIterator.hasNext()) {
+                    Folder folder = folderIterator.next();
+                    if (folder.getRecipes() != null) {
+                        Iterator<Recipe> recipeIterator = folder.getRecipes().iterator();
+                        while (recipeIterator.hasNext()) {
+                            Recipe recipeInFolder = recipeIterator.next();
+                            if (recipeInFolder.getId().equals(id)) {
+                                recipeIterator.remove();
+                            }
+                        }
+                    }
+                }
+            }
+            userRepository.save(user);
+        }
+
+        recipeRepository.delete(recipe.get());
+
+        return "success";
+
     }
 }

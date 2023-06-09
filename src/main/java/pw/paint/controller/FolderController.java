@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.exception.FolderNotFoundException;
+import pw.paint.exception.RecipeAlreadyInFolder;
 import pw.paint.exception.RecipeNotFoundException;
 import pw.paint.exception.UserNotFoundException;
 import pw.paint.service.FolderService;
@@ -61,6 +62,34 @@ public class FolderController {
         try {
             return ResponseEntity.created(new URI("/recipe/" +
                     folderService.addRecipeToFolder(username,folderName,recipeId))).build();
+        }catch (RecipeAlreadyInFolder e) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .header("Error-Message", e.getMessage())
+                    .build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
+
+
+    @DeleteMapping("/{username}/{folderName}")
+    public ResponseEntity<String> deleteFolder(@PathVariable String username,@PathVariable String folderName){
+        try {
+            return ResponseEntity.ok(folderService.deleteFolder(username, folderName));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
+
+    @DeleteMapping("/{username}/{folderName}/{recipeId}")
+    public ResponseEntity<String> deleteRecipeFromFolder(@PathVariable String username,@PathVariable String folderName, @PathVariable String recipeId){
+
+        try {
+            return ResponseEntity.ok(folderService.deleteRecipeFromFolder(username, folderName,recipeId));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .header("Error-Message", ex.getMessage())
