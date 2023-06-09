@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -118,10 +119,11 @@ public class RecipeServiceImpl implements RecipeService {
     public List<ShortRecipeDto> search(String author, String keyword, List<String> tags,Boolean status, Pageable pageable) {
 
         List<ShortRecipeDto> recipes  = new ArrayList<>();
+
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
-            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(pageable,true).getContent()));
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(true, pageable).getContent()));
             if(status == false){
-                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(pageable,false).getContent()));
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false,pageable).getContent()));
             }
 
             return recipes;
@@ -207,5 +209,42 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeDto getRecipeById(ObjectId id) {
         Optional<Recipe> recipe = recipeRepository.findById(id);
         return recipe.map(RecipeMapper::toRecipeDto).orElseThrow(RecipeNotFoundException::new);
+    }
+
+    @Override
+    public String deleteRecipe(ObjectId id) {
+        List<User> users = userRepository.findAll();
+
+        if(users == null) throw new UserNotFoundException();
+
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+
+        if(!recipe.isPresent()) throw new RecipeNotFoundException();
+
+
+
+        for (User user : users) {
+            if (user.getFolders() != null) {
+                Iterator<Folder> folderIterator = user.getFolders().iterator();
+                while (folderIterator.hasNext()) {
+                    Folder folder = folderIterator.next();
+                    if (folder.getRecipes() != null) {
+                        Iterator<Recipe> recipeIterator = folder.getRecipes().iterator();
+                        while (recipeIterator.hasNext()) {
+                            Recipe recipeInFolder = recipeIterator.next();
+                            if (recipeInFolder.getId().equals(id)) {
+                                recipeIterator.remove();
+                            }
+                        }
+                    }
+                }
+            }
+            userRepository.save(user);
+        }
+
+        recipeRepository.delete(recipe.get());
+
+        return "success";
+
     }
 }

@@ -18,4 +18,6 @@ public interface RecipeService {
     List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable);
 
     RecipeDto getRecipeById(ObjectId id_);
+
+    String deleteRecipe(ObjectId objectId);
 }

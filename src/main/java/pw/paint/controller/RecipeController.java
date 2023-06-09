@@ -68,7 +68,7 @@ public class RecipeController {
     @PostMapping("/search/private")
     public ResponseEntity<List<ShortRecipeDto>> searchPrivate(@RequestBody SearchRequest searchRequest){
 
-        //TO DO sprawdzanie uprawnień czy podany user to user z tokenu
+        //TO DO sprawdzanie uprawnień czy podany autor w request body to user z tokenu
 
         Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
         return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
@@ -76,7 +76,16 @@ public class RecipeController {
     }
 
 
-
+    @DeleteMapping("{recipeId}")
+    public ResponseEntity<String> deleteRecipe(@PathVariable String recipeId){
+        try {
+            return ResponseEntity.ok(recipeService.deleteRecipe(new ObjectId(recipeId)));
+        } catch (RecipeNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
 
 
 

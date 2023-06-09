@@ -17,8 +17,8 @@ public interface RecipeRepository extends MongoRepository<Recipe, ObjectId> {
 
     Optional<Recipe> findByName(String name);
 
-    @Query("{'status':{$eq: ?1}}")
-    Page<Recipe> findAll(Pageable pageable,Boolean status);
+    @Query("{'status':{$eq: ?0}}")
+    Page<Recipe> findAll(Boolean status,Pageable pageable);
     @Query("{'name': { $regex: ?0, $options: 'i' },'status':{$eq: ?1}}")
     Page<Recipe> findByNameContaining(String keyword, Boolean status, Pageable pageable);
     @Query("{'tags': { $all: ?0 },'status':{$eq: ?1}}")

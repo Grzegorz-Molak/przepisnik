@@ -3,10 +3,7 @@ package pw.paint.service;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
-import pw.paint.DTOs.mappers.FolderMapper;
 import pw.paint.DTOs.mappers.RecipeMapper;
-import pw.paint.DTOs.model.FolderDto;
-import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.exception.*;
 import pw.paint.model.Folder;
@@ -24,7 +21,6 @@ import java.util.Optional;
 public class FolderServiceImpl implements FolderService {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
-    private final RecipeMapper recipeMapper;
 
     @Override
     public List<String> getFoldersNames(String username) {
@@ -149,6 +145,7 @@ public class FolderServiceImpl implements FolderService {
             throw new RecipeNotFoundException();
         }
         else{
+
             for(Recipe recipeInFolder : folder.getRecipes()){
                 if(recipeInFolder.getId().equals(id)){
                     folder.getRecipes().remove(recipeInFolder);
