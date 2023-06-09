@@ -9,9 +9,7 @@ export class Recipe{
         this.time = time
     }
 }
-export function addRecipeAd(recipe) {
-
-    const mainPage = document.getElementById("mainpage");
+export function addRecipeAd(recipe, div) {
     let divRecipeAd = document.createElement("div");
     let imgRecipe = document.createElement("img");
     let divInfo = document.createElement("div");
@@ -19,7 +17,7 @@ export function addRecipeAd(recipe) {
     let h5Author = document.createElement("h5");
     let divTags = document.createElement("div");
 
-    mainPage.appendChild(divRecipeAd);
+    div.appendChild(divRecipeAd);
     divRecipeAd.className = "recipead";
     imgRecipe.className = "recad-img";
     divInfo.className = "recad-info";
@@ -44,18 +42,7 @@ export function addRecipeAd(recipe) {
     id.style.display = "none";
     divInfo.appendChild(id)
     createTags(recipe.tags, divTags)
-    // for (let tag of recipe.tags){
-    //     let divTag = document.createElement("div");
-    //     divTag.className = "tag"
-    //     let imgTag = document.createElement("img");
-    //     imgTag.src = `img/${tag}.png`;
-    //     imgTag.alt=""
-    //     imgTag.height="14"
-    //     divTag.appendChild(imgTag)
-    //     divTag.appendChild(document.createTextNode(tag))
-    //     divTags.appendChild(divTag)
-    //
-    // }
+
 }
 
 

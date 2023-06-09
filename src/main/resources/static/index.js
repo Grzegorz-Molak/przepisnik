@@ -5,8 +5,9 @@ let steps = ["Ubić pianę z białek", "Dodać cukier", "Wymieszać z żółtkam
     "Smażyć na oleju"]
 let recipe = new Recipe(1234, "placki ziemniaczane", "babcia Zosia",  ["śniadanie", "obiad", "kolacja"], steps, ingredients, 30)
 let recipe2 = new Recipe(1234, "placki z serkiem", "Agnieszka",  ["śniadanie", "łagodne"], steps, ingredients, 30)
-addRecipeAd(recipe)
-addRecipeAd(recipe2)
+const mainPage = document.getElementById("mainpage");
+addRecipeAd(recipe, mainPage)
+addRecipeAd(recipe2, mainPage)
 
 
 

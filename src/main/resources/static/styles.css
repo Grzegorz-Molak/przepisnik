@@ -866,3 +866,6 @@ ol li{
   background-color: #FFF;
   color: #333;
 }
+#share-button {
+  display: none;
+}
