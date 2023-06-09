@@ -103,12 +103,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe1.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
-            steps.add("1. Cebulę obierz i drobno posiekaj.");
-            steps.add("2. Na patelni rozgrzej oliwę. Dodaj wołowinę i cebulę. Smaż wszystko przez kilka minut do zrumienienia. Dopraw solą i pieprzem. W razie potrzeby odcedź tłuszcz.");
-            steps.add("3. Duże naczynie żaroodporne nasmaruj oliwą. Na dnie połóż ok. 1/5 ziemniaków, a na to ok. ¼ wołowiny. Posyp odrobiną tartego sera żółtego. Powtarzaj te warstwy do wykończenia składników.");
-            steps.add("4. W garnuszku wymieszaj bulion z mlekiem. Dodaj tarty ser cheddar i podgrzewaj wszystko, stale mieszając, do rozpuszczenia sera. Zdejmij z ognia i ostudź. Dodaj jajko i wymieszaj. Mieszanką zalej zapiekankę.");
-            steps.add("5. Na wierzchu poukładaj odłożone wcześniej ziemniaki, by lekko na siebie zachodziły. Posyp siekaną natką pietruszki.");
-            steps.add("6. Piekarnik nagrzej do 180 st. Celsjusza. Naczynie przykryj folią aluminiową. Szybką zapiekankę z mięsem mielonym i ziemniakami piecz przez 60 minut, do miękkości ziemniaków. Usuń folię i kontynuuj pieczenie przez kolejne 20 minut, do zrumienienia.");
+            steps.add("Cebulę obierz i drobno posiekaj.");
+            steps.add("Na patelni rozgrzej oliwę. Dodaj wołowinę i cebulę. Smaż wszystko przez kilka minut do zrumienienia. Dopraw solą i pieprzem. W razie potrzeby odcedź tłuszcz.");
+            steps.add("Duże naczynie żaroodporne nasmaruj oliwą. Na dnie połóż ok. 1/5 ziemniaków, a na to ok. ¼ wołowiny. Posyp odrobiną tartego sera żółtego. Powtarzaj te warstwy do wykończenia składników.");
+            steps.add("W garnuszku wymieszaj bulion z mlekiem. Dodaj tarty ser cheddar i podgrzewaj wszystko, stale mieszając, do rozpuszczenia sera. Zdejmij z ognia i ostudź. Dodaj jajko i wymieszaj. Mieszanką zalej zapiekankę.");
+            steps.add("Na wierzchu poukładaj odłożone wcześniej ziemniaki, by lekko na siebie zachodziły. Posyp siekaną natką pietruszki.");
+            steps.add("Piekarnik nagrzej do 180 st. Celsjusza. Naczynie przykryj folią aluminiową. Szybką zapiekankę z mięsem mielonym i ziemniakami piecz przez 60 minut, do miękkości ziemniaków. Usuń folię i kontynuuj pieczenie przez kolejne 20 minut, do zrumienienia.");
             recipe1.setSteps(steps);
 
             List<Tag> tags = new ArrayList<>();
@@ -158,11 +158,11 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe2.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
-            steps.add("1. Ubić pianę z białek.");
-            steps.add("2. Dodać cukier.");
-            steps.add("3. Wymieszać z żółtkami i serkiem waniliowym.");
-            steps.add("4. Dodać proszek do pieczenia.");
-            steps.add("5. Smażyć na oleju.");
+            steps.add("Ubić pianę z białek.");
+            steps.add("Dodać cukier.");
+            steps.add("Wymieszać z żółtkami i serkiem waniliowym.");
+            steps.add("Dodać proszek do pieczenia.");
+            steps.add("Smażyć na oleju.");
             recipe2.setSteps(steps);
 
             List<Tag> tags = new ArrayList<>();
@@ -219,9 +219,9 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe3.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
-            steps.add("1. Rozetrzeć ziemniaki na tarce, zostawić na kilka minut, odlać zebrany sok.");
-            steps.add("2. Do ziemniaków dodać mąkę, drobno startą cebulę, jajko i sól.");
-            steps.add("3. Masę wymieszać i smażyć małe porcje ciasta na rozgrzanym oleju na złoty kolor.");
+            steps.add("Rozetrzeć ziemniaki na tarce, zostawić na kilka minut, odlać zebrany sok.");
+            steps.add("Do ziemniaków dodać mąkę, drobno startą cebulę, jajko i sól.");
+            steps.add("Masę wymieszać i smażyć małe porcje ciasta na rozgrzanym oleju na złoty kolor.");
             recipe3.setSteps(steps);
 
             List<Tag> tags = new ArrayList<>();

@@ -1,8 +1,26 @@
 const recipeForm = document.getElementById('recipe-form');
 //Adding image
 function chooseFile() {
-    document.getElementById("fileInput").click();
+    let fileInput = document.getElementById("fileInput");
+    fileInput.click();
+
+    fileInput.addEventListener("change", function() {
+        let file = fileInput.files[0];
+        let fileName = file.name;
+        let acceptedExtensions = ["jpg", "jpeg", "png"]; // Lista akceptowanych rozszerzeń
+
+        let fileExtension = fileName.split(".").pop().toLowerCase();
+        if (acceptedExtensions.includes(fileExtension)) {
+            console.log("Wybrano obraz o nazwie: " + fileName);
+            window.alert("Wybrano obraz o nazwie: " + fileName)
+            // Tutaj możesz wykonać dodatkowe działania na nazwie pliku
+        }
+        else{
+            window.alert("Wybrany plik nie jest obrazem")
+        }
+    });
 }
+
 
 //Adding steps and ingredients
 let close = document.getElementsByClassName("close");
