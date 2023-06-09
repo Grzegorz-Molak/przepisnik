@@ -1,12 +1,12 @@
 export class Recipe{
-    constructor(id, name, author, image, tags, steps, ingredients) {
+    constructor(id, name, author, tags, steps, ingredients, time) {
         this.id = id
         this.name = name
         this.author = author
-        this.image = image
         this.tags = tags
         this.steps = steps
         this.ingredients = ingredients
+        this.time = time
     }
 }
 export function addRecipeAd(recipe) {
