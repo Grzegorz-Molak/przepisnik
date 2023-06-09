@@ -14,4 +14,8 @@ public interface FolderService {
     void createNewFolder(String userName, String folderName);
 
     String addRecipeToFolder(String username, String folderName, String recipeId);
+
+    String deleteFolder(String username, String folderName);
+
+    String deleteRecipeFromFolder(String username, String folderName, String recipeId);
 }

@@ -97,10 +97,12 @@ public class FolderServiceImpl implements FolderService {
         if(folder.getRecipes() == null){
             folder.setRecipes(new ArrayList<>());
             folder.getRecipes().add(recipe.get());
+            userRepository.save(user.get());
+            return recipeId;
         }
         else{
             for(Recipe recipeInFolder : folder.getRecipes()){
-                if(recipeInFolder.getName().equals(recipe.get().getName())){
+                if(recipeInFolder.getId().equals(id)){
                     throw new RecipeAlreadyInFolder();
                 }
             }
@@ -109,5 +111,53 @@ public class FolderServiceImpl implements FolderService {
         folder.getRecipes().add(recipe.get());
         userRepository.save(user.get());
         return recipeId;
+    }
+
+    @Override
+    public String deleteFolder(String username, String folderName) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty())
+            throw new UserNotFoundException();
+
+        Folder folder = user.get().findFolderByName(folderName);
+
+        if (folder == null)
+            throw new FolderNotFoundException();
+
+        user.get().getFolders().remove(folder);
+        userRepository.save(user.get());
+        return "Usunięto folder";
+    }
+
+    @Override
+    public String deleteRecipeFromFolder(String username, String folderName, String recipeId) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty())
+            throw new UserNotFoundException();
+
+        Folder folder = user.get().findFolderByName(folderName);
+
+        if (folder == null)
+            throw new FolderNotFoundException();
+
+        ObjectId id = new ObjectId(recipeId);
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        if(recipe.isEmpty())
+            throw new RecipeNotFoundException();
+
+        if(folder.getRecipes() == null){
+            throw new RecipeNotFoundException();
+        }
+        else{
+            for(Recipe recipeInFolder : folder.getRecipes()){
+                if(recipeInFolder.getId().equals(id)){
+                    folder.getRecipes().remove(recipeInFolder);
+                    userRepository.save(user.get());
+                    return "success";
+                }
+            }
+        }
+
+        throw new RecipeNotFoundException();
     }
 }

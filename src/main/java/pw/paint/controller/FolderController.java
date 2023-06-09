@@ -72,4 +72,28 @@ public class FolderController {
                     .build();
         }
     }
+
+
+    @DeleteMapping("/{username}/{folderName}")
+    public ResponseEntity<String> deleteFolder(@PathVariable String username,@PathVariable String folderName){
+        try {
+            return ResponseEntity.ok(folderService.deleteFolder(username, folderName));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
+
+    @DeleteMapping("/{username}/{folderName}/{recipeId}")
+    public ResponseEntity<String> deleteRecipeFromFolder(@PathVariable String username,@PathVariable String folderName, @PathVariable String recipeId){
+
+        try {
+            return ResponseEntity.ok(folderService.deleteRecipeFromFolder(username, folderName,recipeId));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
 }
