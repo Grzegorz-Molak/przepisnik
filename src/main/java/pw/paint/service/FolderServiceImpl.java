@@ -8,10 +8,7 @@ import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
-import pw.paint.exception.DataConflictException;
-import pw.paint.exception.FolderNotFoundException;
-import pw.paint.exception.RecipeNotFoundException;
-import pw.paint.exception.UserNotFoundException;
+import pw.paint.exception.*;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
 import pw.paint.model.User;
@@ -81,7 +78,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public ObjectId addRecipeToFolder(String username, String folderName, String recipeId) {
+    public String addRecipeToFolder(String username, String folderName, String recipeId) {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isEmpty())
             throw new UserNotFoundException();
@@ -90,6 +87,7 @@ public class FolderServiceImpl implements FolderService {
 
         if (folder == null)
             throw new FolderNotFoundException();
+
 
         ObjectId id = new ObjectId(recipeId);
         Optional<Recipe> recipe = recipeRepository.findById(id);
@@ -100,10 +98,16 @@ public class FolderServiceImpl implements FolderService {
             folder.setRecipes(new ArrayList<>());
             folder.getRecipes().add(recipe.get());
         }
-        else
-            folder.getRecipes().add(recipe.get());
+        else{
+            for(Recipe recipeInFolder : folder.getRecipes()){
+                if(recipeInFolder.getName().equals(recipe.get().getName())){
+                    throw new RecipeAlreadyInFolder();
+                }
+            }
+        }
 
+        folder.getRecipes().add(recipe.get());
         userRepository.save(user.get());
-        return id;
+        return recipeId;
     }
 }
