@@ -62,6 +62,16 @@ public class RecipeController {
     public ResponseEntity<List<ShortRecipeDto>> search(@RequestBody SearchRequest searchRequest){
         Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
         return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
-                searchRequest.getKeyword(), searchRequest.getTags(), pageable));
+                searchRequest.getKeyword(), searchRequest.getTags(), true,pageable));
+    }
+
+    @PostMapping("/search/private")
+    public ResponseEntity<List<ShortRecipeDto>> searchPrivate(@RequestBody SearchRequest searchRequest){
+
+        //TO DO sprawdzanie uprawnień czy podany user to user z tokenu
+
+        Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
+        return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
+                searchRequest.getKeyword(), searchRequest.getTags(), false,pageable));
     }
 }

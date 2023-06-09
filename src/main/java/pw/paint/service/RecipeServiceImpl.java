@@ -113,10 +113,18 @@ public class RecipeServiceImpl implements RecipeService {
         return recipe.getId();
     }
 
+
     @Override
-    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Pageable pageable) {
+    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags,Boolean status, Pageable pageable) {
+
+        List<ShortRecipeDto> recipes  = new ArrayList<>();
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findAll(pageable).getContent());
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(pageable,true).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(pageable,false).getContent()));
+            }
+
+            return recipes;
         }
 
         List<DBRef> tagsRef = new ArrayList<>();
@@ -133,32 +141,65 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         if (keyword.isBlank() && tags.isEmpty()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, pageable).getContent());
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, true,pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, false,pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (keyword.isBlank() && author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, false, pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (tags.isEmpty() && author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, pageable).getContent());
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, false, pageable).getContent()));
+            }
+            return recipes;
+
         }
 
         if (author.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, false, pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (tags.isEmpty()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, false, pageable).getContent()));
+            }
+            return recipes;
         }
 
         if (keyword.isBlank()) {
-            return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, pageable).getContent());
+
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, true, pageable).getContent()));
+            if(status == false){
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, false, pageable).getContent()));
+            }
+            return recipes;
+
         }
 
 
-        return RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, pageable).getContent());
-
+        recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, true,pageable).getContent()));
+        if(status == false){
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, false,pageable).getContent()));
+        }
+        return recipes;
 
     }
 
