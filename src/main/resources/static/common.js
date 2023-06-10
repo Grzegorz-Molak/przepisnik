@@ -77,7 +77,7 @@ export function search(searchType,status){
                 console.log(`Recipe Tags: ${tags}`);
 
                 let recipeDisplay = new Recipe(id,name,author,tags,[],[],0);
-                addRecipeAd(recipeDisplay);
+                addRecipeAd(recipeDisplay,document.getElementById("searchResult"));
             });
         })
         .catch(error => {
@@ -85,7 +85,6 @@ export function search(searchType,status){
             alert('Coś poszło nie tak');
         });
 }
-"searchResult");
 export function addRecipeAd(recipe, div) {
     let divRecipeAd = document.createElement("div");
     let imgRecipe = document.createElement("img");
@@ -328,7 +327,7 @@ const isValidEmail = email => {
 
 export function logout(){
     localStorage.clear();
-    window.location.href = '';
+    window.location.href = '/index.html';
 
 }
 
