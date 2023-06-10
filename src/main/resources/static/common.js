@@ -12,6 +12,16 @@ export class Recipe{
 
 export function search(searchType,status){
     let requestBody;
+    if(searchType === 'empty'){
+        requestBody = {
+            pageNumber: 0,
+            pageSize: 10,
+            author: "",
+            keyword: "",
+            tags: []
+        }
+        document.getElementById("searchResult").innerHTML = "";
+    }
     if(searchType === "short"){
         requestBody = {
             pageNumber: 0,
@@ -21,7 +31,8 @@ export function search(searchType,status){
             tags: []
         }
         document.getElementById("searchResult").innerHTML = "";
-    }else{
+    }
+    if(searchType === "detailed"){
         //Get tags
         const tags = document.querySelectorAll('input[type="checkbox"]');
         const checkedValues = [];

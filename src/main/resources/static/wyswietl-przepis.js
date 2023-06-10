@@ -9,6 +9,26 @@ fetch(`/recipe/${recipeId}`)
         if(recipe.author === username){
             let shareButton = document.getElementById("share-button");
             shareButton.style.display = "block";
+            shareButton.addEventListener("click", function (){
+                fetch(`/recipe/change-status/${recipeId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Udostępniono');
+                        } else {
+                            message = response.getAllResponseHeaders()
+                            throw new Error(message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.message);
+                        alert('Nieudostępniono');
+                    });
+            })
         }
         document.getElementById("rec-name").innerText = recipe.name
         document.getElementById("rec-author").innerText = `Autor: ${recipe.author}`
@@ -51,6 +71,32 @@ function addFolders(names) {
         select.appendChild(option);
     });
 }
+
+const addButton = document.getElementById('add-to-folder');
+
+addButton.addEventListener("click", function (){
+    let chosenFolder = document.getElementById("sel-folder").value;
+    console.log(chosenFolder);
+    fetch(`/folder/add/${username}/${chosenFolder}/${recipeId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            console.log(response)
+            if (response.ok) {
+                alert('Dodano do folderu');
+            } else {
+                message = response.getAllResponseHeaders()
+                throw new Error(message);
+            }
+        })
+        .catch(error => {
+            console.error(error.message);
+            alert('Coś poszło nie tak');
+        });
+})
 
 const searchForm= document.getElementById('searchForm')
 

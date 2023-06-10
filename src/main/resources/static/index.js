@@ -5,3 +5,5 @@ searchForm.addEventListener("submit", e =>  {
     e.preventDefault();
     search("short",true);
 });
+
+search("empty",true);
