@@ -686,12 +686,16 @@ ol li{
 
 /*Homepage, index and search results*/
 .recipead{
-  border: solid;
-  border-width: thin;
+  border: none;
   display: flex;
   margin: 20px;
   padding: 5px;
   background-color: white;
+  flex-grow: 1;
+}
+
+.recipead:hover{
+  background-color: #f0f0f0;
 }
 
 .recad-img{
