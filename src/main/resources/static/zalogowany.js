@@ -1,4 +1,4 @@
-import {logout} from "./common";
+import {logout} from "./common.js";
 
 const logoutButton = document.getElementById('wyloguj');
 

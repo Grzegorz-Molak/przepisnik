@@ -1,4 +1,4 @@
-import {search} from "./common";
+import {search} from "./common.js";
 
 const searchForm= document.getElementById('searchForm')
 searchForm.addEventListener("submit", e =>  {

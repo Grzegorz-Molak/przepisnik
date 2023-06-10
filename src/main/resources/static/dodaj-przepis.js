@@ -1,4 +1,4 @@
-import {search} from "./common";
+import {search} from "./common.js";
 
 const recipeForm = document.getElementById('recipe-form');
 //Adding image
