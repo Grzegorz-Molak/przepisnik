@@ -19,5 +19,7 @@ public interface RecipeService {
 
     RecipeDto getRecipeById(ObjectId id_);
 
-    String deleteRecipe(ObjectId objectId);
+    void deleteRecipe(ObjectId objectId);
+
+    void changeStatus(String id);
 }

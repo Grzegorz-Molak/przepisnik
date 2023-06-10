@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pw.paint.DTOs.model.RecipeDto;
@@ -18,6 +20,9 @@ import pw.paint.service.RecipeService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -58,6 +63,40 @@ public class RecipeController {
         }
     }
 
+    @PutMapping("/change-status/{id}")
+    public ResponseEntity<Void> changeStatus(@PathVariable String id) {
+        try {
+            recipeService.changeStatus(id);
+            return ResponseEntity.ok().build();
+        } catch (RecipeNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
+
+//    @GetMapping("/image/{recipeId}")
+//    public ResponseEntity<byte[]> getImage(@PathVariable String recipeId) {
+//        try {
+//            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\recipejpg\\" + recipeId + ".jpg.";
+//            Path filePath = Paths.get(imagePath);
+//            byte[] imageBytes = Files.readAllBytes(filePath);
+//
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.IMAGE_JPEG);
+//            headers.setContentLength(imageBytes.length);
+//
+//            return ResponseEntity.ok()
+//                    .headers(headers)
+//                    .body(imageBytes);
+//
+//        } catch (Exception ex) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .header("Error-Message", ex.getMessage())
+//                    .build();
+//        }
+//    }
+
     @PostMapping("/search")
     public ResponseEntity<List<ShortRecipeDto>> search(@RequestBody SearchRequest searchRequest){
         Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
@@ -75,11 +114,11 @@ public class RecipeController {
                 searchRequest.getKeyword(), searchRequest.getTags(), false,pageable));
     }
 
-
     @DeleteMapping("{recipeId}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable String recipeId){
+    public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId){
         try {
-            return ResponseEntity.ok(recipeService.deleteRecipe(new ObjectId(recipeId)));
+            recipeService.deleteRecipe(new ObjectId(recipeId));
+            return ResponseEntity.ok().build();
         } catch (RecipeNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .header("Error-Message", ex.getMessage())
