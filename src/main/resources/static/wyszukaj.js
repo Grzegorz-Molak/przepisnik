@@ -1,5 +1,9 @@
-import {addRecipeAd, Recipe} from "./common.js";
-
+import {addRecipeAd, Recipe, showNotification} from "./common.js";
+showNotification("Kill me")
+setTimeout(function() {
+    const message = 'Przykładowa wiadomość po 10 sekundach';
+    showNotification(message);
+}, 10000);
 document.getElementById("submitbutton").addEventListener("click",function () {
     let ingredients = ["jajka 2 sztuki", "mąka 1 szklanka", "proszek do pieczenia 1 łyżeczka", "olej 2 łyżki"]
     let steps = ["Ubić pianę z białek", "Dodać cukier", "Wymieszać z żółtkami i serkiem waniliowym", "Dodać proszek do pieczenia",

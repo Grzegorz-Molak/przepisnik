@@ -1,4 +1,12 @@
+import {showNotification} from "./common.js";
+
 const recipeForm = document.getElementById('recipe-form');
+showNotification("Kill me")
+setTimeout(function() {
+    const message = 'Przykładowa wiadomość po 10 sekundach';
+    showNotification(message);
+}, 10000);
+
 //Adding image
 function chooseFile() {
     let fileInput = document.getElementById("fileInput");
@@ -24,7 +32,7 @@ function chooseFile() {
 
 //Adding steps and ingredients
 let close = document.getElementsByClassName("close");
-for (i = 0; i < close.length; i++) {
+for (let i = 0; i < close.length; i++) {
     close[i].onclick = function() {
         let li = this.parentElement;
         li.parentNode.removeChild(li);

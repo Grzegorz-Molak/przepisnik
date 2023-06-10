@@ -60,6 +60,19 @@ export function createTags(tags, divTags){
     }
 }
 
+export function showNotification(message) {
+    const alertElement = document.querySelector('.alert');
+    const alertTextElement = document.querySelector('.alertText');
+    const closeButton = document.querySelector('.alertClose');
+
+    alertTextElement.textContent = message;
+    alertElement.style.display = 'block';
+
+    closeButton.addEventListener('click', function() {
+        alertElement.style.display = 'none';
+    });
+
+}
 
 
 
@@ -67,27 +80,5 @@ export function createTags(tags, divTags){
 
 
 
-// <div className="recipead">
-//     <img className="recad-img" src="img/example.jpg">
-//         <div className="recad-info">
-//             <h3 className="recad-name">Tutaj nazwa przepisu</h3>
-//             <h5 className="recad-author"> Autor: BlaBla </h5>
-//             <div className="recad-tags">
-//                 <div className="tag">
-//                     <img src="img/wegetariańskie.png" alt="" height="14">
-//                         Tag 1
-//                 </div>
-//                 <div className="tag">
-//                     <img src="img/wegetariańskie.png" alt="" height="14">
-//                         Tag 2
-//                 </div>
-//                 <div className="tag">
-//                     <img src="img/wegetariańskie.png" alt="" height="14">
-//                         Tag 3
-//                 </div>
-//                 <div className="tag">
-//                     <img src="img/wegetariańskie.png" alt="" height="14">
-//                         Tag 4
-//                 </div>
-//             </div>
-//         </div>
+
+

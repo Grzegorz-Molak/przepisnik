@@ -828,6 +828,7 @@ ol li{
 
 /*Alerty*/
 .alert {
+  display: none;
   position: relative;
   top: 10px;
   left: 0;
