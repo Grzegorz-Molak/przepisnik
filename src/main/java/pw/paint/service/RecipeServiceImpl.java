@@ -39,10 +39,10 @@ public class RecipeServiceImpl implements RecipeService {
     private final UserRepository userRepository;
     private final String defaultFolderName = "moje autorskie przepisy";
 
-   // @Override
+    // @Override
     //public List<RecipeDto> getAllRecipes() {
 
-      //  return recipeMapper.toRecipeDto(recipeRepository.findAll());
+    //  return recipeMapper.toRecipeDto(recipeRepository.findAll());
 
     //}
 
@@ -76,17 +76,15 @@ public class RecipeServiceImpl implements RecipeService {
 
         Recipe recipe = recipeMapper.toModelRecipeObject(newRecipeRequest);
 
-        if (defaultFolder == null ){
+        if (defaultFolder == null) {
             Folder folder = new Folder(defaultFolderName);
             folder.setRecipes(new ArrayList<>());
             folder.getRecipes().add(recipe);
             author.get().getFolders().add(folder);
-        }
-        else if (defaultFolder.getRecipes() == null) {
+        } else if (defaultFolder.getRecipes() == null) {
             defaultFolder.setRecipes(new ArrayList<>());
             defaultFolder.getRecipes().add(recipe);
-        }
-        else {
+        } else {
             defaultFolder.getRecipes().add(recipe);
         }
 
@@ -116,14 +114,14 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
-    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags,Boolean status, Pageable pageable) {
+    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable) {
 
-        List<ShortRecipeDto> recipes  = new ArrayList<>();
+        List<ShortRecipeDto> recipes = new ArrayList<>();
 
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(true, pageable).getContent()));
-            if(status == false){
-                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false,pageable).getContent()));
+            if (status == false) {
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
             }
 
             return recipes;
@@ -138,14 +136,14 @@ public class RecipeServiceImpl implements RecipeService {
 
         Optional<User> userWithId = userRepository.findByUsername(author);
         DBRef authorRef = null;
-        if(userWithId.isPresent()){
+        if (userWithId.isPresent()) {
             authorRef = new DBRef("users", userWithId.get().getId());
         }
 
         if (keyword.isBlank() && tags.isEmpty()) {
-            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, true,pageable).getContent()));
-            if(status == false){
-                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, false,pageable).getContent()));
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, true, pageable).getContent()));
+            if (status == false) {
+                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByAuthor(authorRef, false, pageable).getContent()));
             }
             return recipes;
         }
@@ -153,7 +151,7 @@ public class RecipeServiceImpl implements RecipeService {
         if (keyword.isBlank() && author.isBlank()) {
 
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, true, pageable).getContent()));
-            if(status == false){
+            if (status == false) {
                 recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAll(tagsRef, false, pageable).getContent()));
             }
             return recipes;
@@ -161,7 +159,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         if (tags.isEmpty() && author.isBlank()) {
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, true, pageable).getContent()));
-            if(status == false){
+            if (status == false) {
                 recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContaining(keyword, false, pageable).getContent()));
             }
             return recipes;
@@ -171,7 +169,7 @@ public class RecipeServiceImpl implements RecipeService {
         if (author.isBlank()) {
 
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, true, pageable).getContent()));
-            if(status == false){
+            if (status == false) {
                 recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContaining(keyword, tagsRef, false, pageable).getContent()));
             }
             return recipes;
@@ -180,7 +178,7 @@ public class RecipeServiceImpl implements RecipeService {
         if (tags.isEmpty()) {
 
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, true, pageable).getContent()));
-            if(status == false){
+            if (status == false) {
                 recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByNameContainingAndAuthor(keyword, authorRef, false, pageable).getContent()));
             }
             return recipes;
@@ -189,7 +187,7 @@ public class RecipeServiceImpl implements RecipeService {
         if (keyword.isBlank()) {
 
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, true, pageable).getContent()));
-            if(status == false){
+            if (status == false) {
                 recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAndAuthor(tagsRef, authorRef, false, pageable).getContent()));
             }
             return recipes;
@@ -197,9 +195,9 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
 
-        recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, true,pageable).getContent()));
-        if(status == false){
-            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, false,pageable).getContent()));
+        recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, true, pageable).getContent()));
+        if (status == false) {
+            recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findByTagsAllAndNameContainingAndAuthor(keyword, tagsRef, authorRef, false, pageable).getContent()));
         }
         return recipes;
 
@@ -212,15 +210,14 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public String deleteRecipe(ObjectId id) {
+    public void deleteRecipe(ObjectId id) {
         List<User> users = userRepository.findAll();
 
-        if(users == null) throw new UserNotFoundException();
+        if (users == null) throw new UserNotFoundException();
 
         Optional<Recipe> recipe = recipeRepository.findById(id);
 
-        if(!recipe.isPresent()) throw new RecipeNotFoundException();
-
+        if (!recipe.isPresent()) throw new RecipeNotFoundException();
 
 
         for (User user : users) {
@@ -241,10 +238,15 @@ public class RecipeServiceImpl implements RecipeService {
             }
             userRepository.save(user);
         }
-
         recipeRepository.delete(recipe.get());
+    }
 
-        return "success";
-
+    @Override
+    public void changeStatus(String id) {
+        Recipe recipe = recipeRepository.findById(new ObjectId(id)).orElse(null);
+        if (recipe == null)
+            throw new RecipeNotFoundException();
+        recipe.setStatus(!recipe.getStatus());
+        recipeRepository.save(recipe);
     }
 }
