@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
     <script type="module" defer src="wyswietl-przepis.js"></script>
+    <script type="module" defer src="zalogowany.js"></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -22,14 +23,14 @@
     </a>
 
     <div class="menu">
-      <form action="/search" class="search w-form" method="get">
-          <img src="img/search.png" height = "25" alt="" class="imSearch">
+      <form action="/search" class="search w-form" method="post" id="searchForm">
+          <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
       </form>
       <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
       <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
       <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
-      <a href="" class="menubutton w-button">Wyloguj</a>
+        <button class="menubutton w-button register-open" id="wyloguj">Wyloguj</button>
     </div>
   </div>
 
@@ -96,6 +97,9 @@
       </div>
     </div>
   </div>
+    <div id="searchResult">
+
+    </div>
   </div>
 </body>
 </html>

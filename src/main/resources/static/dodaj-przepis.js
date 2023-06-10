@@ -1,3 +1,5 @@
+import {search} from "./common.js";
+
 const recipeForm = document.getElementById('recipe-form');
 //Adding image
 function chooseFile() {
@@ -22,9 +24,11 @@ function chooseFile() {
 }
 
 
+
+
 //Adding steps and ingredients
 let close = document.getElementsByClassName("close");
-for (i = 0; i < close.length; i++) {
+for (let i = 0; i < close.length; i++) {
     close[i].onclick = function() {
         let li = this.parentElement;
         li.parentNode.removeChild(li);
@@ -93,25 +97,29 @@ recipeForm.addEventListener('submit', function(event) {
     //get ingredients
     const ingList = document.getElementById('ing-list');
     const ingredients = ingList.getElementsByTagName('li');
-    const ingText = Array.from(ingredients).map(item => item.textContent);
+    const ingText = Array.from(ingredients).map(item => {
+        return item.childNodes[0].textContent.trim();
+    });
 
     console.log(ingText);
 
     //get steps
     const stepsList = document.getElementById('step-list');
     const steps = stepsList.getElementsByTagName('li');
-    const stepsText = Array.from(steps).map(item => item.textContent);
+    const stepsText = Array.from(steps).map(item => {
+        return item.childNodes[0].textContent.trim();
+    });
 
     console.log(stepsText);
 
     const requestBody = {
-        name: document.getElementById('r-name').value,
+        name: document.getElementById('ra-name').value,
         author: localStorage.getItem('username'),
         status: status,
         tags: checkedValues,
         ingredients: ingText,
         steps: stepsText,
-        timeMinutes: 30
+        timeMinutes: document.getElementById('minutes').value
     }
 
     const jsonBody = JSON.stringify(requestBody);
@@ -130,18 +138,35 @@ recipeForm.addEventListener('submit', function(event) {
         .then(response => {
             console.log(response);
             if (response.ok) {
-                return response.json();
+                alert('Przepis został dodany');
+                recipeForm.reset();
+                ingList.innerHTML = "";
+                stepsList.innerHTML = "";
             } else {
                 throw new Error('Request failed');
             }
-        })
-        .then(data => {
-            alert('Przepis został dodany');
-            recipeForm.reset();
-            console.log(data);
         })
         .catch(error => {
             console.error(error);
             alert('Coś poszło nie tak');
         });
+});
+
+const searchForm= document.getElementById('searchForm')
+
+searchForm.addEventListener("submit", e =>  {
+    e.preventDefault();
+    search("short",true);
+});
+
+const ingButton = document.getElementById('ing-button');
+const stepButton = document.getElementById('step-button');
+
+ingButton.addEventListener('click', function() {
+    newElement('ing-list');
+});
+
+
+stepButton.addEventListener('click', function() {
+    newElement('step-list');
 });
