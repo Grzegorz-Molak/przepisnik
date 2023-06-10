@@ -24,6 +24,8 @@ function chooseFile() {
 }
 
 
+
+
 //Adding steps and ingredients
 let close = document.getElementsByClassName("close");
 for (let i = 0; i < close.length; i++) {
@@ -117,7 +119,7 @@ recipeForm.addEventListener('submit', function(event) {
         tags: checkedValues,
         ingredients: ingText,
         steps: stepsText,
-        timeMinutes: document.getElementById('time').value
+        timeMinutes: document.getElementById('minutes').value
     }
 
     const jsonBody = JSON.stringify(requestBody);
@@ -155,4 +157,16 @@ const searchForm= document.getElementById('searchForm')
 searchForm.addEventListener("submit", e =>  {
     e.preventDefault();
     search("short",true);
+});
+
+const ingButton = document.getElementById('ing-button');
+const stepButton = document.getElementById('step-button');
+
+ingButton.addEventListener('click', function() {
+    newElement('ing-list');
+});
+
+
+stepButton.addEventListener('click', function() {
+    newElement('step-list');
 });
