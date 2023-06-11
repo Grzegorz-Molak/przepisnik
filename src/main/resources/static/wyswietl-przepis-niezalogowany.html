@@ -23,14 +23,15 @@
     </a>
     <div class="menu">
       <form action="/search" class="search w-form" method="post" id="searchForm">
-          <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
-          <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
-        </form>
+        <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
+        <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
+        <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
+      </form>
         <a href="wyszukaj-niezalogowany.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
         <div class="dropdown menubutton w-button">
           <span>Zaloguj</span>
           <div class="dropdown-content">
-            <form action="/auth/authenticate" method="post">
+            <form action="/auth/authenticate" method="post" id="login-form">
               <label class="margin-bottom-5">Nazwa użytkownika: </label><br>
               <input class="margin-bottom-5" type="text" name="username" placeholder="nazwa użytkownika" required><br>
               <label class="margin-bottom-5">Hasło: </label><br>
@@ -69,6 +70,10 @@
             </div>
           </form>
         </div>
+        <button class="menubutton w-button">
+          <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
+        </button>
       </div>
   </div>
 
@@ -132,6 +137,24 @@
 
   </div>
   </div>
+  <footer>
+        Autorzy:
+    <div class="authors">
+      <div class="column">
+        Agnieszka Gutowska <br>
+        Filip Misztal
+      </div>
+      <div class="column">
+        Grzegorz Molak <br>
+        Zuzanna Popławska
+      </div>
+      <div class="column">
+        Anna Szymańska <br>
+        Dorota Wlazło
+      </div>
+    </div>
+    <p><br>© 2023 Przepiśnik. Wszelkie prawa zastrzeżone.</p>
+  </footer>
   </div>
 </body>
 </html>

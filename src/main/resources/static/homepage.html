@@ -24,13 +24,18 @@
 
       <div class="menu">
         <form action="/search" class="search w-form" method="post" id="searchFrom">
-          <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
+          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
         <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
         <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
         <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
         <button class="menubutton w-button register-open" id="wyloguj">Wyloguj</button>
+        <button class="menubutton w-button">
+          <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
+        </button>
       </div>
     </div>
 
@@ -184,7 +189,24 @@
     <div id="searchResult">
 
     </div>
-
+    <footer>
+        Autorzy:
+    <div class="authors">
+      <div class="column">
+        Agnieszka Gutowska <br>
+        Filip Misztal
+      </div>
+      <div class="column">
+        Grzegorz Molak <br>
+        Zuzanna Popławska
+      </div>
+      <div class="column">
+        Anna Szymańska <br>
+        Dorota Wlazło
+      </div>
+    </div>
+    <p><br>© 2023 Przepiśnik. Wszelkie prawa zastrzeżone.</p>
+  </footer>
   </div>
 </body>
 </html>

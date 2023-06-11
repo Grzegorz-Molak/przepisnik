@@ -24,13 +24,18 @@
 
       <div class="menu">
         <form action="/search" class="search w-form" method="get" id="searchForm">
-          <img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch">
+          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
         <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
         <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
         <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
         <button class="menubutton w-button register-open" id="wyloguj">Wyloguj</button>
+        <button class="menubutton w-button">
+          <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
+        </button>
       </div>
     </div>
 
@@ -61,8 +66,12 @@
         </div>
         <div class="folder-content" id="folder-content">
           <div class="actions">
-            <button type="button" class="actionbutton w-button"><img src="img/edit.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></button>
-            <button type="button" class="actionbutton w-button"><img src="img/delete.png" height="25" alt="" class="photo" title="Usuń folder"></button>
+            <button type="button" class="actionbutton w-button">
+              <span class="d-block-light d-none"><img src="img/edit.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
+              <span class="d-block-dark d-none"><img src="img/edit-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>
+            <button type="button" class="actionbutton w-button">
+              <span class="d-block-light d-none"><img src="img/delete.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
+              <span class="d-block-dark d-none"><img src="img/delete-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>
           </div>
           <h3 class="folder-name" id="folder-name"></h3>
           <div id="folder-content-recipes">
@@ -94,7 +103,8 @@
 <!--                </div>-->
 <!--              </div>-->
 <!--            </div>-->
-<!--            <button type="button" class="actionbutton w-button"><img src="img/delete.png" height="25" alt="" class="photo" title="Usuń przepis"></button>-->
+<!--            <button type="button" class="actionbutton w-button"><span class="d-block-light d-none"><img src="img/delete.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
+              <span class="d-block-dark d-none"><img src="img/delete-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>-->
 <!--          </div>-->
 <!--          <div class="recip">-->
 <!--            <div class="recipead">-->
@@ -122,7 +132,8 @@
 <!--                </div>-->
 <!--              </div>-->
 <!--            </div>-->
-<!--            <button type="button" class="actionbutton w-button"><img src="img/delete.png" height="25" alt="" class="photo" title="Usuń przepis"></button>-->
+<!--            <button type="button" class="actionbutton w-button"><span class="d-block-light d-none"><img src="img/delete.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
+              <span class="d-block-dark d-none"><img src="img/delete-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>-->
 <!--          </div>-->
 <!--          <div class="recip">-->
 <!--            <button type="button" class="folder-rec">-->
@@ -146,6 +157,24 @@
 
       </div>
     </div>
+    <footer>
+        Autorzy:
+    <div class="authors">
+      <div class="column">
+        Agnieszka Gutowska <br>
+        Filip Misztal
+      </div>
+      <div class="column">
+        Grzegorz Molak <br>
+        Zuzanna Popławska
+      </div>
+      <div class="column">
+        Anna Szymańska <br>
+        Dorota Wlazło
+      </div>
+    </div>
+    <p><br>© 2023 Przepiśnik. Wszelkie prawa zastrzeżone.</p>
+  </footer>
   </div>
 
 </body>
