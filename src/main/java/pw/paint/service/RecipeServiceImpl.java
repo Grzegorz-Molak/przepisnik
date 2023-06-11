@@ -10,6 +10,7 @@ import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
+import pw.paint.exception.ImageProcessingException;
 import pw.paint.exception.RecipeNotFoundException;
 import pw.paint.exception.UserNotFoundException;
 import pw.paint.model.Folder;
@@ -20,6 +21,9 @@ import pw.paint.repository.RecipeRepository;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -35,12 +39,6 @@ public class RecipeServiceImpl implements RecipeService {
     private final UserRepository userRepository;
     private final String defaultFolderName = "moje autorskie przepisy";
 
-    // @Override
-    //public List<RecipeDto> getAllRecipes() {
-
-    //  return recipeMapper.toRecipeDto(recipeRepository.findAll());
-
-    //}
 
     @Override
     public List<String> getAllTags() {
@@ -71,7 +69,17 @@ public class RecipeServiceImpl implements RecipeService {
         }*/
 
         Recipe recipe = recipeMapper.toModelRecipeObject(newRecipeRequest);
-        recipe.setImage(imageBytes);
+        if (imageBytes == null) {
+            try {
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\img\\obiad.png";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+            } catch (Exception ex) {
+                throw new ImageProcessingException();
+            }
+        } else {
+            recipe.setImage(imageBytes);
+        }
 
         if (defaultFolder == null) {
             Folder folder = new Folder(defaultFolderName);

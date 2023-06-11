@@ -38,10 +38,11 @@ public class RecipeController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Void> createNewRecipe(@RequestParam("image") MultipartFile image, @ModelAttribute NewRecipeRequest newRecipeRequest) {
+    public ResponseEntity<Void> createNewRecipe(@RequestParam(value = "image", required = false) MultipartFile image, @ModelAttribute NewRecipeRequest newRecipeRequest) {
         try {
+            byte[] imageBytes = (image != null) ? image.getBytes() : null;
             return ResponseEntity.created(new URI("/recipe/" +
-                    recipeService.createNewRecipe(newRecipeRequest, image.getBytes()))).build();
+                    recipeService.createNewRecipe(newRecipeRequest, imageBytes))).build();
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
@@ -52,6 +53,7 @@ public class RecipeController {
                     .build();
         }
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDto> getRecipeById(@PathVariable String id) {
