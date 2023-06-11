@@ -23,14 +23,20 @@
 
     <div class="menu">
       <form action="/search" class="search w-form" method="get">
-        <img src="img/search.png" height = "25" alt="" class="imSearch">
-        <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
-      </form>
+          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch"></span>
+          <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
+        </form>
       <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
       <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
       <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
       <a href="" class="menubutton w-button">Wyloguj</a>
+      <button class="menubutton w-button">
+          <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
+        </button>
     </div>
+
   </div>
 
   <div class="mainpage" id="mainpage">
@@ -51,7 +57,10 @@
         <div class="upload">
           <input type="file" id="fileInput" name="fileInput" />
         </div>
-        <button type="button" onclick=chooseFile() class="photobutton w-button"><img src="img/camera.png" height="25" alt="" class="photo"></button>
+        <button type="button" onclick=chooseFile() class="photobutton w-button">
+          <span class="d-block-light d-none"><img src="img/camera.png" height = "25" alt="" class="photo"></span>
+          <span class="d-block-dark d-none"><img src="img/camera-dark.png" height = "25" alt="" class="photo"></span>
+        </button>
       </fieldset>
 
 
@@ -180,7 +189,8 @@
           <input type="text" class = "unit w-input" maxlength="10" id="unit"  placeholder="Np. kg">
         </div>
         <button class="addbutton" onclick="newElement('ing-list')" type="button">
-          <img src="img/add.png" alt = "" height="20">
+          <span class="d-block-light d-none"><img src="img/add.png" height = "20" alt=""></span>
+          <span class="d-block-dark d-none"><img src="img/add-dark.png" height = "20" alt=""></span>
           &nbsp;&nbsp;Dodaj składnik
         </button>
       </fieldset>
@@ -194,7 +204,8 @@
 
         </div>
         <button onclick="newElement('step-list')" type="button" class="addbutton">
-          <img src="img/add.png" alt = "" height="20">
+          <span class="d-block-light d-none"><img src="img/add.png" height = "20" alt=""></span>
+          <span class="d-block-dark d-none"><img src="img/add-dark.png" height = "20" alt=""></span>
           &nbsp;&nbsp;Dodaj krok
         </button>
       </fieldset>
@@ -214,6 +225,24 @@
       </fieldset>
     </form>
   </div>
+  <footer>
+        Autorzy:
+    <div class="authors">
+      <div class="column">
+        Agnieszka Gutowska <br>
+        Filip Misztal
+      </div>
+      <div class="column">
+        Grzegorz Molak <br>
+        Zuzanna Popławska
+      </div>
+      <div class="column">
+        Anna Szymańska <br>
+        Dorota Wlazło
+      </div>
+    </div>
+    <p><br>© 2023 Przepiśnik. Wszelkie prawa zastrzeżone.</p>
+  </footer>
 </div>
 
 </body>

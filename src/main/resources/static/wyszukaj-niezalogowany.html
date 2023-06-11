@@ -23,7 +23,8 @@
 
     <div class="menu">
       <form action="/search" class="search w-form" method="get">
-          <img src="img/search.png" height = "25" alt="" class="imSearch">
+          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch"></span>
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
         <a href="wyszukaj-niezalogowany.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
@@ -69,6 +70,10 @@
             </div>
           </form>
         </div>
+        <button class="menubutton w-button">
+          <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
+        </button>
       </div>
 
     <div class="mainpage" id="mainpage">
@@ -198,6 +203,24 @@
     </form>
   </div>
 </div>
+<footer>
+        Autorzy:
+    <div class="authors">
+      <div class="column">
+        Agnieszka Gutowska <br>
+        Filip Misztal
+      </div>
+      <div class="column">
+        Grzegorz Molak <br>
+        Zuzanna Popławska
+      </div>
+      <div class="column">
+        Anna Szymańska <br>
+        Dorota Wlazło
+      </div>
+    </div>
+    <p><br>© 2023 Przepiśnik. Wszelkie prawa zastrzeżone.</p>
+  </footer>
 </div>
 </body>
 </html>

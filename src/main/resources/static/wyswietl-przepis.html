@@ -23,13 +23,18 @@
 
     <div class="menu">
       <form action="/search" class="search w-form" method="get">
-          <img src="img/search.png" height = "25" alt="" class="imSearch">
+          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch"></span>
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
-      </form>
+        </form>
       <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
       <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
       <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
       <a href="" class="menubutton w-button">Wyloguj</a>
+      <button class="menubutton w-button">
+          <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
+        </button>
     </div>
   </div>
 
@@ -60,7 +65,8 @@
         <h4 class="rec-author" id="time"> </h4>
         <form class="favourite">
           <button class="rec-button" type="submit">
-              <img src="img/favourite.png" class="btnimg" alt = "" height="30">
+            <span class="d-block-light d-none"><img src="img/favourite.png" class="btnimg" alt = "" height="30"></span>
+            <span class="d-block-dark d-none"><img src="img/favourite-dark.png" class="btnimg" alt = "" height="30"></span>
               Dodaj do przepiśnika
           </button>
           <select class="sel-folder" id="sel-folder">
@@ -70,7 +76,8 @@
           </select>
         </form>
         <button class="rec-button" id="share-button" type="button" >
-            <img src="img/share.png"  class="btnimg" alt = "" height="30">
+            <span class="d-block-light d-none"><img src="img/share.png"  class="btnimg" alt = "" height="30"></span>
+            <span class="d-block-dark d-none"><img src="img/share-dark.png"  class="btnimg" alt = "" height="30"></span>
             Udostępnij przepis
         </button>
       </div>
@@ -96,6 +103,24 @@
       </div>
     </div>
   </div>
+  <footer>
+        Autorzy:
+    <div class="authors">
+      <div class="column">
+        Agnieszka Gutowska <br>
+        Filip Misztal
+      </div>
+      <div class="column">
+        Grzegorz Molak <br>
+        Zuzanna Popławska
+      </div>
+      <div class="column">
+        Anna Szymańska <br>
+        Dorota Wlazło
+      </div>
+    </div>
+    <p><br>© 2023 Przepiśnik. Wszelkie prawa zastrzeżone.</p>
+  </footer>
   </div>
 </body>
 </html>
