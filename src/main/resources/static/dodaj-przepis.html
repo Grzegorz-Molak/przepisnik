@@ -58,7 +58,7 @@
         <div class="upload">
           <input type="file" id="fileInput" name="fileInput" />
         </div>
-        <button type="button" onclick=chooseFile() class="photobutton w-button">
+        <button type="button" id="image-button" class="photobutton w-button">
           <span class="d-block-light d-none"><img src="img/camera.png" height = "25" alt="" class="photo"></span>
           <span class="d-block-dark d-none"><img src="img/camera-dark.png" height = "25" alt="" class="photo"></span>
         </button>
@@ -221,7 +221,7 @@
       </fieldset>
       <fieldset class="formblock">
         Czas przygotowania w minutach: <br>
-        <input type="number" class="rec-time" value="00:00" id="minutes">
+        <input type="number" class="rec-time" id="minutes">
       </fieldset>
       <fieldset class="submitset">
         <input type="submit" class="submitbutton" value="Gotowe!">

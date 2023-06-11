@@ -13,7 +13,7 @@ public interface RecipeService {
 
     List<String> getAllTags();
 
-    ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest);
+    ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest, byte[] imageBytes);
 
     List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable);
 

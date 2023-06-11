@@ -10,7 +10,6 @@ import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
-import pw.paint.exception.ImageProcessingException;
 import pw.paint.exception.RecipeNotFoundException;
 import pw.paint.exception.UserNotFoundException;
 import pw.paint.model.Folder;
@@ -21,9 +20,6 @@ import pw.paint.repository.RecipeRepository;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -59,7 +55,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest) {
+    public ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest, byte[] imageBytes) {
         Optional<User> author = userRepository.findByUsername(newRecipeRequest.getAuthor());
         if (author.isEmpty())
             throw new UserNotFoundException("User not found; The recipe must have an author");
@@ -75,6 +71,7 @@ public class RecipeServiceImpl implements RecipeService {
         }*/
 
         Recipe recipe = recipeMapper.toModelRecipeObject(newRecipeRequest);
+        recipe.setImage(imageBytes);
 
         if (defaultFolder == null) {
             Folder folder = new Folder(defaultFolderName);
