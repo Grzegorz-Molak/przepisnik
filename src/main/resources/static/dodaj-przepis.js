@@ -8,8 +8,12 @@ setTimeout(function() {
 }, 10000);
 
 //Adding image
+const imageButton = document.getElementById('image-button');
+const fileInput = document.getElementById("fileInput");
+imageButton.addEventListener("click", function (){
+    chooseFile()
+})
 function chooseFile() {
-    let fileInput = document.getElementById("fileInput");
     fileInput.click();
 
     fileInput.addEventListener("change", function() {
@@ -115,21 +119,21 @@ recipeForm.addEventListener('submit', function(event) {
     });
 
     console.log(stepsText);
+    const imageFile = fileInput.files[0];
 
-    const requestBody = {
-        name: document.getElementById('ra-name').value,
-        author: localStorage.getItem('username'),
-        status: status,
-        tags: checkedValues,
-        ingredients: ingText,
-        steps: stepsText,
-        timeMinutes: document.getElementById('minutes').value
+    const formData = new FormData();
+    formData.append('name', document.getElementById('ra-name').value);
+    formData.append('author', localStorage.getItem('username'));
+    formData.append('status', status);
+    formData.append('tags', JSON.stringify(checkedValues));
+    formData.append('ingredients', JSON.stringify(ingText));
+    formData.append('steps', JSON.stringify(stepsText));
+    formData.append('timeMinutes', document.getElementById('minutes').value);
+    formData.append('image', imageFile);
+
+    for (var key of formData.entries()) {
+        console.log(key[0] + ', ' + key[1]);
     }
-
-    const jsonBody = JSON.stringify(requestBody);
-    console.log(jsonBody)
-
-    console.log(requestBody);
 
     fetch('/recipe/new', {
         method: 'POST',
@@ -137,7 +141,7 @@ recipeForm.addEventListener('submit', function(event) {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(requestBody)
+        body: formData
     })
         .then(response => {
             console.log(response);
@@ -146,6 +150,7 @@ recipeForm.addEventListener('submit', function(event) {
                 recipeForm.reset();
                 ingList.innerHTML = "";
                 stepsList.innerHTML = "";
+                fileInput.value = null;
             } else {
                 throw new Error('Request failed');
             }

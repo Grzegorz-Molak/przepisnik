@@ -87,8 +87,9 @@ function getRecipesFromFolder(folderName){
                 const name = recipe.name;
                 const author = recipe.author;
                 const tags = recipe.tags;
+                const image = recipe.image;
 
-                let recipeDisplay = new Recipe(id,name,author,tags,[],[],0);
+                let recipeDisplay = new Recipe(id,name,author,tags,[],[],0, image);
                 createRecipeAdWithDelete(recipeDisplay,document.getElementById("searchResult"));
             });
         })

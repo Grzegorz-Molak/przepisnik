@@ -33,6 +33,9 @@ fetch(`/recipe/${recipeId}`)
         document.getElementById("rec-name").innerText = recipe.name
         document.getElementById("rec-author").innerText = `Autor: ${recipe.author}`
         document.getElementById("time").innerText = `Czas przygotowania: ${recipe.timeMinutes}min`
+        const imgRecipe = document.getElementById('recipe-image');
+        const base64Image = recipe.image;
+        imgRecipe.src = `data:image/jpeg;base64,${base64Image}`;
         let divTags = document.getElementById("rec-tags")
         createTags(recipe.tags,divTags )
         createOrderedList(recipe.ingredients, "ingredients-list")

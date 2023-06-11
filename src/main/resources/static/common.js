@@ -1,5 +1,5 @@
 export class Recipe{
-    constructor(id, name, author, tags, steps, ingredients, time) {
+    constructor(id, name, author, tags, steps, ingredients, time, image) {
         this.id = id
         this.name = name
         this.author = author
@@ -7,6 +7,7 @@ export class Recipe{
         this.steps = steps
         this.ingredients = ingredients
         this.time = time
+        this.image = image
     }
 }
 
@@ -77,17 +78,19 @@ export function search(searchType,status){
         .then(data => {
             console.log(data);
             data.forEach(recipe => {
+                console.log(recipe)
                 const id = recipe.id;
                 const name = recipe.name;
                 const author = recipe.author;
                 const tags = recipe.tags;
+                const image = recipe.image;
 
                 console.log(`Recipe ID: ${id}`);
                 console.log(`Recipe Name: ${name}`);
                 console.log(`Recipe Author: ${author}`);
                 console.log(`Recipe Tags: ${tags}`);
 
-                let recipeDisplay = new Recipe(id,name,author,tags,[],[],0);
+                let recipeDisplay = new Recipe(id,name,author,tags,[],[],0, image);
                 addRecipeAd(recipeDisplay,document.getElementById("searchResult"));
             });
         })
@@ -120,7 +123,9 @@ export function addRecipeAd(recipe, div) {
         }
     })
     //imgRecipe.src = recipe.image;
-    imgRecipe.src = "img/example.jpg";
+    const base64Image = recipe.image;
+    imgRecipe.src = `data:image/jpeg;base64,${base64Image}`;
+
     h3Name.textContent = recipe.name;
     h5Author.textContent = `Autor: ${recipe.author}`;
     divRecipeAd.appendChild(imgRecipe);
