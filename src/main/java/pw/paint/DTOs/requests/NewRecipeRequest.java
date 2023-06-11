@@ -14,11 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class NewRecipeRequest {
-
     private String name;
     private String author;
     private Boolean status;
-
     private List<String> tags;
     private List<String> ingredients;
     private List<String> steps;

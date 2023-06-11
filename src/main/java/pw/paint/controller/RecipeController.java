@@ -37,12 +37,44 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllTags());
     }
 
+//    @PostMapping("/new")
+//    public ResponseEntity<Void> createNewRecipe(@RequestParam(value = "image", required = false) MultipartFile image, @ModelAttribute NewRecipeRequest newRecipeRequest) {
+//        try {
+//            byte[] imageBytes = (image != null) ? image.getBytes() : null;
+//            return ResponseEntity.created(new URI("/recipe/" +
+//                    recipeService.createNewRecipe(newRecipeRequest, imageBytes))).build();
+//        } catch (UserNotFoundException ex) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT)
+//                    .header("Error-message", ex.getMessage())
+//                    .build();
+//        } catch (Exception ex) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .header("Error-message", ex.getMessage())
+//                    .build();
+//        }
+//    }
+
+//    @PostMapping("/new")
+//    public ResponseEntity<Void> createNewRecipe(@ModelAttribute NewRecipeRequest newRecipeRequest) {
+//        try {
+//            return ResponseEntity.created(new URI("/recipe/" +
+//                    recipeService.createNewRecipe(newRecipeRequest))).build();
+//        } catch (UserNotFoundException ex) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT)
+//                    .header("Error-message", ex.getMessage())
+//                    .build();
+//        } catch (Exception ex) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .header("Error-message", ex.getMessage())
+//                    .build();
+//        }
+//    }
+
     @PostMapping("/new")
-    public ResponseEntity<Void> createNewRecipe(@RequestParam(value = "image", required = false) MultipartFile image, @ModelAttribute NewRecipeRequest newRecipeRequest) {
+    public ResponseEntity<Void> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest) {
         try {
-            byte[] imageBytes = (image != null) ? image.getBytes() : null;
             return ResponseEntity.created(new URI("/recipe/" +
-                    recipeService.createNewRecipe(newRecipeRequest, imageBytes))).build();
+                    recipeService.createNewRecipe(newRecipeRequest))).build();
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
@@ -54,6 +86,21 @@ public class RecipeController {
         }
     }
 
+    @PutMapping("/set-img/{id}")
+    public ResponseEntity<Void> setImage(@PathVariable String id, @ModelAttribute MultipartFile image) {
+        try {
+            return ResponseEntity.created(new URI("/recipe/" +
+                    recipeService.setImage(id, image))).build();
+        } catch (RecipeNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .header("Error-message", ex.getMessage())
+                    .build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .header("Error-message", ex.getMessage())
+                    .build();
+        }
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<RecipeDto> getRecipeById(@PathVariable String id) {

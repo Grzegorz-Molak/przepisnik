@@ -82,7 +82,6 @@ public class RecipeMapper {
     }
 
     public Recipe toModelRecipeObject (NewRecipeRequest request){
-
         Optional<User> author = userRepository.findByUsername(request.getAuthor());
 
         if (author.isEmpty()) {
