@@ -343,6 +343,7 @@ const isValidEmail = email => {
 
 export function logout(){
     localStorage.clear();
+    document.cookie = "token"+'=; Max-Age=-99999999;';
     window.location.href = '/index.html';
 
 }

@@ -1,7 +1,10 @@
 package pw.paint.controller;
 
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +32,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register (@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(service.authenticate(request));
+    public ResponseEntity<AuthenticationResponse> login (@RequestBody AuthenticationRequest request) {
+        var token = service.authenticate(request);
+        HttpHeaders headers = new HttpHeaders();
+
+        ResponseCookie springCookie = ResponseCookie.from("token", token.getToken())
+                .httpOnly(false)
+                .secure(false)
+                .path("/")
+                .maxAge(36000)
+                .build();
+        headers.add(HttpHeaders.SET_COOKIE, springCookie.toString());
+        return new ResponseEntity<>(
+                token, headers, HttpStatus.OK);
     }
 }
