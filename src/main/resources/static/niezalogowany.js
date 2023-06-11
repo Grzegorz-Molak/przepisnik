@@ -1,4 +1,4 @@
-import {closeForm, login, openForm, register,search} from "./common.js";
+import {changeTheme, closeForm, login, openForm, register, search} from "./common.js";
 
 const registrationForm = document.getElementById('form');
 const loginForm = document.getElementById('login-form');
@@ -26,3 +26,12 @@ registrationForm.addEventListener('submit', e => {
     register(e, registrationForm);
 });
 
+//Dark mode
+const toggle = document.getElementById("mode-toggle");
+
+const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (storedTheme)
+    document.documentElement.setAttribute('data-theme', storedTheme)
+toggle.addEventListener('click', function (){
+    changeTheme();
+})
