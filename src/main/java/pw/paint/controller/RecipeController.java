@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
@@ -37,10 +38,10 @@ public class RecipeController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Void> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest) {
+    public ResponseEntity<Void> createNewRecipe(@RequestParam("image") MultipartFile image, @ModelAttribute NewRecipeRequest newRecipeRequest) {
         try {
             return ResponseEntity.created(new URI("/recipe/" +
-                    recipeService.createNewRecipe(newRecipeRequest))).build();
+                    recipeService.createNewRecipe(newRecipeRequest, image.getBytes()))).build();
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
@@ -63,23 +64,6 @@ public class RecipeController {
         }
     }
 
-    @GetMapping("/image/{id}")
-    public ResponseEntity<byte[]> getImage(@PathVariable String id) {
-        try {
-            byte[] image = recipeService.getImage(new ObjectId(id));
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG);
-            headers.setContentLength(image.length);
-
-            return new ResponseEntity<>(image, headers, 200);
-
-        } catch (RecipeNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .header("Error-Message", ex.getMessage())
-                    .build();
-        }
-    }
-
     @PutMapping("/change-status/{id}")
     public ResponseEntity<Void> changeStatus(@PathVariable String id) {
         try {
@@ -91,28 +75,6 @@ public class RecipeController {
                     .build();
         }
     }
-
-//    @GetMapping("/image/{recipeId}")
-//    public ResponseEntity<byte[]> getImage(@PathVariable String recipeId) {
-//        try {
-//            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\recipejpg\\" + recipeId + ".jpg.";
-//            Path filePath = Paths.get(imagePath);
-//            byte[] imageBytes = Files.readAllBytes(filePath);
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.IMAGE_JPEG);
-//            headers.setContentLength(imageBytes.length);
-//
-//            return ResponseEntity.ok()
-//                    .headers(headers)
-//                    .body(imageBytes);
-//
-//        } catch (Exception ex) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .header("Error-Message", ex.getMessage())
-//                    .build();
-//        }
-//    }
 
     @PostMapping("/search")
     public ResponseEntity<List<ShortRecipeDto>> search(@RequestBody SearchRequest searchRequest){

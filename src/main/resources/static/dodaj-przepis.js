@@ -138,7 +138,6 @@ recipeForm.addEventListener('submit', function(event) {
     fetch('/recipe/new', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
         body: formData

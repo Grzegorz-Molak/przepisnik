@@ -15,6 +15,8 @@ import pw.paint.model.User;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,27 +34,6 @@ public class RecipeMapper {
     private TagRepository tagRepository;
 
     public static RecipeDto toRecipeDto(Recipe recipe) {
-//        try {
-//            Path startPath = Paths.get("..\\przepisnik\\src\\main\\resources\\static\\recipejpg");
-//
-//            Optional<String> filePath = Files.walk(startPath)
-//                    .filter(path -> path.toFile().isFile())
-//                    .filter(path -> path.getFileName().toString().equals(recipe.getId() + ".jpg"))
-//                    .map(Path::toString)
-//                    .findFirst();
-//
-//            if (filePath.isPresent())
-//                imageData = Files.readAllBytes(Paths.get(filePath.get()));
-//
-////            String imagePath = "..\\przepisnik\\test.jpg";
-////            Path path = Paths.get(imagePath);
-////            imageData = Files.readAllBytes(path);
-//
-//
-//        } catch (Exception e) {
-//            throw new ImageProcessingException();
-//        }
-
         return RecipeDto.builder()
                 .id(recipe.getId().toString())
                 .name(recipe.getName())
@@ -117,7 +98,6 @@ public class RecipeMapper {
             }
         }
 
-
         return Recipe.builder()
                 .name(request.getName())
                 .ingredients(request.getIngredients())
@@ -126,9 +106,6 @@ public class RecipeMapper {
                 .timeMinutes(request.getTimeMinutes())
                 .author(author.get())
                 .tags(tags)
-                .image(request.getImage())
                 .build();
-
     }
-
 }
