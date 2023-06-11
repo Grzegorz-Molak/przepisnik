@@ -22,4 +22,6 @@ public interface RecipeService {
     void deleteRecipe(ObjectId objectId);
 
     void changeStatus(String id);
+
+    byte[] getImage(ObjectId objectId);
 }

@@ -63,6 +63,23 @@ public class RecipeController {
         }
     }
 
+    @GetMapping("/image/{id}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String id) {
+        try {
+            byte[] image = recipeService.getImage(new ObjectId(id));
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            headers.setContentLength(image.length);
+
+            return new ResponseEntity<>(image, headers, 200);
+
+        } catch (RecipeNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Error-Message", ex.getMessage())
+                    .build();
+        }
+    }
+
     @PutMapping("/change-status/{id}")
     public ResponseEntity<Void> changeStatus(@PathVariable String id) {
         try {

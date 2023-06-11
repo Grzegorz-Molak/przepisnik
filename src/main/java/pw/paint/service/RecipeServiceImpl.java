@@ -91,24 +91,6 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.save(recipe);
         userRepository.save(author.get());
 
-        try {
-//            String imagePath = "..\\przepisnik\\test.jpg";
-//            Path path = Paths.get(imagePath);
-//            byte[] imageData = Files.readAllBytes(path);
-
-            byte[] imageData = newRecipeRequest.getImage();
-
-            if (imageData != null && imageData.length > 0) {
-                String fileName = recipe.getId() + ".jpg";
-                String directory = "..\\przepisnik\\src\\main\\resources\\static\\recipejpg";
-                Path filePath = Paths.get(directory, fileName);
-                Files.write(filePath, imageData);
-            }
-
-        } catch (Exception ex) {
-            throw new ImageProcessingException();
-        }
-
         return recipe.getId();
     }
 
@@ -217,7 +199,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         Optional<Recipe> recipe = recipeRepository.findById(id);
 
-        if (!recipe.isPresent()) throw new RecipeNotFoundException();
+        if (recipe.isEmpty()) throw new RecipeNotFoundException();
 
 
         for (User user : users) {
@@ -250,5 +232,13 @@ public class RecipeServiceImpl implements RecipeService {
             recipe.setStatus(true);
         }
         recipeRepository.save(recipe);
+    }
+
+    @Override
+    public byte[] getImage(ObjectId objectId) {
+        Recipe recipe = recipeRepository.findById(objectId).orElse(null);
+        if (recipe == null)
+            throw new RecipeNotFoundException();
+        return recipe.getImage();
     }
 }
