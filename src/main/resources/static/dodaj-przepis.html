@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
-  <script src="dodaj-przepis.js" defer ></script>
+  <script type="module" defer src="dodaj-przepis.js"  ></script>
+  <script type="module" defer src="zalogowany.js"></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@600&display=swap');
@@ -22,15 +23,15 @@
       </a>
 
     <div class="menu">
-      <form action="/search" class="search w-form" method="get">
-          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch"></span>
-          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch"></span>
+      <form action="/search" class="search w-form" method="post" id="searchForm">
+          <span class="d-block-light d-none"><img src="img/search.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
+          <span class="d-block-dark d-none"><img src="img/search-dark.png" height = "25" alt="" class="imSearch" id="imSearch"></span>
           <input type="search" class = "searchinput w-input" maxlength="256" placeholder="Wyszukaj przepis..." id="search" required="">
         </form>
       <a href="wyszukaj.html" class="menubutton w-button">Wyszukiwanie zaawansowane</a>
       <a href="przepisnik.html" class="menubutton w-button">Mój przepiśnik</a>
       <a href="dodaj-przepis.html" class="menubutton w-button">Dodaj przepis</a>
-      <a href="" class="menubutton w-button">Wyloguj</a>
+      <button class="menubutton w-button register-open" id="wyloguj">Wyloguj</button>
       <button class="menubutton w-button">
           <span class="d-block-light d-none"><img src="img/mode.png" height = "25" alt="" class="imSearch"></span>
           <span class="d-block-dark d-none"><img src="img/mode-dark.png" height = "25" alt="" class="imSearch"></span>
@@ -53,7 +54,7 @@
 
       <fieldset class="nameblock">
         Nazwa
-        <input type="text" class = "nameinput w-input" maxlength="256" id="r-name" required = "">
+        <input type="text" class = "nameinput w-input" maxlength="256" id="ra-name" required = "">
         <div class="upload">
           <input type="file" id="fileInput" name="fileInput" />
         </div>
@@ -188,9 +189,11 @@
           <input type="text" class = "amount w-input" maxlength="5" id="amount"  placeholder="Ilość">
           <input type="text" class = "unit w-input" maxlength="10" id="unit"  placeholder="Np. kg">
         </div>
-        <button class="addbutton" onclick="newElement('ing-list')" type="button">
+        <button class="addbutton" id="ing-button" type="button">
           <span class="d-block-light d-none"><img src="img/add.png" height = "20" alt=""></span>
           <span class="d-block-dark d-none"><img src="img/add-dark.png" height = "20" alt=""></span>
+        <button class="addbutton" id="ing-button" type="button">
+          <img src="img/add.png" alt = "" height="20">
           &nbsp;&nbsp;Dodaj składnik
         </button>
       </fieldset>
@@ -203,7 +206,7 @@
           <input type="text" class = "step w-input" maxlength="256" id="step"  placeholder="Wprowadź instrukcje">
 
         </div>
-        <button onclick="newElement('step-list')" type="button" class="addbutton">
+        <button id="step-button" type="button" class="addbutton">
           <span class="d-block-light d-none"><img src="img/add.png" height = "20" alt=""></span>
           <span class="d-block-dark d-none"><img src="img/add-dark.png" height = "20" alt=""></span>
           &nbsp;&nbsp;Dodaj krok
@@ -217,13 +220,16 @@
         <label for="public">Publiczny</label><br>
       </fieldset>
       <fieldset class="formblock">
-        Czas przygotowania: <br>
-        <input type="time" class="rec-time" value="00:00">
+        Czas przygotowania w minutach: <br>
+        <input type="number" class="rec-time" value="00:00" id="minutes">
       </fieldset>
       <fieldset class="submitset">
         <input type="submit" class="submitbutton" value="Gotowe!">
       </fieldset>
     </form>
+  </div>
+  <div id="searchResult">
+
   </div>
   <footer>
         Autorzy:

@@ -213,6 +213,13 @@ a {
   flex-direction: column;
 }
 
+.form-button-element{
+  margin: 15px 20px 15px 0px;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+}
+
 .form-element.success input{
   border-color: darkgreen;
 }
@@ -253,6 +260,18 @@ a {
   border-radius: 10px;
   cursor: pointer;
   margin-right: -20px;
+}
+
+.choice-btn{
+  width: 20%;
+  height: 40px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #333;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: Exo, sans-serif;
 }
 
 /*Main page*/
@@ -714,13 +733,17 @@ ol li{
 
 /*Homepage, index and search results*/
 .recipead{
-  border: solid;
-  border-width: thin;
+  border: none;
   display: flex;
   margin: 20px;
   padding: 5px;
   background-color: var(--main_light_col);
   color: var(--main_font_col);
+  flex-grow: 1;
+}
+
+.recipead:hover{
+  background-color: #f0f0f0;
 }
 
 .recad-img{
@@ -853,6 +876,7 @@ ol li{
 
 /*Alerty*/
 .alert {
+  display: none;
   position: relative;
   top: 10px;
   left: 0;
@@ -862,7 +886,6 @@ ol li{
   margin: 10px;
   line-height: 1.8;
   border: none;
-  cursor: hand;
   cursor: pointer;
 }
 
@@ -920,6 +943,10 @@ footer {
 
 .column{
     flex-grow: 1;
+}
+
+#share-button {
+  display: none;
 }
 
 /*Darkmode*/
@@ -1132,6 +1159,7 @@ footer {
 [data-theme='dark'] .form-element label{
   font-size: 14px;
 }
+
 
 [data-theme='dark'] .form-element input {
   margin-top: 5px;
@@ -1580,7 +1608,6 @@ footer {
 [data-theme='dark'] .rec-button{
   border: solid;
   border-width: thin;
-  background-color: var(--acc_col);
   display: flex;
   font-size: 15px;
   font-family: Exo, sans-serif;
@@ -1792,7 +1819,6 @@ footer {
   margin: 10px;
   line-height: 1.8;
   border: none;
-  cursor: hand;
   cursor: pointer;
 }
 

@@ -246,7 +246,9 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe recipe = recipeRepository.findById(new ObjectId(id)).orElse(null);
         if (recipe == null)
             throw new RecipeNotFoundException();
-        recipe.setStatus(!recipe.getStatus());
+        if(!recipe.getStatus()){
+            recipe.setStatus(true);
+        }
         recipeRepository.save(recipe);
     }
 }
