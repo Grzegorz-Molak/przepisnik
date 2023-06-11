@@ -119,7 +119,12 @@ recipeForm.addEventListener('submit', function(event) {
     });
 
     console.log(stepsText);
-    const imageFile = fileInput.files[0];
+    let imageFile = fileInput.files[0];
+
+    if(imageFile === null){
+        imageFile = new Image();
+        imageFile.src = '/img/obiad.png'
+    }
 
     const formData = new FormData();
     formData.append('name', document.getElementById('ra-name').value);

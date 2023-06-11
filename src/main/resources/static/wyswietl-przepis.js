@@ -54,11 +54,6 @@ function createOrderedList(list, id){
 
 }
 
-fetch(`/folder/${username}`)
-    .then(response => response.json())
-    .then(names => {
-        addFolders(names)
-    })
 
 function addFolders(names) {
     let select = document.getElementById("sel-folder");
@@ -77,29 +72,38 @@ function addFolders(names) {
 
 const addButton = document.getElementById('add-to-folder');
 
-addButton.addEventListener("click", function (){
-    let chosenFolder = document.getElementById("sel-folder").value;
-    console.log(chosenFolder);
-    fetch(`/folder/add/${username}/${chosenFolder}/${recipeId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => {
-            console.log(response)
-            if (response.ok) {
-                alert('Dodano do folderu');
-            } else {
-                message = response.getAllResponseHeaders()
-                throw new Error(message);
+if(addButton) {
+    addButton.addEventListener("click", function () {
+        let chosenFolder = document.getElementById("sel-folder").value;
+        console.log(chosenFolder);
+        fetch(`/folder/add/${username}/${chosenFolder}/${recipeId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
-        .catch(error => {
-            console.error(error.message);
-            alert('Coś poszło nie tak');
-        });
-})
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    alert('Dodano do folderu');
+                } else {
+                    message = response.getAllResponseHeaders()
+                    throw new Error(message);
+                }
+            })
+            .catch(error => {
+                console.error(error.message);
+                alert('Coś poszło nie tak');
+            });
+    })
+
+    fetch(`/folder/${username}`)
+        .then(response => response.json())
+        .then(names => {
+            addFolders(names)
+        })
+
+}
 
 const searchForm= document.getElementById('searchForm')
 

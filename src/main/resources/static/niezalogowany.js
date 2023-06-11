@@ -13,13 +13,13 @@ loginForm.addEventListener('submit', function(event) {
 const registerOpen = document.getElementById('register-open');
 const registerClose = document.getElementById('register-close');
 registerOpen.addEventListener('click', function() {
-    openForm()
+    openForm('rejestracja')
 })
 
 registerClose.addEventListener('click', function() {
     closeForm()
 })
-
+localStorage.clear();
 //Processing registration form
 registrationForm.addEventListener('submit', e => {
     e.preventDefault();
