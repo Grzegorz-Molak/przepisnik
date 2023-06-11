@@ -17,5 +17,6 @@ public class ShortRecipeDto {
     private String name;
     private String author;
     private List<String> tags;
+    private byte[] image;
 
 }

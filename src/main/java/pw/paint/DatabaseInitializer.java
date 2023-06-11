@@ -9,6 +9,9 @@ import pw.paint.repository.RecipeRepository;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -102,6 +105,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             ingredients.add("oliwa 3 łyżki");
             recipe1.setIngredients(ingredients);
 
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\kotlet.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe1.setImage(Files.readAllBytes(filePath));
+
             List<String> steps = new ArrayList<>();
             steps.add("Cebulę obierz i drobno posiekaj.");
             steps.add("Na patelni rozgrzej oliwę. Dodaj wołowinę i cebulę. Smaż wszystko przez kilka minut do zrumienienia. Dopraw solą i pieprzem. W razie potrzeby odcedź tłuszcz.");
@@ -165,6 +172,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Smażyć na oleju.");
             recipe2.setSteps(steps);
 
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\placki.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe2.setImage(Files.readAllBytes(filePath));
+
             List<Tag> tags = new ArrayList<>();
             Optional<Tag> tag = tagRepository.findByName("deser");
             if (tag.isPresent()) {
@@ -223,6 +234,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Do ziemniaków dodać mąkę, drobno startą cebulę, jajko i sól.");
             steps.add("Masę wymieszać i smażyć małe porcje ciasta na rozgrzanym oleju na złoty kolor.");
             recipe3.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\placki2.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe3.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
             Optional<Tag> tag = tagRepository.findByName("obiad");

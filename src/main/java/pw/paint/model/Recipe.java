@@ -26,7 +26,7 @@ public class Recipe {
     private List<String> ingredients;
     private List<String> steps;
     private Integer timeMinutes;
-
+    private byte[] image;
 
     //TO DO PHOTO VARIABLE
 

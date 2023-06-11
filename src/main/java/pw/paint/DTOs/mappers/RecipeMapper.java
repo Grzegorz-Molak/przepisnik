@@ -32,9 +32,6 @@ public class RecipeMapper {
     private TagRepository tagRepository;
 
     public static RecipeDto toRecipeDto(Recipe recipe) {
-
-        byte[] imageData = null;
-
 //        try {
 //            Path startPath = Paths.get("..\\przepisnik\\src\\main\\resources\\static\\recipejpg");
 //
@@ -65,7 +62,7 @@ public class RecipeMapper {
                 .timeMinutes(recipe.getTimeMinutes())
                 .author(recipe.getAuthor().getUsername())
                 .tags(getTags(recipe.getTags()))
-                .image(imageData)
+                .image(recipe.getImage())
                 .build();
     }
 
@@ -91,6 +88,7 @@ public class RecipeMapper {
                 .name(recipe.getName())
                 .author(recipe.getAuthor().getUsername())
                 .tags(getTags(recipe.getTags()))
+                .image(recipe.getImage())
                 .build();
     }
 
@@ -106,7 +104,7 @@ public class RecipeMapper {
 
         Optional<User> author = userRepository.findByUsername(request.getAuthor());
 
-        if (!author.isPresent()) {
+        if (author.isEmpty()) {
             return null;
         }
 
@@ -128,6 +126,7 @@ public class RecipeMapper {
                 .timeMinutes(request.getTimeMinutes())
                 .author(author.get())
                 .tags(tags)
+                .image(request.getImage())
                 .build();
 
     }
