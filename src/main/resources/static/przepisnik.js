@@ -8,7 +8,7 @@ searchForm.addEventListener("submit", e =>  {
 });
 
 const folderNameElement = document.getElementById("folder-name");
-let folderElementNameText = folderNameElement.textContent;
+const folderElementNameText = folderNameElement.innerText;
 function createRecipeAdWithDelete(recipe){
     let folderContentDiv = document.getElementById("folder-content-recipes")
     let newDiv = document.createElement("div");
@@ -42,8 +42,7 @@ function createRecipeAdWithDelete(recipe){
                         folderContentDiv.innerHTML = '';
                         getRecipesFromFolder(folderElementNameText);
                     } else {
-                        message = response.getAllResponseHeaders()
-                        throw new Error(message);
+                        throw new Error();
                     }
                 })
                 .catch(error => {
@@ -68,6 +67,11 @@ function addFolderButtons(folderNames) {
         folderButton.innerText = folderName;
         folderButton.addEventListener("click", function (){
             folderNameElement.textContent = folderName;
+            if(folderName === "moje autorskie przepisy" || folderName === "moje ulubione przepisy"){
+                deleteFolderButton.style.display = "none";
+            }else{
+                deleteFolderButton.style.display = "flex";
+            }
             let folderContentDiv = document.getElementById("folder-content-recipes")
             folderContentDiv.innerHTML = '';
             getRecipesFromFolder(folderName);
@@ -100,7 +104,7 @@ newNameForm.addEventListener('submit', function (){
     })
         .then(response => {
             if (response.ok) {
-                fetch(`/folder/${author}`)
+                fetch(`/folder/${username}`)
                     .then(response => response.json())
                     .then(names => {
                         addFolderButtons(names)
@@ -122,12 +126,6 @@ const deleteYes = document.getElementById('yes-button');
 const deleteNo = document.getElementById('no-button');
 const deleteFolderButton = document.getElementById('deleteFolder');
 
-if(folderElementNameText === "moje autorskie przepisy" && folderElementNameText === "moje ulubione przepisy"){
-    deleteFolderButton.style.display = "none";
-}else{
-    deleteFolderButton.style.display = "block";
-}
-
 deleteFolderButton.addEventListener("click", function (){
     openForm('confirm');
     localStorage.setItem('whatdelete','folder');
@@ -143,9 +141,9 @@ deleteNo.addEventListener('click', function (){
 
 deleteYes.addEventListener('click', function (){
     const whatDelete = localStorage.getItem('whatdelete');
-
+    let folderName = document.getElementById('folder-name').textContent
     if(whatDelete === 'folder'){
-        fetch(`/folder/${username}/${folderElementNameText}`, {
+        fetch(`/folder/${username}/${folderName}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -155,11 +153,10 @@ deleteYes.addEventListener('click', function (){
                 console.log(response)
                 if (response.ok) {
                     alert('usunięto folder');
-                    folderNameElement.textContent = 'moje autorskie przepisy';
-                    getRecipesFromFolder('moje autorskie przepisy');
+
+                    getFolders();
                 } else {
-                    message = response.getAllResponseHeaders()
-                    throw new Error(message);
+                    throw new Error();
                 }
             })
             .catch(error => {
@@ -195,17 +192,19 @@ deleteYes.addEventListener('click', function (){
     closeFromId('confirm');
 })
 
-
-const author = localStorage.getItem('username');
 function getRecipesFromFolder(folderName){
-    fetch(`/folder/${author}/${folderName}`)
+    fetch(`/folder/${username}/${folderName}`)
         .then(response => {
+            console.log(response)
             if (response.ok) {
                 return response.json();
+            }else{
+                throw new Error();
             } })
         .then(data => {
             console.log(data);
             if(data!==undefined){
+                document.getElementById('folder-content-recipes').innerHTML = '';
                 data.forEach(recipe => {
                     const id = recipe.id;
                     const name = recipe.name;
@@ -222,11 +221,13 @@ function getRecipesFromFolder(folderName){
             console.error(error.message);
         });
 }
-
-fetch(`/folder/${author}`)
-    .then(response => response.json())
-    .then(names => {
-        addFolderButtons(names)
-        folderNameElement.textContent = names[0];
-        getRecipesFromFolder(names[0]);
-    })
+getFolders();
+function getFolders(){
+    fetch(`/folder/${username}`)
+        .then(response => response.json())
+        .then(names => {
+            addFolderButtons(names)
+            folderNameElement.textContent = names[0];
+            getRecipesFromFolder(names[0]);
+        })
+}
