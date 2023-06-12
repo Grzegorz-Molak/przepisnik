@@ -146,7 +146,8 @@ recipeForm.addEventListener('submit', function(event) {
         .then(response => {
             console.log(response);
             if (response.ok) {
-                return response.json();
+                // return response.json();
+                return response.text();
             } else {
                 throw new Error('Request failed');
             }
@@ -158,7 +159,7 @@ recipeForm.addEventListener('submit', function(event) {
             const formData = new FormData();
             formData.append('image',imageFile);
             alert('Przepis został dodany');
-            fetch(`/recipe/setImage/${id}`, {
+            fetch(`/recipe/set-img/${id}`, {
                 method: 'PUT',
                 body: formData
             })

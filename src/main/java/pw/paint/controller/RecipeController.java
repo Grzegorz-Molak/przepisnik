@@ -82,8 +82,10 @@ public class RecipeController {
                         .header("Error-message", "Forbidden")
                         .build();
             }
+            String s = recipeService.createNewRecipe(newRecipeRequest).toString();
+            System.out.println(s);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(recipeService.createNewRecipe(newRecipeRequest).toString());
+                    .body(s);
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
@@ -94,6 +96,8 @@ public class RecipeController {
                     .build();
         }
     }
+
+
 
 
     @PutMapping("/set-img/{id}")
