@@ -74,7 +74,7 @@ public class RecipeController {
 //    }
 
     @PostMapping("/new")
-    public ResponseEntity<ObjectId> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest,
+    public ResponseEntity<String> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest,
                                                 @CookieValue(name = "token", required = false) String token ) {
         try {
             if(token == null || !newRecipeRequest.getAuthor().equals(jwtService.extractUsername(token))){
@@ -83,7 +83,7 @@ public class RecipeController {
                         .build();
             }
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(recipeService.createNewRecipe(newRecipeRequest));
+                    .body(recipeService.createNewRecipe(newRecipeRequest).toString());
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
