@@ -201,8 +201,7 @@ export function login(loginForm){
             if (response.ok) {
                 return response.json();
             } else {
-                message = response.getAllResponseHeaders()
-                throw new Error(message);
+                throw new Error();
             }
         })
         .then(data => {
@@ -343,6 +342,7 @@ const isValidEmail = email => {
 
 export function logout(){
     localStorage.clear();
+    document.cookie = "token"+'=; Max-Age=-99999999;';
     window.location.href = '/index.html';
 
 }

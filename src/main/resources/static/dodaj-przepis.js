@@ -119,40 +119,67 @@ recipeForm.addEventListener('submit', function(event) {
     });
 
     console.log(stepsText);
-    const imageFile = fileInput.files[0];
 
-    const formData = new FormData();
-    formData.append('name', document.getElementById('ra-name').value);
-    formData.append('author', localStorage.getItem('username'));
-    formData.append('status', status);
-    formData.append('tags', JSON.stringify(checkedValues));
-    formData.append('ingredients', JSON.stringify(ingText));
-    formData.append('steps', JSON.stringify(stepsText));
-    formData.append('timeMinutes', document.getElementById('minutes').value);
-    formData.append('image', imageFile);
-
-    for (var key of formData.entries()) {
-        console.log(key[0] + ', ' + key[1]);
+    const requestBody = {
+        name: document.getElementById('ra-name').value,
+        author: localStorage.getItem('username'),
+        status: status,
+        tags: checkedValues,
+        ingredients: ingText,
+        steps: stepsText,
+        timeMinutes: document.getElementById('minutes').value
     }
+
+    const jsonBody = JSON.stringify(requestBody);
+    console.log(jsonBody)
+
+    console.log(requestBody);
 
     fetch('/recipe/new', {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: formData
+        body: JSON.stringify(requestBody)
     })
         .then(response => {
             console.log(response);
             if (response.ok) {
-                alert('Przepis został dodany');
-                recipeForm.reset();
-                ingList.innerHTML = "";
-                stepsList.innerHTML = "";
-                fileInput.value = null;
+                // return response.json();
+                return response.text();
             } else {
                 throw new Error('Request failed');
             }
+        })
+        .then(id => {
+            console.log(id);
+            const imageFile = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append('image',imageFile);
+            alert('Przepis został dodany');
+            fetch(`/recipe/set-img/${id}`, {
+                method: 'PUT',
+                body: formData
+            })
+                .then(response => {
+                    console.log(response)
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        message = response.getAllResponseHeaders()
+                        throw new Error(message);
+                    }
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    alert('Coś poszło nie tak');
+                });
+            recipeForm.reset();
+            ingList.innerHTML = "";
+            stepsList.innerHTML = "";
+            fileInput.value = null;
         })
         .catch(error => {
             console.error(error);

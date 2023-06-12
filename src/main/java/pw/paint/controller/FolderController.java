@@ -12,6 +12,7 @@ import pw.paint.exception.RecipeAlreadyInFolder;
 import pw.paint.exception.RecipeNotFoundException;
 import pw.paint.exception.UserNotFoundException;
 import pw.paint.service.FolderService;
+import pw.paint.service.JwtService;
 
 import java.net.URI;
 import java.util.List;
@@ -21,10 +22,16 @@ import java.util.List;
 @RequestMapping("/folder")
 public class FolderController {
     private final FolderService folderService;
-
+    private  final JwtService jwtService;
     @GetMapping("/{username}")
-    public ResponseEntity<List<String>> getUserFolders(@PathVariable String username) {
+    public ResponseEntity<List<String>> getUserFolders(@PathVariable String username,
+                                                       @CookieValue(name = "token", required = false) String token) {
         try {
+            if(token == null || !jwtService.extractUsername(token).equals(username)){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .header("Error-message", "Forbidden")
+                        .build();
+            }
             return ResponseEntity.ok(folderService.getFoldersNames(username));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -33,8 +40,14 @@ public class FolderController {
         }
     }
     @GetMapping("/{username}/{folderName}")
-    public ResponseEntity<List<ShortRecipeDto>> getRecipesFromFolder(@PathVariable String username,@PathVariable String folderName) {
+    public ResponseEntity<List<ShortRecipeDto>> getRecipesFromFolder(@PathVariable String username,@PathVariable String folderName,
+    @CookieValue(name = "token", required = false) String token) {
         try {
+            if(token == null || !jwtService.extractUsername(token).equals(username)){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .header("Error-message", "Forbidden")
+                        .build();
+            }
             return ResponseEntity.ok(folderService.getRecipesFromFolder(username, folderName));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -44,8 +57,14 @@ public class FolderController {
     }
 
     @PostMapping("/new/{username}/{folderName}")
-    public ResponseEntity<Void> createNewFolder(@PathVariable String username, @PathVariable String folderName){
+    public ResponseEntity<Void> createNewFolder(@PathVariable String username, @PathVariable String folderName,
+                                                @CookieValue(name = "token", required = false) String token){
         try {
+            if(token == null || !jwtService.extractUsername(token).equals(username)){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .header("Error-message", "Forbidden")
+                        .build();
+            }
             folderService.createNewFolder(username, folderName);
             return ResponseEntity.created(new URI("/folder/" + username)).build();
         } catch (UserNotFoundException | FolderNotFoundException ex) {
@@ -58,8 +77,14 @@ public class FolderController {
     }
 
     @PutMapping("/add/{username}/{folderName}/{recipeId}")
-    public ResponseEntity<Void> addRecipeToFolder(@PathVariable String username, @PathVariable String folderName, @PathVariable String recipeId) {
+    public ResponseEntity<Void> addRecipeToFolder(@PathVariable String username, @PathVariable String folderName, @PathVariable String recipeId,
+                                                  @CookieValue(name = "token", required = false) String token) {
         try {
+            if(token == null || !jwtService.extractUsername(token).equals(username)){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .header("Error-message", "Forbidden")
+                        .build();
+            }
             return ResponseEntity.created(new URI("/recipe/" +
                     folderService.addRecipeToFolder(username,folderName,recipeId))).build();
         }catch (RecipeAlreadyInFolder e) {
@@ -75,8 +100,14 @@ public class FolderController {
 
 
     @DeleteMapping("/{username}/{folderName}")
-    public ResponseEntity<String> deleteFolder(@PathVariable String username,@PathVariable String folderName){
+    public ResponseEntity<String> deleteFolder(@PathVariable String username,@PathVariable String folderName,
+                                               @CookieValue(name = "token", required = false) String token){
         try {
+            if(token == null || !jwtService.extractUsername(token).equals(username)){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .header("Error-message", "Forbidden")
+                        .build();
+            }
             return ResponseEntity.ok(folderService.deleteFolder(username, folderName));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -86,9 +117,15 @@ public class FolderController {
     }
 
     @DeleteMapping("/{username}/{folderName}/{recipeId}")
-    public ResponseEntity<String> deleteRecipeFromFolder(@PathVariable String username,@PathVariable String folderName, @PathVariable String recipeId){
+    public ResponseEntity<String> deleteRecipeFromFolder(@PathVariable String username,@PathVariable String folderName, @PathVariable String recipeId,
+                                                         @CookieValue(name = "token", required = false) String token){
 
         try {
+            if(token == null || !jwtService.extractUsername(token).equals(username)){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .header("Error-message", "Forbidden")
+                        .build();
+            }
             return ResponseEntity.ok(folderService.deleteRecipeFromFolder(username, folderName,recipeId));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

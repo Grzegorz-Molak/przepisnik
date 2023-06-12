@@ -20,9 +20,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable String id) {
+    public ResponseEntity<UserDto> getUser(@PathVariable String id,
+                                           @CookieValue(name = "token", required = false) String token ) {
         try {
-            return ResponseEntity.ok(userService.getUserById(new ObjectId(id)));
+            var user = userService.getUserById(new ObjectId(id));
+            if(token == null || !user.getUserName().equals(jwtService.extractUsername(token))){
+                ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .header("Error-Message", "Access forbidden")
+                        .build();
+            }
+            return ResponseEntity.ok(user);
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .header("Error-Message", ex.getMessage())

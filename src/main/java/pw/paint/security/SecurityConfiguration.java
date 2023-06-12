@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -23,9 +24,11 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/**")
-                .permitAll()
-                .anyRequest()
+                .requestMatchers(
+                        "/homepage.html",
+                        "/dodaj-przepis.html",
+                        "/przepisnik.html"
+                )
                 .authenticated()
                 .and()
                 .sessionManagement()
@@ -33,6 +36,32 @@ public class SecurityConfiguration {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+                .csrf()
+                .disable()
+                .authorizeHttpRequests()
+                .requestMatchers(new RegexRequestMatcher("/recipe/*", "PUT"),
+                        new RegexRequestMatcher("/recipe/new/*", "POST"),
+                        new RegexRequestMatcher("/recipe/search/private/*", "POST"),
+                        new RegexRequestMatcher("/recipe/*", "DELETE"),
+                        new RegexRequestMatcher("/folder/*", "PUT"),
+                        new RegexRequestMatcher("/folder/*", "POST"),
+                        new RegexRequestMatcher("/folder/*", "DELETE")
+                )
+                .authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http
+                .csrf()
+                .disable()
+                .authorizeHttpRequests()
+                .anyRequest()
+                .permitAll();
 
         return http.build();
     }
