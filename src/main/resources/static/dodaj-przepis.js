@@ -146,14 +146,39 @@ recipeForm.addEventListener('submit', function(event) {
         .then(response => {
             console.log(response);
             if (response.ok) {
-                alert('Przepis został dodany');
-                recipeForm.reset();
-                ingList.innerHTML = "";
-                stepsList.innerHTML = "";
-                fileInput.value = null;
+                return response.json();
             } else {
                 throw new Error('Request failed');
             }
+        })
+        .then(id => {
+            console.log(id);
+            const imageFile = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append('image',imageFile);
+            alert('Przepis został dodany');
+            fetch(`/recipe/setImage/${id}`, {
+                method: 'PUT',
+                body: formData
+            })
+                .then(response => {
+                    console.log(response)
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        message = response.getAllResponseHeaders()
+                        throw new Error(message);
+                    }
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    alert('Coś poszło nie tak');
+                });
+            recipeForm.reset();
+            ingList.innerHTML = "";
+            stepsList.innerHTML = "";
+            fileInput.value = null;
         })
         .catch(error => {
             console.error(error);

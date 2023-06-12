@@ -74,7 +74,7 @@ public class RecipeController {
 //    }
 
     @PostMapping("/new")
-    public ResponseEntity<Void> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest,
+    public ResponseEntity<ObjectId> createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest,
                                                 @CookieValue(name = "token", required = false) String token ) {
         try {
             if(token == null || !newRecipeRequest.getAuthor().equals(jwtService.extractUsername(token))){
@@ -82,8 +82,8 @@ public class RecipeController {
                         .header("Error-message", "Forbidden")
                         .build();
             }
-            return ResponseEntity.created(new URI("/recipe/" +
-                    recipeService.createNewRecipe(newRecipeRequest))).build();
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(recipeService.createNewRecipe(newRecipeRequest));
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
@@ -94,6 +94,7 @@ public class RecipeController {
                     .build();
         }
     }
+
 
     @PutMapping("/set-img/{id}")
     public ResponseEntity<Void> setImage(@PathVariable String id, @ModelAttribute MultipartFile image,

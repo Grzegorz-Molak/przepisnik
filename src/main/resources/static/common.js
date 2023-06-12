@@ -201,8 +201,7 @@ export function login(loginForm){
             if (response.ok) {
                 return response.json();
             } else {
-                message = response.getAllResponseHeaders()
-                throw new Error(message);
+                throw new Error();
             }
         })
         .then(data => {
