@@ -292,6 +292,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         try {
             recipe.setImage(image.getBytes());
+            recipeRepository.save(recipe);
         } catch (Exception ex) {
             throw new ImageProcessingException();
         }

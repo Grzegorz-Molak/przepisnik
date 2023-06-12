@@ -82,10 +82,8 @@ public class RecipeController {
                         .header("Error-message", "Forbidden")
                         .build();
             }
-            String s = recipeService.createNewRecipe(newRecipeRequest).toString();
-            System.out.println(s);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(s);
+                    .body(recipeService.createNewRecipe(newRecipeRequest).toString());
         } catch (UserNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
@@ -97,9 +95,6 @@ public class RecipeController {
         }
     }
 
-
-
-
     @PutMapping("/set-img/{id}")
     public ResponseEntity<Void> setImage(@PathVariable String id, @ModelAttribute MultipartFile image,
                                          @CookieValue(name = "token", required = false) String token ) {
@@ -109,8 +104,8 @@ public class RecipeController {
                         .header("Error-message", "Forbidden")
                         .build();
             }
-            return ResponseEntity.created(new URI("/recipe/" +
-                    recipeService.setImage(id, image))).build();
+            recipeService.setImage(id, image);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (RecipeNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .header("Error-message", ex.getMessage())
