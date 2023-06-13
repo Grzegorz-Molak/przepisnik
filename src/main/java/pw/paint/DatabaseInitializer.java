@@ -683,6 +683,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             List<Tag> tags = new ArrayList<>();
             Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
             tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            tag = tagRepository.findByName("polskie").get();tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
