@@ -13,6 +13,9 @@ export class Recipe{
 
 export function search(searchType,status){
     let requestBody;
+    let searchInput;
+    searchInput = '/recipe/search'
+
     if(searchType === 'empty'){
         requestBody = {
             pageNumber: 0,
@@ -48,6 +51,7 @@ export function search(searchType,status){
 
         if(!status){
              author = localStorage.getItem('username');
+            searchInput = '/recipe/search/private'
         }else{
             author = "";
         }
@@ -61,7 +65,8 @@ export function search(searchType,status){
         document.getElementById("searchResult").innerHTML = "";
     }
     console.log(requestBody);
-    fetch('/recipe/search', {
+
+    fetch(searchInput, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -77,6 +82,9 @@ export function search(searchType,status){
         })
         .then(data => {
             console.log(data);
+            if(data.length === 0){
+                document.getElementById("searchResult").innerHTML = 'Nie ma przepisów spełniających twoje kryteria wyszukiwania'
+            }
             data.forEach(recipe => {
                 console.log(recipe)
                 const id = recipe.id;
@@ -96,7 +104,7 @@ export function search(searchType,status){
         })
         .catch(error => {
             console.error(error);
-            alert('Coś poszło nie tak');
+            document.getElementById("searchResult").innerHTML = 'Nie ma przepisów spełniających twoje kryteria wyszukiwania'
         });
 }
 export function addRecipeAd(recipe, div) {
@@ -220,7 +228,7 @@ export function login(loginForm){
         })
         .catch(error => {
             console.error(error.message);
-            alert('Niepoprawny login lub hasło');
+            showNotification('Niepoprawny login lub hasło');
         });
 }
 
@@ -243,7 +251,7 @@ export function register(e, registrationForm){
             .then(response => {
                 if (response.ok) {
                     console.log(response)
-                    alert('Gratulacje! Zarejestrowałeś się');
+                    showNotification('Gratulacje! Zarejestrowałeś się');
                     closeForm();
                 } else {
                     throw new Error('Registration failed');
@@ -251,12 +259,7 @@ export function register(e, registrationForm){
             })
             .catch(error => {
                 console.error(error.message);
-                alert('Istnieje już użytkownik o takiej nazwie');
-                document.getElementById("form").reset();
-                setDefault(username);
-                setDefault(email);
-                setDefault(password);
-                setDefault(password2);
+                setError(username, 'Istnieje już użytkownik o takiej nazwie');
             });
     }
 }
@@ -358,7 +361,6 @@ export function changeTheme(){
     if (currentTheme === "light") {
         targetTheme = "dark";
     }
-
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
 }

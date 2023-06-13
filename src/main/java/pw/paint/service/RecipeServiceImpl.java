@@ -25,10 +25,7 @@ import pw.paint.repository.UserRepository;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -145,9 +142,8 @@ public class RecipeServiceImpl implements RecipeService {
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(true, pageable).getContent()));
             if (status == false) {
-                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
+                    recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
             }
-
             return recipes;
         }
 

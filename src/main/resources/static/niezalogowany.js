@@ -19,7 +19,7 @@ registerOpen.addEventListener('click', function() {
 registerClose.addEventListener('click', function() {
     closeForm()
 })
-localStorage.clear();
+localStorage.removeItem('username');
 //Processing registration form
 registrationForm.addEventListener('submit', e => {
     e.preventDefault();

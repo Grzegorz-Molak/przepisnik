@@ -164,16 +164,17 @@ public class RecipeController {
     }
 
     @PostMapping("/search/private")
-    public ResponseEntity<List<ShortRecipeDto>> searchPrivate(@RequestBody SearchRequest searchRequest,
-                                                              @CookieValue(name = "token", required = false) String token ){
-
+    public ResponseEntity<List<ShortRecipeDto>> searchPrivate(@RequestBody SearchRequest searchRequest){
+/*
         //TO DO sprawdzanie uprawnień czy podany autor w request body to user z tokenu
-        if(token == null || !searchRequest.getAuthor().equals(jwtService.extractUsername(token))){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .header("Error-message", "Forbidden")
-                    .build();
-        }
+//        if(token == null || !searchRequest.getAuthor().equals(jwtService.extractUsername(token))){
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+//                    .header("Error-message", "Forbidden")
+//                    .build();
+//        }
 
+
+ */
         Pageable pageable = PageRequest.of(searchRequest.getPageNumber(),searchRequest.getPageSize());
         return ResponseEntity.ok(recipeService.search(searchRequest.getAuthor(),
                 searchRequest.getKeyword(), searchRequest.getTags(), false,pageable));

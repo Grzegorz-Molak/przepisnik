@@ -205,7 +205,7 @@ a {
 
 .usr-input{
   background-color: var(--main_light_col);
-  color: var(--main_font_col)
+  color: var(--main_font_col);
   border: 1px solid;
   font-family: Exo, sans-serif;
   font-weight: 600;
