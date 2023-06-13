@@ -104,7 +104,7 @@ export function search(searchType,status){
         })
         .catch(error => {
             console.error(error);
-            showNotification('Coś poszło nie tak');
+            document.getElementById("searchResult").innerHTML = 'Nie ma przepisów spełniających twoje kryteria wyszukiwania'
         });
 }
 export function addRecipeAd(recipe, div) {
