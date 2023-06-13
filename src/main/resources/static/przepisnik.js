@@ -98,10 +98,12 @@ function addFolderButtons(folderNames) {
 const newNameText = document.getElementById('new-folder-name');
 const newNameClose = document.getElementById('edit-close');
 const newNameForm = document.getElementById('form');
+const newConfirmButton = document.getElementById('name-confirm');
 newNameClose.addEventListener("click", function (){
-    closeFromId('new-name');
+    document.getElementById('new-name').style.display = "none";
+    newNameClose.innerText = '';
 })
-newNameForm.addEventListener('submit', function (){
+newConfirmButton.addEventListener('click', function (){
     const folderName = newNameText.value;
     fetch(`/folder/new/${username}/${folderName}`, {
         method: 'POST',
@@ -112,6 +114,8 @@ newNameForm.addEventListener('submit', function (){
         .then(response => {
             console.log(response);
             if (response.ok) {
+                document.getElementById('new-name').style.display = "none";
+                newNameText.innerText = '';
                 fetch(`/folder/${username}`)
                     .then(response => response.json())
                     .then(names => {
@@ -163,7 +167,6 @@ deleteYes.addEventListener('click', function (){
                 if (response.ok) {
                     alert('usunięto folder');
                     document.getElementById("tabs").innerHTML = '';
-
                     getFolders();
                 } else {
                     throw new Error();
@@ -198,7 +201,7 @@ deleteYes.addEventListener('click', function (){
     }
 
     localStorage.removeItem('whatdelete')
-    closeFromId('confirm');
+    document.getElementById('confirm').style.display = "none";
 })
 
 function getRecipesFromFolder(folderName){

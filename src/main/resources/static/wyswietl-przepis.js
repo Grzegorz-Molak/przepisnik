@@ -87,8 +87,7 @@ if(addButton) {
                 if (response.ok) {
                     alert('Dodano do folderu');
                 } else {
-                    message = response.getAllResponseHeaders()
-                    throw new Error(message);
+                    throw new Error();
                 }
             })
             .catch(error => {

@@ -42,19 +42,19 @@
     <div class="mainpage">
       <div class="form-popup" id="new-name">
         <button type="button" class="close-btn" id="edit-close">&times;</button>
-        <form class="formContainer" id="form">
+        <div class="formContainer" >
           <div class="form-element">
             <label for="new-folder-name">Wpisz nazwę nowego folderu:</label>
             <input type="text" placeholder="nazwa" id="new-folder-name">
           </div>
           <div class ="form-element">
-            <button type="submit" class="confirm-button">Zatwierdź</button>
+            <button type="button" class="confirm-button" id="name-confirm">Zatwierdź</button>
           </div>
-        </form>
+        </div>
       </div>
       <div class="form-popup" id="confirm">
         <button type="button" class="close-btn" id="delete-close">&times;</button>
-        <form class="formContainer">
+        <form class="formContainer" id="form">
           <div class="form-element">
             <label>Czy na pewno chcesz usunąć ... ?</label>
           </div>
