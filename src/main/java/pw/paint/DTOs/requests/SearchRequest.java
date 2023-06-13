@@ -12,12 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchRequest {
-
     int pageNumber ;
     int pageSize ;
-
     String author;
     String keyword;
     List<String> tags;
-
 }

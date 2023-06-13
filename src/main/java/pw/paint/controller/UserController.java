@@ -10,14 +10,12 @@ import pw.paint.exception.UserNotFoundException;
 import pw.paint.service.JwtService;
 import pw.paint.service.UserService;
 
-import java.util.List;
-
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final JwtService jwtService;
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable String id,
@@ -35,17 +33,5 @@ public class UserController {
                     .header("Error-Message", ex.getMessage())
                     .build();
         }
-    }
-
-    //strefa testów do usunięcia na koniec
-    @GetMapping
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    private final JwtService jwtService;
-    @GetMapping("/test/{token}")
-    public String getME(@PathVariable String token) {
-        return jwtService.extractUsername(token);
     }
 }

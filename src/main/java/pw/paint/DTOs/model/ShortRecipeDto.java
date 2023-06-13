@@ -12,11 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ShortRecipeDto {
-
     private String id;
     private String name;
     private String author;
     private List<String> tags;
     private byte[] image;
-
 }

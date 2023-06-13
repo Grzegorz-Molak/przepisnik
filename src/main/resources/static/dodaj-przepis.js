@@ -74,7 +74,7 @@ function newElement(elementID) {
 const privateRadio = document.getElementById('private');
 const publicRadio = document.getElementById('public');
 
-let status;
+let status = true;
 privateRadio.addEventListener('click', function() {
     status = false;
 });
