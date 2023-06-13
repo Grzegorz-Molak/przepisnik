@@ -25,10 +25,7 @@ import pw.paint.repository.UserRepository;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -138,14 +135,17 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
-    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable) {
+    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable, String user) {
 
         List<ShortRecipeDto> recipes = new ArrayList<>();
 
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(true, pageable).getContent()));
             if (status == false) {
-                recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
+                List<ShortRecipeDto> recipesPriv = new ArrayList<>();
+                    recipesPriv.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
+                    recipesPriv = recipesPriv.stream().filter(recipe -> Objects.equals(recipe.getAuthor(), user)).toList();
+                    recipes.addAll(recipesPriv);
             }
 
             return recipes;

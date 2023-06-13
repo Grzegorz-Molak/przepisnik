@@ -15,7 +15,7 @@ public interface RecipeService {
 //    ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest, byte[] imageBytes);
     ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest);
 
-    List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable);
+    List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable, String user);
 
     RecipeDto getRecipeById(ObjectId id_);
 
