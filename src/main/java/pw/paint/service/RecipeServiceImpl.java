@@ -64,7 +64,7 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe recipe = recipeMapper.toModelRecipeObject(newRecipeRequest);
 
         try {
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\img\\obiad.png";
+            String imagePath = "src/main/resources/static/img/obiad.png";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
         } catch (Exception ex) {

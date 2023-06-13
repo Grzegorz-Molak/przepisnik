@@ -50,7 +50,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             ingredients.add("oliwa 3 łyżki");
             recipe.setIngredients(ingredients);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\kotlet.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/kotlet.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -87,7 +87,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             ingredients.add("Pieprz szczypta");
             recipe.setIngredients(ingredients);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe2.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe2.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -137,7 +137,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             recipe.setIngredients(ingredients);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe3.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe3.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -186,7 +186,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Smażyć na oleju.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\placki.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/placki.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -218,7 +218,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Masę wymieszać i smażyć małe porcje ciasta na rozgrzanym oleju na złoty kolor.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\placki2.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/placki2.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -254,7 +254,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Do sosu wrzucić makaron z odrobiną wody z makaronu i wymieszać.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe4.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe4.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -292,7 +292,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Gotować na papkę i zrobić grzaneczki z chleba tostowego.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe5.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe5.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -349,7 +349,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Po upieczeniu wyjmij z piekarnika i pozostaw do ostygnięcia przez kilka minut przed podaniem. Smacznego!");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\lasagne.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/lasagne.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -384,7 +384,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Przykryj i schłodź w lodówce przez około 30 minut przed podaniem.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\caprese.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/caprese.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -425,7 +425,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Zroluj tortille i podawaj od razu.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\tacos.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/tacos.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -471,7 +471,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Dodaj paprykę i zieloną część pora.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe6.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe6.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -516,7 +516,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Dodaj prażone nerkowce.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe7.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe7.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -557,7 +557,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Upiec w dowolny, ulubiony sposób - z owocami, rodzynkami, dżemem około 40 minut 150-160 stopni Celjusza, przez chwilę więcej, aby podkolorować ładnie ciasto.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe8.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe8.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -594,7 +594,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Gotowego łososia skrapiamy sokiem z cytryny i podajemy z ulubionymi dodatkami.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe9.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe9.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -635,7 +635,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Podawaj kurczaka w sosie śmietanowym z ziołami i warzywami na talerzach. Możesz go podać z ryżem, makaronem lub ziemniakami jako dodatkiem.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe10.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe10.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -676,7 +676,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Podawaj kartacze na talerzach, możesz polać je śmietaną i posypać posiekanym koperkiem.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe11.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe11.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -718,7 +718,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Posyp danie pieprzem cayenne i mieszaj jeszcze przez minutę.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe12.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe12.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -767,7 +767,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Zupę podawaj gorącą.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe13.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe13.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -803,7 +803,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Powtarzać warstwy do momentu wypełnienia naczynia.");
             recipe.setSteps(steps);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe14.jpg";
+            String imagePath = "src/main/resources/static/init_jpg/recipe14.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
