@@ -2,13 +2,14 @@ import {addRecipeAd, closeFromId, createTags, openForm, Recipe, search} from "./
 
 const searchForm= document.getElementById('searchForm')
 const username = localStorage.getItem('username');
+localStorage.removeItem('whatdelete');
+localStorage.removeItem('recipeId');
 searchForm.addEventListener("submit", e =>  {
     e.preventDefault();
     search("short",true);
 });
 
 const folderNameElement = document.getElementById("folder-name");
-const folderElementNameText = folderNameElement.innerText;
 function createRecipeAdWithDelete(recipe){
     let folderContentDiv = document.getElementById("folder-content-recipes")
     let newDiv = document.createElement("div");
@@ -24,9 +25,14 @@ function createRecipeAdWithDelete(recipe){
     deleteImage.className = "photo";
     deleteImage.title = "Usuń przepis";
     deleteButton.appendChild(deleteImage);
+
+    let folderElementNameText = folderNameElement.innerText;
     if(folderElementNameText === 'moje autorskie przepisy'){
+        localStorage.setItem('whatdelete','recipe');
         localStorage.setItem('recipeId', recipe.id);
-        openForm('confirm');
+        deleteButton.addEventListener("click", function (){
+            openForm('confirm');
+        })
     }else{
         deleteButton.addEventListener('click', function (){
             fetch(`/folder/${username}/${folderElementNameText}/${recipe.id}`, {
@@ -70,7 +76,8 @@ function addFolderButtons(folderNames) {
             if(folderName === "moje autorskie przepisy" || folderName === "moje ulubione przepisy"){
                 deleteFolderButton.style.display = "none";
             }else{
-                deleteFolderButton.style.display = "flex";
+                deleteFolderButton.style.display = "inline-flex";
+                deleteFolderButton.style.flexDirection = "row-reverse"
             }
             let folderContentDiv = document.getElementById("folder-content-recipes")
             folderContentDiv.innerHTML = '';
@@ -103,15 +110,17 @@ newNameForm.addEventListener('submit', function (){
         }
     })
         .then(response => {
+            console.log(response);
             if (response.ok) {
                 fetch(`/folder/${username}`)
                     .then(response => response.json())
                     .then(names => {
+                        console.log(response);
+                        document.getElementById("tabs").innerHTML = '';
                         addFolderButtons(names)
                     })
             } else {
-                message = response.getAllResponseHeaders()
-                throw new Error(message);
+                throw new Error();
             }
         })
         .catch(error => {
@@ -153,6 +162,7 @@ deleteYes.addEventListener('click', function (){
                 console.log(response)
                 if (response.ok) {
                     alert('usunięto folder');
+                    document.getElementById("tabs").innerHTML = '';
 
                     getFolders();
                 } else {
@@ -166,7 +176,7 @@ deleteYes.addEventListener('click', function (){
     }
 
     if(whatDelete === 'recipe'){
-        fetch(`/${localStorage.getItem('recipeId')}`, {
+        fetch(`/recipe/${localStorage.getItem('recipeId')}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -178,8 +188,7 @@ deleteYes.addEventListener('click', function (){
                     alert('usunięto przepis');
                     getRecipesFromFolder(folderNameElement.textContent);
                 } else {
-                    message = response.getAllResponseHeaders()
-                    throw new Error(message);
+                    throw new Error();
                 }
             })
             .catch(error => {
@@ -213,8 +222,10 @@ function getRecipesFromFolder(folderName){
                     const image = recipe.image;
 
                     let recipeDisplay = new Recipe(id,name,author,tags,[],[],0, image);
-                    createRecipeAdWithDelete(recipeDisplay,document.getElementById("searchResult"));
+                    createRecipeAdWithDelete(recipeDisplay);
                 });
+            }else{
+                document.getElementById('folder-content-recipes').innerHTML = 'W tym folderze nie ma jeszcze przepisów :(';
             }
         })
         .catch(error => {
