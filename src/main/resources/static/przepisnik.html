@@ -40,6 +40,30 @@
     </div>
 
     <div class="mainpage">
+      <div class="form-popup" id="new-name">
+        <button type="button" class="close-btn" id="edit-close">&times;</button>
+        <form class="formContainer" id="form">
+          <div class="form-element">
+            <label for="new-folder-name">Wpisz nazwę nowego folderu:</label>
+            <input type="text" placeholder="nazwa" id="new-folder-name">
+          </div>
+          <div class ="form-element">
+            <button type="submit" class="confirm-button">Zatwierdź</button>
+          </div>
+        </form>
+      </div>
+      <div class="form-popup" id="confirm">
+        <button type="button" class="close-btn" id="delete-close">&times;</button>
+        <form class="formContainer">
+          <div class="form-element">
+            <label>Czy na pewno chcesz usunąć ... ?</label>
+          </div>
+          <div class ="form-button-element">
+            <button type="button" class="choice-btn" id="yes-button">Tak</button>
+            <button type="button" class="choice-btn" id="no-button">Nie</button>
+          </div>
+        </form>
+      </div>
       <label>
         <input type="checkbox" class="alertCheckbox" autocomplete="off" />
         <div class="alert info">
@@ -51,22 +75,13 @@
       <h3 class="subtitle"> ~ Mój przepiśnik ~ </h3>
       <div class="book">
         <div class="tabs" id="tabs">
-<!--          <button class="folder-tab">-->
-<!--            Folder 1-->
-<!--          </button>-->
-<!--          <button class="folder-tab">-->
-<!--            Folder 2-->
-<!--          </button>-->
-<!--          <button class="folder-tab">-->
-<!--            Folder 3-->
-<!--          </button>-->
-<!--          <button class="folder-tab" id="addbutton">-->
-<!--            +-->
-<!--          </button>-->
         </div>
         <div class="folder-content" id="folder-content">
           <div class="actions">
             <button type="button" class="actionbutton w-button">
+              <span class="d-block-light d-none"><img src="img/edit.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
+              <span class="d-block-dark d-none"><img src="img/edit-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>
+            <button type="button" class="actionbutton w-button deletebutton" id="deleteFolder">
               <img src="img/delete.png" height="25" alt="" class="photo light" title="Usuń folder">
               <img src="img/delete-dark.png" height="25" alt="" class="photo dark" title="Usuń folder"></button>
           </div>
@@ -74,80 +89,6 @@
           <div id="folder-content-recipes">
 
           </div>
-<!--          <div class="recip">-->
-<!--            <div class="recipead">-->
-<!--              <img class="recad-img" src="img/example.jpg">-->
-<!--              <div class="recad-info">-->
-<!--                <h3 class="recad-name">Tutaj nazwa przepisu</h3>-->
-<!--                <h5 class="recad-author"> Autor: BlaBla </h5>-->
-<!--                <div class="recad-tags">-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 1-->
-<!--                  </div>-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 2-->
-<!--                  </div>-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 3-->
-<!--                  </div>-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 4-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <button type="button" class="actionbutton w-button"><span class="d-block-light d-none"><img src="img/delete.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
-              <span class="d-block-dark d-none"><img src="img/delete-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>-->
-<!--          </div>-->
-<!--          <div class="recip">-->
-<!--            <div class="recipead">-->
-<!--              <img class="recad-img" src="img/example.jpg">-->
-<!--              <div class="recad-info">-->
-<!--                <h3 class="recad-name">Tutaj nazwa przepisu</h3>-->
-<!--                <h5 class="recad-author"> Autor: BlaBla </h5>-->
-<!--                <div class="recad-tags">-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 1-->
-<!--                  </div>-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 2-->
-<!--                  </div>-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 3-->
-<!--                  </div>-->
-<!--                  <div class="tag">-->
-<!--                    <img src="img/wegetariańskie.png" alt = "" height="14">-->
-<!--                    Tag 4-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <button type="button" class="actionbutton w-button"><span class="d-block-light d-none"><img src="img/delete.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span>
-              <span class="d-block-dark d-none"><img src="img/delete-dark.png" height="25" alt="" class="photo" title="Zmień nazwę folderu"></span></button>-->
-<!--          </div>-->
-<!--          <div class="recip">-->
-<!--            <button type="button" class="folder-rec">-->
-<!--              <h4 class = "recip-name">Przepis 1</h4>-->
-<!--              <div class="recip-tags">-->
-<!--                <div class="tag">-->
-<!--                    <img src="img/vegetarian.png" alt = "" height="14">-->
-<!--                    Tag 1-->
-<!--                </div>-->
-<!--                <div class="tag">-->
-<!--                    <img src="img/vegetarian.png" alt = "" height="14">-->
-<!--                    Tag 2-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </button>-->
-<!--            <button type="button" class="actionbutton w-button"><img src="img/delete.png" height="25" alt="" class="photo" title="Usuń przepis"></button>-->
-<!--          </div>-->
         </div>
       </div>
       <div id="searchResult">

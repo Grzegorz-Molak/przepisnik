@@ -275,6 +275,9 @@ a {
   height: 13px;
 }
 
+.deletebutton{
+  display: none;
+}
 
 .form-element label{
   font-size: 14px;
