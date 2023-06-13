@@ -175,8 +175,8 @@ const username = document.getElementById('name');
 const email = document.getElementById('email');
 const password = document.getElementById('psw');
 const password2 = document.getElementById('psw2');
-export function openForm() {
-    document.getElementById("rejestracja").style.display = "block";
+export function openForm(id) {
+    document.getElementById(id).style.display = "block";
 }
 export function closeForm() {
     document.getElementById("form").reset();
@@ -185,6 +185,10 @@ export function closeForm() {
     setDefault(password);
     setDefault(password2);
     document.getElementById("rejestracja").style.display = "none";
+}
+export function closeFromId(id){
+    document.getElementById("form").reset();
+    document.getElementById(id).style.display = "none";
 }
 
 export function login(loginForm){
@@ -347,6 +351,16 @@ export function logout(){
 
 }
 
+export function changeTheme(){
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    let targetTheme = "light";
 
+    if (currentTheme === "light") {
+        targetTheme = "dark";
+    }
+
+    document.documentElement.setAttribute('data-theme', targetTheme)
+    localStorage.setItem('theme', targetTheme);
+}
 
 
