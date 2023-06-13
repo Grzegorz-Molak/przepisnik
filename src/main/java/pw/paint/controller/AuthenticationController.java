@@ -35,7 +35,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> login (@RequestBody AuthenticationRequest request) {
         var token = service.authenticate(request);
         HttpHeaders headers = new HttpHeaders();
-
+        System.out.println("Test ciasteczka");
         ResponseCookie springCookie = ResponseCookie.from("token", token.getToken())
                 .httpOnly(false)
                 .secure(false)
