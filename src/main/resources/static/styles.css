@@ -1,14 +1,15 @@
 /*Nice fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@100;500;600&family=Great+Vibes&display=swap');
 
-/*Colours*/
-:root, html[data-theme='light']{
+/*Colors*/
+:root, html[data-theme='light'] {
   --main_light_col: #FFF;
   --acc_col: #eef7e1;
   --main_dark_col: #333;
   --main_font_col: #000;
   --light_font_col: #FFF;
   --choice_neutr: #f0f0f0;
+  --bg-img: url(img/title_bgrd.jpg);
 }
 
 html[data-theme='dark'] {
@@ -18,11 +19,12 @@ html[data-theme='dark'] {
   --main_font_col: #DDD;
   --light_font_col: #FFF;
   --choice_neutr: #333;
+  --bg-img: none;
 }
 
 /*Body*/
 body {
-  background-color: var(--main_col);
+  background-color: var(--main_light_col);
 }
 
 /*Main container*/
@@ -40,7 +42,7 @@ a {
 }
 
 .title {
-  background-image: url(img/title_bgrd.jpg);
+  background-image: var(--bg-img);
   background-size:70%;
   background-repeat: repeat;
   background-clip: border-box;
@@ -93,6 +95,27 @@ a {
   border: none;
 }
 
+.mode{
+  width: auto;
+  padding-top: 2px;
+}
+
+[data-theme='dark'] .menubutton.light {
+  display: none;
+}
+
+[data-theme='dark'] .menubutton.dark {
+  display: flex;
+}
+
+[data-theme='light'] .menubutton.light {
+  display: flex;
+}
+
+[data-theme='light'] .menubutton.dark {
+  display: none;
+}
+
 .menubutton:hover {
   color: var(--main_font_col);
   text-align: center;
@@ -100,16 +123,32 @@ a {
   font-weight: 600;
 }
 
-[data-theme='light'] .d-block-light,
-[data-theme='dark'] .d-block-dark {
-    display: block !important;
+.toggle-container {
+  display: flex;
+  flex-direction: row;
 }
 
 /*Search section*/
 .imSearch {
   margin: 5px;
-  padding-top: 0px;
+  padding-top: 2px;
   line-height: 40px;
+}
+
+[data-theme='dark'] .light {
+  display: none;
+}
+
+[data-theme='dark'] .dark {
+  display: flex;
+}
+
+[data-theme='light'] .light {
+  display: flex;
+}
+
+[data-theme='light'] .dark {
+  display: none;
 }
 
 .search {
@@ -181,6 +220,7 @@ a {
   background-color: var(--main_light_col);
   box-shadow: 2px 2px 5px 5px rgba(0,0,0,0.2);
   border-radius: 10px;
+  color: var(--main_font_col);
 }
 
 .register-open{
@@ -238,6 +278,7 @@ a {
 
 .form-element label{
   font-size: 14px;
+  color: var(--main_font_col);
 }
 
 .form-element input {
@@ -249,13 +290,16 @@ a {
   border-radius: 5px;
   border: 1px solid;
   font-size: 14px;
+  background-color: var(--main_light_col);
+  color: var(--main_font_col);
+  border-color: var(--main_font_col);
 }
 .register-btn{
   width: 100%;
   height: 40px;
   border: none;
   outline: none;
-  color: var(--main_light_col);
+  font-family: Exo, sans-serif;
   background-color: var(--main_dark_col);
   border-radius: 10px;
   cursor: pointer;
@@ -268,7 +312,7 @@ a {
   border: none;
   outline: none;
   color: #fff;
-  background-color: #333;
+  background-color: var(--main_dark_col);
   border-radius: 10px;
   cursor: pointer;
   font-family: Exo, sans-serif;
@@ -949,12 +993,7 @@ footer {
   display: none;
 }
 
-/*Darkmode*/
-/*Body*/
-[data-theme='dark'] body {
-  background-color: var(--main_light_col);
-}
-
+/* Darkmode */
 /*Main container*/
 [data-theme='dark'] .maincontainer {
   margin-left: 15%;
@@ -1001,39 +1040,7 @@ footer {
   border-bottom: 1px solid var(--main_font_col);
   flex-wrap: nowrap;
   display: flex;
-  
-}
 
-[data-theme='dark'] .menubutton {
-  color: var(--light_font_col);
-  background-color: var(--main_dark_col);
-  order: 1;
-  font-family: Exo, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: space-around;
-  text-decoration: none;
-  align-self:stretch;
-  width: 20%;
-  padding: 5px;
-  flex-grow: 1;
-}
-
-[data-theme='dark'] .menubutton:hover {
-  color: var(--main_font_col);
-  text-align: center;
-  background-color: var(--acc_col);
-  font-weight: 600;
-}
-
-/*Search section*/
-[data-theme='dark'] .imSearch {
-  margin: 5px;
-  padding-top: 0px;
-  line-height: 40px;
 }
 
 [data-theme='dark'] .search {
@@ -1159,7 +1166,6 @@ footer {
 [data-theme='dark'] .form-element label{
   font-size: 14px;
 }
-
 
 [data-theme='dark'] .form-element input {
   margin-top: 5px;
@@ -1608,6 +1614,7 @@ footer {
 [data-theme='dark'] .rec-button{
   border: solid;
   border-width: thin;
+  background-color: var(--acc_col);
   display: flex;
   font-size: 15px;
   font-family: Exo, sans-serif;
@@ -1819,6 +1826,7 @@ footer {
   margin: 10px;
   line-height: 1.8;
   border: none;
+  cursor: hand;
   cursor: pointer;
 }
 
