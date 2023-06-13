@@ -1,11 +1,6 @@
 import {showNotification, search} from "./common.js";
 
 const recipeForm = document.getElementById('recipe-form');
-showNotification("Kill me")
-setTimeout(function() {
-    const message = 'Przykładowa wiadomość po 10 sekundach';
-    showNotification(message);
-}, 10000);
 
 //Adding image
 const imageButton = document.getElementById('image-button');
@@ -24,11 +19,11 @@ function chooseFile() {
         let fileExtension = fileName.split(".").pop().toLowerCase();
         if (acceptedExtensions.includes(fileExtension)) {
             console.log("Wybrano obraz o nazwie: " + fileName);
-            window.alert("Wybrano obraz o nazwie: " + fileName)
+            showNotification("Wybrano obraz o nazwie: " + fileName)
             // Tutaj możesz wykonać dodatkowe działania na nazwie pliku
         }
         else{
-            window.alert("Wybrany plik nie jest obrazem")
+            showNotification("Wybrany plik nie jest obrazem")
         }
     });
 }
@@ -64,7 +59,7 @@ function newElement(elementID) {
     li.appendChild(span);
 
     if (inputValue === '') {
-        alert("Nie możesz dodać pustego składnika");
+        showNotification("Nie możesz dodać pustego składnika");
     } else {
         document.getElementById(elementID).appendChild(li);
     }
@@ -155,7 +150,7 @@ recipeForm.addEventListener('submit', function(event) {
         .then(id => {
             console.log(id);
             const imageFile = fileInput.files[0];
-            alert('Przepis został dodany');
+           showNotification('Przepis został dodany');
             console.log(imageFile)
             if(imageFile!==undefined){
                 const formData = new FormData();
@@ -170,13 +165,11 @@ recipeForm.addEventListener('submit', function(event) {
                         if (response.ok) {
                             return response.json();
                         } else {
-                            message = response.getAllResponseHeaders()
-                            throw new Error(message);
+                            throw new Error();
                         }
                     })
                     .catch(error => {
                         console.error(error.message);
-                        alert('Coś poszło nie tak ze zdjęciem');
                     });
             }
             recipeForm.reset();
@@ -186,7 +179,7 @@ recipeForm.addEventListener('submit', function(event) {
         })
         .catch(error => {
             console.error(error);
-            alert('Coś poszło nie tak');
+            showNotification('Niestety nie udało się dodać przepisu');
         });
 });
 

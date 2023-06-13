@@ -1,4 +1,4 @@
-import {addRecipeAd, closeFromId, createTags, openForm, Recipe, search} from "./common.js";
+import {addRecipeAd, closeFromId, createTags, openForm, Recipe, search, showNotification} from "./common.js";
 
 const searchForm= document.getElementById('searchForm')
 const username = localStorage.getItem('username');
@@ -44,7 +44,6 @@ function createRecipeAdWithDelete(recipe){
                 .then(response => {
                     console.log(response)
                     if (response.ok) {
-                        alert('Usunięto z folderu');
                         folderContentDiv.innerHTML = '';
                         getRecipesFromFolder(folderElementNameText);
                     } else {
@@ -53,7 +52,7 @@ function createRecipeAdWithDelete(recipe){
                 })
                 .catch(error => {
                     console.error(error.message);
-                    alert('Coś poszło nie tak');
+                    showNotification('Coś poszło nie tak');
                 });
         })
     }
@@ -124,12 +123,12 @@ newConfirmButton.addEventListener('click', function (){
                         addFolderButtons(names)
                     })
             } else {
-                throw new Error();
+                throw new Error('Zła nazwa');
             }
         })
         .catch(error => {
             console.error(error.message);
-            alert('Nie udało się utworzyć');
+            showNotification('Nie możesz utowrzyć folderu o takiej samej nazwie jak już istniejący');
         });
 })
 
@@ -165,7 +164,7 @@ deleteYes.addEventListener('click', function (){
             .then(response => {
                 console.log(response)
                 if (response.ok) {
-                    alert('usunięto folder');
+                    showNotification('Usunięto folder');
                     document.getElementById("tabs").innerHTML = '';
                     getFolders();
                 } else {
@@ -174,7 +173,7 @@ deleteYes.addEventListener('click', function (){
             })
             .catch(error => {
                 console.error(error.message);
-                alert('Coś poszło nie tak');
+                showNotification('Coś poszło nie tak');
             });
     }
 
@@ -188,7 +187,7 @@ deleteYes.addEventListener('click', function (){
             .then(response => {
                 console.log(response)
                 if (response.ok) {
-                    alert('usunięto przepis');
+                    showNotification('Usunięto przepis');
                     getRecipesFromFolder(folderNameElement.textContent);
                 } else {
                     throw new Error();
@@ -196,7 +195,7 @@ deleteYes.addEventListener('click', function (){
             })
             .catch(error => {
                 console.error(error.message);
-                alert('Coś poszło nie tak');
+                showNotification('Coś poszło nie tak');
             });
     }
 
@@ -211,7 +210,7 @@ function getRecipesFromFolder(folderName){
             if (response.ok) {
                 return response.json();
             }else{
-                throw new Error();
+                throw new Error('Pusty folder');
             } })
         .then(data => {
             console.log(data);
@@ -227,12 +226,11 @@ function getRecipesFromFolder(folderName){
                     let recipeDisplay = new Recipe(id,name,author,tags,[],[],0, image);
                     createRecipeAdWithDelete(recipeDisplay);
                 });
-            }else{
-                document.getElementById('folder-content-recipes').innerHTML = 'W tym folderze nie ma jeszcze przepisów :(';
             }
         })
         .catch(error => {
             console.error(error.message);
+            document.getElementById('folder-content-recipes').innerHTML = 'W tym folderze nie ma jeszcze przepisów :(';
         });
 }
 getFolders();

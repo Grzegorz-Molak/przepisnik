@@ -1,4 +1,4 @@
-import {createTags, Recipe, search} from "./common.js";
+import {createTags, Recipe, search, showNotification} from "./common.js";
 
 const recipeId = localStorage.getItem('recipeId');
 const username = localStorage.getItem('username');
@@ -18,15 +18,14 @@ fetch(`/recipe/${recipeId}`)
                 })
                     .then(response => {
                         if (response.ok) {
-                            alert('Udostępniono');
+                            showNotification('Przepis został udostępniony');
                         } else {
-                            message = response.getAllResponseHeaders()
-                            throw new Error(message);
+                            throw new Error('Coś poszło nie tak');
                         }
                     })
                     .catch(error => {
                         console.error(error.message);
-                        alert('Nieudostępniono');
+                        showNotification('Nieudostępniono');
                     });
             })
         }
@@ -48,10 +47,7 @@ function createOrderedList(list, id){
         let li = document.createElement("li")
         li.innerText = item
         listOrdered.appendChild(li)
-
-
     }
-
 }
 
 
@@ -85,14 +81,14 @@ if(addButton) {
             .then(response => {
                 console.log(response)
                 if (response.ok) {
-                    alert('Dodano do folderu');
+                    showNotification('Dodano do folderu ' + chosenFolder);
                 } else {
                     throw new Error();
                 }
             })
             .catch(error => {
                 console.error(error.message);
-                alert('Coś poszło nie tak');
+                showNotification('Coś poszło nie tak');
             });
     })
 
