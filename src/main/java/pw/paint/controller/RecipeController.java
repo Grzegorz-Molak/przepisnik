@@ -168,11 +168,11 @@ public class RecipeController {
                                                               @CookieValue(name = "token", required = false) String token ){
 /*
         //TO DO sprawdzanie uprawnień czy podany autor w request body to user z tokenu
-        if(token == null || !searchRequest.getAuthor().equals(jwtService.extractUsername(token))){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .header("Error-message", "Forbidden")
-                    .build();
-        }
+//        if(token == null || !searchRequest.getAuthor().equals(jwtService.extractUsername(token))){
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+//                    .header("Error-message", "Forbidden")
+//                    .build();
+//        }
 
 
  */

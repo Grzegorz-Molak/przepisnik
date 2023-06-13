@@ -18,6 +18,7 @@ function createRecipeAdWithDelete(recipe){
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.className = "actionbutton w-button";
+
     let deleteImage = document.createElement("img");
     deleteImage.src = "img/delete.png";
     deleteImage.height = 25;
@@ -60,7 +61,6 @@ function createRecipeAdWithDelete(recipe){
     addRecipeAd(recipe, newDiv)
     newDiv.appendChild(deleteButton)
     folderContentDiv.appendChild(newDiv)
-
 }
 
 function addFolderButtons(folderNames) {

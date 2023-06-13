@@ -13,16 +13,8 @@ export class Recipe{
 
 export function search(searchType,status){
     let requestBody;
-    let publicRec;
     let searchInput;
-    console.log(localStorage.getItem('username'))
-    if(localStorage.getItem('username') === 'null'){
-        publicRec = true;
-        searchInput = '/recipe/search'
-    }else{
-        publicRec = false;
-        searchInput = '/recipe/search/private'
-    }
+    searchInput = '/recipe/search'
 
     if(searchType === 'empty'){
         requestBody = {
@@ -30,8 +22,7 @@ export function search(searchType,status){
             pageSize: 10,
             author: "",
             keyword: "",
-            tags: [],
-            status: publicRec
+            tags: []
         }
         document.getElementById("searchResult").innerHTML = "";
     }
@@ -41,8 +32,7 @@ export function search(searchType,status){
             pageSize: 10,
             author: "",
             keyword: document.getElementById('search').value,
-            tags: [],
-            status: publicRec
+            tags: []
         }
         document.getElementById("searchResult").innerHTML = "";
     }
@@ -61,6 +51,7 @@ export function search(searchType,status){
 
         if(!status){
              author = localStorage.getItem('username');
+            searchInput = '/recipe/search/private'
         }else{
             author = "";
         }
@@ -69,8 +60,7 @@ export function search(searchType,status){
             pageSize: 10,
             author: author,
             keyword: document.getElementById('r-name').value,
-            tags: checkedValues,
-            status: publicRec
+            tags: checkedValues
         }
         document.getElementById("searchResult").innerHTML = "";
     }
@@ -371,7 +361,6 @@ export function changeTheme(){
     if (currentTheme === "light") {
         targetTheme = "dark";
     }
-
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
 }
