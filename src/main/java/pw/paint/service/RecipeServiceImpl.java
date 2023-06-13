@@ -135,19 +135,15 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
-    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable, String user) {
+    public List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable) {
 
         List<ShortRecipeDto> recipes = new ArrayList<>();
 
         if (keyword.isBlank() && tags.isEmpty() && author.isBlank()) {
             recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(true, pageable).getContent()));
             if (status == false) {
-                List<ShortRecipeDto> recipesPriv = new ArrayList<>();
-                    recipesPriv.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
-                    recipesPriv = recipesPriv.stream().filter(recipe -> Objects.equals(recipe.getAuthor(), user)).toList();
-                    recipes.addAll(recipesPriv);
+                    recipes.addAll(RecipeMapper.toShortRecipeDto(recipeRepository.findAll(false, pageable).getContent()));
             }
-
             return recipes;
         }
 
