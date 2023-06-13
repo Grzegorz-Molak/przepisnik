@@ -50,7 +50,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             ingredients.add("oliwa 3 łyżki");
             recipe.setIngredients(ingredients);
 
-            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe1.jpg";
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\kotlet.jpg";
             Path filePath = Paths.get(imagePath);
             recipe.setImage(Files.readAllBytes(filePath));
 
@@ -164,10 +164,11 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         }
 
+        // Przepisy Agnieszki
+        user = userRepository.findByUsername("Agnieszka").get();
         checkRecipe = recipeRepository.findByName("Placki z serkiem");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe5 = new Recipe();
-            recipe5.setName("Placki z serkiem");
+            Recipe recipe = new Recipe("Placki z serkiem", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("serek waniliowy 400 g");
@@ -175,7 +176,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             ingredients.add("mąka 1 szklanka");
             ingredients.add("proszek do pieczenia 1 łyżeczka");
             ingredients.add("olej 2 łyżki");
-            recipe5.setIngredients(ingredients);
+            recipe.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
             steps.add("Ubić pianę z białek.");
@@ -183,55 +184,24 @@ public class DatabaseInitializer implements CommandLineRunner {
             steps.add("Wymieszać z żółtkami i serkiem waniliowym.");
             steps.add("Dodać proszek do pieczenia.");
             steps.add("Smażyć na oleju.");
-            recipe5.setSteps(steps);
+            recipe.setSteps(steps);
 
             String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\placki.jpg";
             Path filePath = Paths.get(imagePath);
-            recipe5.setImage(Files.readAllBytes(filePath));
+            recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Optional<Tag> tag = tagRepository.findByName("deser");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            recipe.setTags(tags);
 
-            tag = tagRepository.findByName("wegetariańskie");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
-
-            Optional<User> userWithId = userRepository.findByUsername("Agnieszka");
-            if (userWithId.isPresent()) {
-                recipe5.setAuthor(userWithId.get());
-            }
-
-            recipe5.setTags(tags);
-            recipe5.setStatus(true);
-            recipe5.setTimeMinutes(40);
-            recipeRepository.save(recipe5);
-
-            List<Folder> folders2 = userWithId.get().getFolders();
-
-            for (Folder folder2 : folders2) {
-                if (folder2.getName().equals("moje autorskie przepisy")) {
-                    if (folder2.getRecipes() == null) {
-                        folder2.setRecipes(new ArrayList<>());
-                        folder2.getRecipes().add(recipe5);
-
-                    } else {
-                        folder2.getRecipes().add(recipe5);
-                    }
-                }
-            }
-            userRepository.save(userWithId.get());
-
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
         }
-
 
         checkRecipe = recipeRepository.findByName("Placki ziemniaczane");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe3 = new Recipe();
-            recipe3.setName("Placki ziemniaczane");
+            Recipe recipe = new Recipe("Placki ziemniaczane", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("ziemniaki 0.5 kg");
@@ -240,66 +210,110 @@ public class DatabaseInitializer implements CommandLineRunner {
             ingredients.add("jajko 1 sztuka");
             ingredients.add("sól 2 szczypty");
             ingredients.add("olej roślinny 2 łyżki");
-            recipe3.setIngredients(ingredients);
+            recipe.setIngredients(ingredients);
 
             List<String> steps = new ArrayList<>();
             steps.add("Rozetrzeć ziemniaki na tarce, zostawić na kilka minut, odlać zebrany sok.");
             steps.add("Do ziemniaków dodać mąkę, drobno startą cebulę, jajko i sól.");
             steps.add("Masę wymieszać i smażyć małe porcje ciasta na rozgrzanym oleju na złoty kolor.");
-            recipe3.setSteps(steps);
+            recipe.setSteps(steps);
 
             String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\placki2.jpg";
             Path filePath = Paths.get(imagePath);
-            recipe3.setImage(Files.readAllBytes(filePath));
+            recipe.setImage(Files.readAllBytes(filePath));
+
 
             List<Tag> tags = new ArrayList<>();
-            Optional<Tag> tag = tagRepository.findByName("obiad");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            tag = tagRepository.findByName("polskie").get();tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            recipe.setTags(tags);
 
-            tag = tagRepository.findByName("kuchnia polska");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
 
-            tag = tagRepository.findByName("wegetariańskie");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
-
-            Optional<User> userWithId = userRepository.findByUsername("Agnieszka");
-            if (userWithId.isPresent()) {
-                recipe3.setAuthor(userWithId.get());
-            }
-
-            recipe3.setTags(tags);
-            recipe3.setStatus(true);
-            recipe3.setTimeMinutes(30);
-            recipeRepository.save(recipe3);
-
-            List<Folder> folders2 = userWithId.get().getFolders();
-
-            for (Folder folder2 : folders2) {
-                if (folder2.getName().equals("moje autorskie przepisy")) {
-                    if (folder2.getRecipes() == null) {
-                        folder2.setRecipes(new ArrayList<>());
-                        folder2.getRecipes().add(recipe3);
-
-                    } else {
-                        folder2.getRecipes().add(recipe3);
-                    }
-                }
-            }
-            userRepository.save(userWithId.get());
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
 
         }
 
+        checkRecipe = recipeRepository.findByName("Makaron w sosie cebula-masło-pomidor");
+        if (!checkRecipe.isPresent() ) {
+            Recipe recipe = new Recipe("Makaron w sosie cebula-masło-pomidor", user, true, 50);
 
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("makaron 200 g");
+            ingredients.add("pomidory w puszce 800 g");
+            ingredients.add("cebula 1 sztuka");
+            ingredients.add("masło 70 g");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Do garnuszka wrzucić pomidorki, cebulę obraną i przekrojoną na pół oraz masełko. Dodać szczyptę cukru.");
+            steps.add("Gotować na wolnym ogniu przez około 45min, mieszając i dziabdziając pomidorki o garnuszek.");
+            steps.add("Wywalić cebulę - biedulka - i posolić do smaku.");
+            steps.add("Ugotować i odcedzić makaron.");
+            steps.add("Do sosu wrzucić makaron z odrobiną wody z makaronu i wymieszać.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe4.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("włoskie").get();tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            recipe.setTags(tags);
+
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+
+        }
+
+        checkRecipe = recipeRepository.findByName("Grochówka wojskowa tatusia");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Grochówka wojskowa tatusia", user, true, 50);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("połówki grochu łuskanego");
+            ingredients.add("kiełbasa");
+            ingredients.add("cebulka");
+            ingredients.add("chleb tostowy na grzanki");
+            ingredients.add("cebulka");
+            ingredients.add("kostka rosołowa");
+            ingredients.add("majeranek");
+            ingredients.add("ziemniaki – opcjonalne");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Dzień przed gotowaniem namoczyć groch.");
+            steps.add("Wstawiamy groch do gotowania, dodać resztę składników.");
+            steps.add("Gotować na papkę i zrobić grzaneczki z chleba tostowego.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe5.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("polskie").get();tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+
+        }
+
+        // Przepisy Filipa
+        user = userRepository.findByUsername("Filip").get();
         checkRecipe = recipeRepository.findByName("Klasyczne Lasagne Bolognese");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe();
-            recipe.setName("Klasyczne Lasagne Bolognese");
+            Recipe recipe = new Recipe("Klasyczne Lasagne Bolognese",user,true, 150);
+
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("500g mielonej wołowiny");
@@ -340,183 +354,467 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Optional<Tag> tag = tagRepository.findByName("obiad");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
-
-            tag = tagRepository.findByName("włoskie");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
-
-            Optional<User> userWithId = userRepository.findByUsername("Filip");
-            if (userWithId.isPresent()) {
-                recipe.setAuthor(userWithId.get());
-            }
-
+            Tag tag = tagRepository.findByName("polskie").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
             recipe.setTags(tags);
-            recipe.setStatus(true);
-            recipe.setTimeMinutes(150);
+
             recipeRepository.save(recipe);
-
-            List<Folder> folders = userWithId.get().getFolders();
-
-            for (Folder folder : folders) {
-                if (folder.getName().equals("moje autorskie przepisy")) {
-                    if (folder.getRecipes() == null) {
-                        folder.setRecipes(new ArrayList<>());
-                        folder.getRecipes().add(recipe);
-
-                    } else {
-                        folder.getRecipes().add(recipe);
-                    }
-                }
-            }
-            userRepository.save(userWithId.get());
+            addToFolder(user, recipe);
 
         }
 
         checkRecipe = recipeRepository.findByName("Sałatka Caprese");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe2 = new Recipe();
-            recipe2.setName("Sałatka Caprese");
+            Recipe recipe = new Recipe("Sałatka Caprese",user, true,15);
 
-            List<String> ingredients2 = new ArrayList<>();
-            ingredients2.add("4 pomidory");
-            ingredients2.add("250g mozzarelli");
-            ingredients2.add("1 pęczek świeżej bazylii");
-            ingredients2.add("2 łyżki oliwy z oliwek");
-            ingredients2.add("Sól i pieprz do smaku");
-            recipe2.setIngredients(ingredients2);
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("4 pomidory");
+            ingredients.add("250g mozzarelli");
+            ingredients.add("1 pęczek świeżej bazylii");
+            ingredients.add("2 łyżki oliwy z oliwek");
+            ingredients.add("Sól i pieprz do smaku");
+            recipe.setIngredients(ingredients);
 
-            List<String> steps2 = new ArrayList<>();
-            steps2.add("Pokrój pomidory na plastry, a mozzarellę na cienkie plasterki.");
-            steps2.add("Ułóż na półmisku warstwę pomidorów, następnie dodaj plasterki mozzarelli.");
-            steps2.add("Posyp warstwę bazylią i przypraw solą i pieprzem.");
-            steps2.add("Powtórz kolejne warstwy pomidorów, mozzarelli i bazylii.");
-            steps2.add("Na wierzch skrop sałatkę oliwą z oliwek.");
-            steps2.add("Przykryj i schłodź w lodówce przez około 30 minut przed podaniem.");
-            recipe2.setSteps(steps2);
+            List<String> steps = new ArrayList<>();
+            steps.add("Pokrój pomidory na plastry, a mozzarellę na cienkie plasterki.");
+            steps.add("Ułóż na półmisku warstwę pomidorów, następnie dodaj plasterki mozzarelli.");
+            steps.add("Posyp warstwę bazylią i przypraw solą i pieprzem.");
+            steps.add("Powtórz kolejne warstwy pomidorów, mozzarelli i bazylii.");
+            steps.add("Na wierzch skrop sałatkę oliwą z oliwek.");
+            steps.add("Przykryj i schłodź w lodówce przez około 30 minut przed podaniem.");
+            recipe.setSteps(steps);
 
             String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\caprese.jpg";
             Path filePath = Paths.get(imagePath);
-            recipe2.setImage(Files.readAllBytes(filePath));
+            recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Optional<Tag> tag = tagRepository.findByName("przekąska");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+            Tag tag = tagRepository.findByName("przekąska").get();tags.add(tag);
+            tag = tagRepository.findByName("włoskie").get();tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            recipe.setTags(tags);
 
-            tag = tagRepository.findByName("włoskie");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
-
-            tag = tagRepository.findByName("wegetariańskie");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
-
-            Optional<User> userWithId = userRepository.findByUsername("Filip");
-            if (userWithId.isPresent()) {
-                recipe2.setAuthor(userWithId.get());
-            }
-
-            recipe2.setTags(tags);
-            recipe2.setStatus(true);
-            recipe2.setTimeMinutes(15);
-            recipeRepository.save(recipe2);
-
-            List<Folder> folders = userWithId.get().getFolders();
-
-            for (Folder folder : folders) {
-                if (folder.getName().equals("moje autorskie przepisy")) {
-                    if (folder.getRecipes() == null) {
-                        folder.setRecipes(new ArrayList<>());
-                        folder.getRecipes().add(recipe2);
-
-                    } else {
-                        folder.getRecipes().add(recipe2);
-                    }
-                }
-            }
-            userRepository.save(userWithId.get());
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
         }
 
         checkRecipe = recipeRepository.findByName("Tacos z Kurczakiem");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe3 = new Recipe();
-            recipe3.setName("Tacos z Kurczakiem");
+            Recipe recipe = new Recipe("Tacos z Kurczakiem",user,true,40);
 
-            List<String> ingredients3 = new ArrayList<>();
-            ingredients3.add("500g filetów z kurczaka, pokrojonych na paski");
-            ingredients3.add("1 cebula, pokrojona w kostkę");
-            ingredients3.add("2 ząbki czosnku, posiekane");
-            ingredients3.add("1 papryka jalapeno, posiekana (opcjonalnie)");
-            ingredients3.add("2 łyżki soku z limonki");
-            ingredients3.add("2 łyżeczki papryki w proszku");
-            ingredients3.add("1 łyżeczka kuminu");
-            ingredients3.add("1 łyżeczka oregano");
-            ingredients3.add("Sól i pieprz do smaku");
-            ingredients3.add("Tortille");
-            ingredients3.add("Salsa i guacamole do podania");
-            recipe3.setIngredients(ingredients3);
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("500g filetów z kurczaka, pokrojonych na paski");
+            ingredients.add("1 cebula, pokrojona w kostkę");
+            ingredients.add("2 ząbki czosnku, posiekane");
+            ingredients.add("1 papryka jalapeno, posiekana (opcjonalnie)");
+            ingredients.add("2 łyżki soku z limonki");
+            ingredients.add("2 łyżeczki papryki w proszku");
+            ingredients.add("1 łyżeczka kuminu");
+            ingredients.add("1 łyżeczka oregano");
+            ingredients.add("Sól i pieprz do smaku");
+            ingredients.add("Tortille");
+            ingredients.add("Salsa i guacamole do podania");
+            recipe.setIngredients(ingredients);
 
-            List<String> steps3 = new ArrayList<>();
-            steps3.add("W misce wymieszaj kurczaka, cebulę, czosnek, paprykę jalapeno (opcjonalnie), sok z limonki, paprykę w proszku, kumin, oregano, sól i pieprz.");
-            steps3.add("Odstaw na około 30 minut, aby marynować.");
-            steps3.add("Na rozgrzaną patelnię wrzuć kurczaka wraz z marynatą. Smaż na średnim ogniu przez około 6-8 minut, aż kurczak będzie dobrze przyrumieniony i dobrze ugotowany.");
-            steps3.add("Podgrzej tortille na suchej patelni przez kilka sekund z każdej strony, aby stały się miękkie i elastyczne.");
-            steps3.add("Nałóż na każdą tortillę smażony kurczak i dodatki takie jak salsa i guacamole.");
-            steps3.add("Zroluj tortille i podawaj od razu.");
-            recipe3.setSteps(steps3);
+            List<String> steps = new ArrayList<>();
+            steps.add("W misce wymieszaj kurczaka, cebulę, czosnek, paprykę jalapeno (opcjonalnie), sok z limonki, paprykę w proszku, kumin, oregano, sól i pieprz.");
+            steps.add("Odstaw na około 30 minut, aby marynować.");
+            steps.add("Na rozgrzaną patelnię wrzuć kurczaka wraz z marynatą. Smaż na średnim ogniu przez około 6-8 minut, aż kurczak będzie dobrze przyrumieniony i dobrze ugotowany.");
+            steps.add("Podgrzej tortille na suchej patelni przez kilka sekund z każdej strony, aby stały się miękkie i elastyczne.");
+            steps.add("Nałóż na każdą tortillę smażony kurczak i dodatki takie jak salsa i guacamole.");
+            steps.add("Zroluj tortille i podawaj od razu.");
+            recipe.setSteps(steps);
 
             String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\tacos.jpg";
             Path filePath = Paths.get(imagePath);
-            recipe3.setImage(Files.readAllBytes(filePath));
+            recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Optional<Tag> tag = tagRepository.findByName("kolacja");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+            Tag tag = tagRepository.findByName("kolacja").get();tags.add(tag);
+            tag = tagRepository.findByName("meksykańskie").get();tags.add(tag);
+            tag = tagRepository.findByName("ostre").get();tags.add(tag);
+            recipe.setTags(tags);
 
-            tag = tagRepository.findByName("meksykańskie");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
 
-            tag = tagRepository.findByName("ostre");
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+        //Przepisy Grzesia
+        user = userRepository.findByUsername("grzesiu").get();
+        checkRecipe = recipeRepository.findByName("Hui Guo Rou");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Hui Guo Rou",user,true,45);
 
-            Optional<User> userWithId = userRepository.findByUsername("Filip");
-            if (userWithId.isPresent()) {
-                recipe3.setAuthor(userWithId.get());
-            }
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("Boczek 500 g");
+            ingredients.add("Czosnek 3 ząbki");
+            ingredients.add("Imbir 3 plastry");
+            ingredients.add("Pieprz syczuański kilka ziarenek");
+            ingredients.add("Pasta doubanjiang 2 łyżki");
+            ingredients.add("Papryka czerwona 1 sztuka");
+            ingredients.add("Papryczka chili marynowana 2 sztuki");
+            ingredients.add("Por 1 sztuka");
+            ingredients.add("Wino shaoxing 2 łyżki");
+            ingredients.add("Sos sojowy 1 łyżka");
+            ingredients.add("Ocet chiński 0.5 łyżeczki");
+            ingredients.add("Cukier 1 łyżeczka");
+            ingredients.add("Sól 0.5 łyżeczki");
+            recipe.setIngredients(ingredients);
 
-            recipe3.setTags(tags);
-            recipe3.setStatus(true);
-            recipe3.setTimeMinutes(40);
-            recipeRepository.save(recipe3);
+            List<String> steps = new ArrayList<>();
+            steps.add("Gotuj boczek z białą częścią pora, częścią imbiru, pieprzem syczuańskim i winem około 30 minut, aż będzie w pełni ugotowane.");
+            steps.add("Ostudź dobrze boczek, w tym czasie pokrój warzywa.");
+            steps.add("Pokrój boczek w cieniutkie plasterki.");
+            steps.add("Dodaj pastę doubanjiang.");
+            steps.add("Dodaj czosnek, resztę imbiru i marynowaną papryczkę.");
+            steps.add("Dodaj sos sojowy, ocet, cukier i sól.");
+            steps.add("Dodaj paprykę i zieloną część pora.");
+            recipe.setSteps(steps);
 
-            List<Folder> folders = userWithId.get().getFolders();
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe6.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
 
-            for (Folder folder : folders) {
-                if (folder.getName().equals("moje autorskie przepisy")) {
-                    if (folder.getRecipes() == null) {
-                        folder.setRecipes(new ArrayList<>());
-                        folder.getRecipes().add(recipe3);
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            tag = tagRepository.findByName("ostre").get();tags.add(tag);
+            recipe.setTags(tags);
 
-                    } else {
-                        folder.getRecipes().add(recipe3);
-                    }
-                }
-            }
-            userRepository.save(userWithId.get());
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        checkRecipe = recipeRepository.findByName("Kurczak z owocami nerkowca");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Kurczak z owocami nerkowca",user,true,30);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("Skrobia kukurydziana/ziemniaczana 1 łyżka");
+            ingredients.add("Sos sojowy jasny 2 łyżki");
+            ingredients.add("Wino shaoxing 2 łyżki");
+            ingredients.add("Sos ostrygowy 2 łyżki");
+            ingredients.add("Sos rybny 1,5 łyżki");
+            ingredients.add("Olej sezamowy 2 łyżki");
+            ingredients.add("Biały pieprz szczypta");
+            ingredients.add("Kurczak 500 g");
+            ingredients.add("Czosnek 3 ząbki");
+            ingredients.add("Cebula 1 sztuka");
+            ingredients.add("Zielona papryka 1 sztuka");
+            ingredients.add("Woda 50 ml");
+            ingredients.add("Prażone nerkowce  2 garście");
+            ingredients.add("(opcjonalnie) tajska bazylia kilka listków");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Wymieszaj ze sobą skrobię, sos sojowy, ostrygowy, rybny, wino, olej sezamowy i pieprz.");
+            steps.add("Zamarynuj kurczaka w odrobinie sosu.");
+            steps.add("Usmaż kurczaka.");
+            steps.add("Dodaj czosnek i cebulę.");
+            steps.add("Dodaj paprykę.");
+            steps.add("Dodaj wodę oraz sos. Doprowadź do wrzenia i mieszaj do zagęszczenia.");
+            steps.add("Dodaj prażone nerkowce.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe7.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        checkRecipe = recipeRepository.findByName("Ciasto drożdżowe");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Ciasto drożdżowe",user,true,120);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("Drożdże 10 dg");
+            ingredients.add("Mleko 3 szklanki");
+            ingredients.add("Cukier 50 dg");
+            ingredients.add("Cukier wanilinowy 5g");
+            ingredients.add("Żółtka 12 sztuk");
+            ingredients.add("Mąka 1,5 kg");
+            ingredients.add("Masło 30dg");
+            ingredients.add("Śmietana 2-3 łyżki");
+            ingredients.add("(opcjonalnie) zapach odrobina");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Wymieszać drożdże z odrobiną ciepłego mleka i cukru.");
+            steps.add("Odczekać na wyrośnięcie drożdży.");
+            steps.add("Ubić żółtka z cukrem i szczyptą soli.");
+            steps.add("Umieścić w dużej misce ubite jajka, mąkę, lekko podgrzane mleko, śmietanę i drożdże.");
+            steps.add("Wyrabiać aż powstanie jednolita masa.");
+            steps.add("Dodać rozpuszczone masło.");
+            steps.add("Wyrabiać aż masa przestanie się bardzo lepić do ręki.");
+            steps.add("Odstawić do wyrośnięcia.");
+            steps.add("Upiec w dowolny, ulubiony sposób - z owocami, rodzynkami, dżemem około 40 minut 150-160 stopni Celjusza, przez chwilę więcej, aby podkolorować ładnie ciasto.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe8.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        //Przepisy Zuzi
+        user = userRepository.findByUsername("Zuzanna").get();
+        checkRecipe = recipeRepository.findByName("Łosoś duszony w białym winie");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Łosoś duszony w białym winie",user,true,30);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("filet z łososia 200 g");
+            ingredients.add("białe wino 1 kieliszek");
+            ingredients.add("masło 20 g");
+            ingredients.add("cytryna 2 plasterki");
+            ingredients.add("odrobina suszonego kopereku");
+            ingredients.add("pieprz 1 szczypta");
+            ingredients.add("sól 1 szczypta");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Filet z łososia pozbawiamy skóry i dzielimy na mniejsze porcje..");
+            steps.add("Oprószamy filety z obu stron pieprzem i solą.");
+            steps.add("Smażymy kawałki z obu stron przez 1 minutę na rozgrzanym maśle.");
+            steps.add("Zalewamy całość białym winem i posypujemy wierzch ryb koperkiem.");
+            steps.add("Patelnię przykrywamy i dusimy rybę około 7 minut.");
+            steps.add("Gotowego łososia skrapiamy sokiem z cytryny i podajemy z ulubionymi dodatkami.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe9.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        checkRecipe = recipeRepository.findByName("Kurczak w sosie śmietanowym z ziołami i warzywami");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Kurczak w sosie śmietanowym z ziołami i warzywami",user,true,40);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("4 filety z kurczaka");
+            ingredients.add("1 cebula, posiekana");
+            ingredients.add("2 ząbki czosnku, posiekane");
+            ingredients.add("200 ml śmietany kremówki");
+            ingredients.add("1 łyżka masła");
+            ingredients.add("2 łyżki oliwy z oliwek");
+            ingredients.add("1 papryka, pokrojona w paski");
+            ingredients.add("1 marchewka, pokrojona w plasterki");
+            ingredients.add("1 pietruszka, pokrojona w plasterki");
+            ingredients.add("1 łyżeczka suszonego oregano");
+            ingredients.add("1 łyżeczka suszonego tymianku");
+            ingredients.add("Sól i pieprz do smaku");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Rozgrzej oliwę z oliwek i masło na dużym garnku lub patelni. Dodaj posiekane cebulę i czosnek i smaż przez około 2-3 minuty, aż zmiękną i staną się lekko złociste.");
+            steps.add("Dodaj filety z kurczaka i obsmaż z obu stron, aż będą złociste. Następnie dodaj pokrojoną paprykę, marchewkę i pietruszkę. Smaż warzywa i kurczaka przez kilka minut, aż warzywa będą lekko miękkie.");
+            steps.add("Dodaj śmietanę kremówkę do garnka z kurczakiem i warzywami. Dopraw całość solą, pieprzem, suszonym oregano i tymiankiem. Delikatnie wymieszaj, aby składniki dobrze się połączyły.");
+            steps.add("Zmniejsz ogień i gotuj na wolnym ogniu przez około 10-15 minut, aż sos zgęstnieje, a kurczak będzie dobrze przegotowany.");
+            steps.add("Sprawdź, czy kurczak jest odpowiednio ugotowany, a sos ma odpowiednią konsystencję. Jeśli potrzeba, dopraw danie dodatkowo solą i pieprzem.");
+            steps.add("Podawaj kurczaka w sosie śmietanowym z ziołami i warzywami na talerzach. Możesz go podać z ryżem, makaronem lub ziemniakami jako dodatkiem.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe10.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        checkRecipe = recipeRepository.findByName("Tradycyjne polskie kartacze");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Tradycyjne polskie kartacze",user,true,40);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("1 kg ziemniaków");
+            ingredients.add("250 g mąki ziemniaczanej");
+            ingredients.add("1 jajkoe");
+            ingredients.add("1 łyżeczka soli");
+            ingredients.add("200 g boczku");
+            ingredients.add("1 cebula");
+            ingredients.add("2 łyżki oleju");
+            ingredients.add("Sól i pieprz do smaku");
+            ingredients.add("(opcjonalnie) śmietana i posiekany koperek do podania");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Obierz ziemniaki i ugotuj je w osolonej wodzie do miękkości. Następnie odcedź i odstaw do ostygnięcia.");
+            steps.add("W międzyczasie pokrój boczek lub słoninę w drobną kostkę i podsmaż na patelni, aż będzie chrupiący. Dodaj posiekaną cebulę i smaż, aż cebula będzie miękka i lekko złocista. Odcedź nadmiar tłuszczu i odstaw do ostygnięcia.");
+            steps.add("Gdy ziemniaki ostygną, zgnieć je lub przetrzyj przez tarkę na drobnych oczkach. Dodaj mąkę ziemniaczaną, jajko i sól. Wyrób ciasto, aż składniki się dobrze połączą.");
+            steps.add("Na stolnicy podsypanej mąką uformuj z ciasta wałek o średnicy około 2 cm. Następnie pokrój go na kawałki o długości około 2 cm.");
+            steps.add("W dużym garnku zagotuj osoloną wodę. Wrzuć pokrojone kartacze i gotuj na średnim ogniu przez około 5-7 minut, aż wypłyną na powierzchnię. Możesz gotować kartacze partiami, aby nie przeciążyć garnka.");
+            steps.add("Gdy kartacze wypłyną na powierzchnię, wyłóż je łyżką cedzakową na talerz lub sitko, aby odcedzić nadmiar wody.");
+            steps.add("W osobnej dużej patelni rozgrzej olej. Dodaj kartacze i smaż na złoty kolor z każdej strony.");
+            steps.add("Dodaj podsmażony boczek i cebulę do smażonych kartaczy. Delikatnie wymieszaj, aby składniki się połączyły. Dopraw solą i pieprzem do smaku.");
+            steps.add("Podawaj kartacze na talerzach, możesz polać je śmietaną i posypać posiekanym koperkiem.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe11.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        //Przepisy Doroty
+
+        user = userRepository.findByUsername("Dorota").get();
+        checkRecipe = recipeRepository.findByName("Pikantne danie z warzywami i tofu");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Pikantne danie z warzywami i tofu",user,true,30);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("Sos sojowy 4 łyżki");
+            ingredients.add("Czosnek 3 ząbki");
+            ingredients.add("Imbir 1 łyżka, starty");
+            ingredients.add("Mieszanka warzyw azjatyckich 300 g");
+            ingredients.add("Tofu 200 g, pokrojone w kostkę");
+            ingredients.add("Olej sezamowy 2 łyżki");
+            ingredients.add("Olej roślinny 2 łyżki");
+            ingredients.add("Mąka kukurydziana 1 łyżka");
+            ingredients.add("Woda 1/4 szklanki");
+            ingredients.add("Pieprz cayenne 1/2 łyżeczki");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("W misce wymieszaj sos sojowy, starty czosnek, starty imbir i olej sezamowy.");
+            steps.add("Dodaj pokrojone tofu do marynaty i odstaw na 15 minut.");
+            steps.add("Na rozgrzanym oleju roślinnym smaż tofu z marynatą przez kilka minut, aż stanie się złote.");
+            steps.add("Dodaj do patelni mieszankę warzyw azjatyckich i smaż przez kilka minut, aż warzywa zmiękną.");
+            steps.add("W małej miseczce wymieszaj mąkę kukurydzianą z wodą, dodaj do patelni i gotuj, aż sos zgęstnieje.");
+            steps.add("Posyp danie pieprzem cayenne i mieszaj jeszcze przez minutę.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe12.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("pikantne").get();tags.add(tag);
+            tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        checkRecipe = recipeRepository.findByName("Ostra tajska zupa z kurczakiem i makaronem ryżowym");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Ostra tajska zupa z kurczakiem i makaronem ryżowym",user,true,30);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("Kurczak, filetowany - 300 g");
+            ingredients.add("Makaron ryżowy - 100 g");
+            ingredients.add("Marchewka - 1 sztuka");
+            ingredients.add("Papryka czerwona - 1 sztuka");
+            ingredients.add("Cebula - 1 sztuka");
+            ingredients.add("Czosnek - 2 ząbki");
+            ingredients.add("Kiełki fasoli mung - 100 g");
+            ingredients.add("Sos sojowy - 3 łyżki");
+            ingredients.add("Sos rybny - 1 łyżka");
+            ingredients.add("Sos ostrygowy - 2 łyżki");
+            ingredients.add("Kurkuma - 1 łyżeczka");
+            ingredients.add("Kmin rzymski - 1 łyżeczka");
+            ingredients.add("Cukier - 1 łyżeczka");
+            ingredients.add("Woda - 500 ml");
+            ingredients.add("Olej roślinny - 2 łyżki");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Pokrój kurczaka w paseczki.");
+            steps.add("Marchewkę, cebulę i paprykę pokrój w cienkie paski.");
+            steps.add("Czosnek posiekaj drobno.");
+            steps.add("Na rozgrzanym oleju smaż czosnek i kurczaka przez kilka minut, aż mięso zmięknie.");
+            steps.add("Dodaj marchewkę, cebulę i paprykę. Smaż przez kolejne kilka minut.");
+            steps.add("Dodaj makaron ryżowy, sos sojowy, sos rybny, sos ostrygowy, kurkumę, kmin rzymski i cukier. Wymieszaj wszystko razem.");
+            steps.add("Wlej wodę i gotuj zupę na małym ogniu przez 15 minut, aż makaron i warzywa będą miękkie.");
+            steps.add("Pod koniec gotowania dodaj kiełki fasoli mung.");
+            steps.add("Zupę podawaj gorącą.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe13.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("ostre").get();tags.add(tag);
+            tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
+            tag = tagRepository.findByName("zupa").get();tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
+        }
+
+        checkRecipe = recipeRepository.findByName("Szybki sernik");
+        if (!checkRecipe.isPresent()) {
+            Recipe recipe = new Recipe("Szybki sernik",user,true,30);
+
+            List<String> ingredients = new ArrayList<>();
+            ingredients.add("Krakersy 200 g");
+            ingredients.add("Ser kremowy 250 g");
+            ingredients.add("Cukier puder 100 g");
+            ingredients.add("Śmietana 30% 200 ml");
+            ingredients.add("Masło 100 g");
+            recipe.setIngredients(ingredients);
+
+            List<String> steps = new ArrayList<>();
+            steps.add("Rozdrobnić krakersy w misce.");
+            steps.add("W osobnej misce utrzeć ser kremowy z cukrem pudrem.");
+            steps.add("Do utartego sera dodawać stopniowo śmietanę, cały czas mieszając.");
+            steps.add("Dodać masło i dokładnie wymieszać, aż powstanie jednolita masa.");
+            steps.add("Na dnie szklanki lub pucharka umieścić warstwę rozdrobnionych krakersów, a następnie warstwę masy serowej.");
+            steps.add("Powtarzać warstwy do momentu wypełnienia naczynia.");
+            recipe.setSteps(steps);
+
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\init_jpg\\recipe14.jpg";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+
+            List<Tag> tags = new ArrayList<>();
+            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            tag = tagRepository.findByName("amerykańskie").get();tags.add(tag);
+            recipe.setTags(tags);
+
+            recipeRepository.save(recipe);
+            addToFolder(user, recipe);
         }
     }
 
