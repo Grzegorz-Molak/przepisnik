@@ -34,7 +34,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         User user = userRepository.findByUsername("Ania").get();
         Optional<Recipe> checkRecipe = recipeRepository.findByName("Szybka zapiekanka z mięsem mielonym i ziemniakami");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Szybka zapiekanka z mięsem mielonym i ziemniakami",user,true, 60);
+            Recipe recipe = new Recipe("Szybka zapiekanka z mięsem mielonym i ziemniakami", user, true, 60);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("mielona wołowina 500 g");
@@ -70,12 +70,11 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             recipeRepository.save(recipe);
             addToFolder(user, recipe);
-
         }
 
         checkRecipe = recipeRepository.findByName("Zapiekanka ziemniaczana");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Zapiekanka ziemniaczana",user,true, 60);
+            Recipe recipe = new Recipe("Zapiekanka ziemniaczana", user, true, 60);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Ziemniaki  1 kg");
@@ -104,10 +103,14 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setSteps(steps);
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("polskie").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("polskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -117,7 +120,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Tradycyjny piernik");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Tradycyjny piernik",user,true, 50);
+            Recipe recipe = new Recipe("Tradycyjny piernik", user, true, 50);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Mąka pszenna  2 i 1/2 szklanki");
@@ -154,14 +157,16 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setSteps(steps);
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("deser").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
             addToFolder(user, recipe);
-
         }
 
         // Przepisy Agnieszki
@@ -191,8 +196,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("deser").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -224,9 +231,12 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
-            tag = tagRepository.findByName("polskie").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("polskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
 
@@ -236,7 +246,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         }
 
         checkRecipe = recipeRepository.findByName("Makaron w sosie cebula-masło-pomidor");
-        if (!checkRecipe.isPresent() ) {
+        if (!checkRecipe.isPresent()) {
             Recipe recipe = new Recipe("Makaron w sosie cebula-masło-pomidor", user, true, 50);
 
             List<String> ingredients = new ArrayList<>();
@@ -260,9 +270,12 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("włoskie").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("włoskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
 
@@ -298,9 +311,12 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("polskie").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("polskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -312,7 +328,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         user = userRepository.findByUsername("Filip").get();
         checkRecipe = recipeRepository.findByName("Klasyczne Lasagne Bolognese");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Klasyczne Lasagne Bolognese",user,true, 150);
+            Recipe recipe = new Recipe("Klasyczne Lasagne Bolognese", user, true, 150);
 
 
             List<String> ingredients = new ArrayList<>();
@@ -354,8 +370,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("polskie").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("polskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -365,7 +383,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Sałatka Caprese");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Sałatka Caprese",user, true,15);
+            Recipe recipe = new Recipe("Sałatka Caprese", user, true, 15);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("4 pomidory");
@@ -389,9 +407,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("przekąska").get();tags.add(tag);
-            tag = tagRepository.findByName("włoskie").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("przekąska").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("włoskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -400,7 +421,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Tacos z Kurczakiem");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Tacos z Kurczakiem",user,true,40);
+            Recipe recipe = new Recipe("Tacos z Kurczakiem", user, true, 40);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("500g filetów z kurczaka, pokrojonych na paski");
@@ -430,9 +451,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("kolacja").get();tags.add(tag);
-            tag = tagRepository.findByName("meksykańskie").get();tags.add(tag);
-            tag = tagRepository.findByName("ostre").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("kolacja").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("meksykańskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("ostre").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -443,7 +467,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         user = userRepository.findByUsername("grzesiu").get();
         checkRecipe = recipeRepository.findByName("Hui Guo Rou");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Hui Guo Rou",user,true,45);
+            Recipe recipe = new Recipe("Hui Guo Rou", user, true, 45);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Boczek 500 g");
@@ -476,9 +500,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
-            tag = tagRepository.findByName("ostre").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("azjatyckie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("ostre").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -487,7 +514,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Kurczak z owocami nerkowca");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Kurczak z owocami nerkowca",user,true,30);
+            Recipe recipe = new Recipe("Kurczak z owocami nerkowca", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Skrobia kukurydziana/ziemniaczana 1 łyżka");
@@ -521,8 +548,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("azjatyckie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -531,7 +560,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Ciasto drożdżowe");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Ciasto drożdżowe",user,true,120);
+            Recipe recipe = new Recipe("Ciasto drożdżowe", user, true, 120);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Drożdże 10 dg");
@@ -562,7 +591,8 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("deser").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -573,7 +603,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         user = userRepository.findByUsername("Zuzanna").get();
         checkRecipe = recipeRepository.findByName("Łosoś duszony w białym winie");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Łosoś duszony w białym winie",user,true,30);
+            Recipe recipe = new Recipe("Łosoś duszony w białym winie", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("filet z łososia 200 g");
@@ -599,8 +629,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -609,7 +641,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Kurczak w sosie śmietanowym z ziołami i warzywami");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Kurczak w sosie śmietanowym z ziołami i warzywami",user,true,40);
+            Recipe recipe = new Recipe("Kurczak w sosie śmietanowym z ziołami i warzywami", user, true, 40);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("4 filety z kurczaka");
@@ -640,8 +672,10 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -650,7 +684,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Tradycyjne polskie kartacze");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Tradycyjne polskie kartacze",user,true,40);
+            Recipe recipe = new Recipe("Tradycyjne polskie kartacze", user, true, 40);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("1 kg ziemniaków");
@@ -681,9 +715,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("obiad").get();tags.add(tag);
-            tag = tagRepository.findByName("łagodne").get();tags.add(tag);
-            tag = tagRepository.findByName("polskie").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("łagodne").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("polskie").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -695,7 +732,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         user = userRepository.findByUsername("Dorota").get();
         checkRecipe = recipeRepository.findByName("Pikantne danie z warzywami i tofu");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Pikantne danie z warzywami i tofu",user,true,30);
+            Recipe recipe = new Recipe("Pikantne danie z warzywami i tofu", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Sos sojowy 4 łyżki");
@@ -724,10 +761,14 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("pikantne").get();tags.add(tag);
-            tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("pikantne").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("azjatyckie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -736,7 +777,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Ostra tajska zupa z kurczakiem i makaronem ryżowym");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Ostra tajska zupa z kurczakiem i makaronem ryżowym",user,true,30);
+            Recipe recipe = new Recipe("Ostra tajska zupa z kurczakiem i makaronem ryżowym", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Kurczak, filetowany - 300 g");
@@ -773,10 +814,14 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("ostre").get();tags.add(tag);
-            tag = tagRepository.findByName("azjatyckie").get();tags.add(tag);
-            tag = tagRepository.findByName("zupa").get();tags.add(tag);
-            tag = tagRepository.findByName("obiad").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("ostre").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("azjatyckie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("zupa").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("obiad").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -785,7 +830,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         checkRecipe = recipeRepository.findByName("Szybki sernik");
         if (!checkRecipe.isPresent()) {
-            Recipe recipe = new Recipe("Szybki sernik",user,true,30);
+            Recipe recipe = new Recipe("Szybki sernik", user, true, 30);
 
             List<String> ingredients = new ArrayList<>();
             ingredients.add("Krakersy 200 g");
@@ -809,9 +854,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             recipe.setImage(Files.readAllBytes(filePath));
 
             List<Tag> tags = new ArrayList<>();
-            Tag tag = tagRepository.findByName("deser").get();tags.add(tag);
-            tag = tagRepository.findByName("wegetariańskie").get();tags.add(tag);
-            tag = tagRepository.findByName("amerykańskie").get();tags.add(tag);
+            Tag tag = tagRepository.findByName("deser").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("wegetariańskie").get();
+            tags.add(tag);
+            tag = tagRepository.findByName("amerykańskie").get();
+            tags.add(tag);
             recipe.setTags(tags);
 
             recipeRepository.save(recipe);
@@ -820,7 +868,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
 
-    private void addTags(){
+    private void addTags() {
         List<String> tags_s = new ArrayList<>();
         tags_s.add("wegetariańskie");
         tags_s.add("wegańskie");
@@ -850,7 +898,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         }
     }
 
-    private void addUser(User user){
+    private void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         Optional<User> userWithId = userRepository.findByUsername(user.getUsername());
@@ -863,7 +911,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         userRepository.save(userWithId.get());
     }
 
-    private void addUsers(){
+    private void addUsers() {
         Optional<User> checkUser = userRepository.findByUsername("Ania");
         if (!checkUser.isPresent()) {
             User user = new User("Ania", "tajnehaslo", "ania.gotuje@gmail.com");
@@ -902,7 +950,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         }
     }
 
-    private void addToFolder(User user, Recipe recipe){
+    private void addToFolder(User user, Recipe recipe) {
         List<Folder> folders = user.getFolders();
 
         for (Folder folder : folders) {

@@ -1,7 +1,6 @@
 package pw.paint.DTOs.mappers;
 
 import pw.paint.DTOs.model.FolderDto;
-import pw.paint.DTOs.requests.NewRecipeRequest;
 import pw.paint.model.Folder;
 import pw.paint.model.Recipe;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 public class FolderMapper {
     public static FolderDto toFolderDto (Folder folder) {
-
         if(folder.getRecipes() == null) {
             return FolderDto.builder()
                     .name(folder.getName())
@@ -26,16 +24,5 @@ public class FolderMapper {
                 .name(folder.getName())
                 .recipes(recipeIds)
                 .build();
-
     }
-
-    public static List<FolderDto> toFolderDto(List<Folder> folders) {
-        List<FolderDto> foldersDto = new ArrayList<>();
-        for (Folder folder : folders) {
-            foldersDto.add(toFolderDto(folder));
-        }
-        return foldersDto;
-    }
-
-
 }

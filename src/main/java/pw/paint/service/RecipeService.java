@@ -11,19 +11,10 @@ import java.util.List;
 
 public interface RecipeService {
     List<String> getAllTags();
-
-//    ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest, byte[] imageBytes);
     ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest);
-
     List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable);
-
     RecipeDto getRecipeById(ObjectId id_);
-
     void deleteRecipe(ObjectId objectId);
-
     void changeStatus(String id);
-
-    byte[] getImage(ObjectId objectId);
-
     String setImage(String id, MultipartFile image);
 }

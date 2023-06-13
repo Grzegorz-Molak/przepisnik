@@ -1,33 +1,22 @@
 package pw.paint.DTOs.mappers;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pw.paint.DTOs.model.FolderDto;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
-import pw.paint.exception.ImageProcessingException;
 import pw.paint.model.Recipe;
 import pw.paint.model.Tag;
 import pw.paint.model.User;
 import pw.paint.repository.TagRepository;
 import pw.paint.repository.UserRepository;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class RecipeMapper {
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -53,14 +42,6 @@ public class RecipeMapper {
             tagNames.add(tag.getName());
         }
         return tagNames;
-    }
-
-    public static List<RecipeDto> toRecipeDto(List<Recipe> recipes) {
-        List<RecipeDto> recipesDto = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            recipesDto.add(toRecipeDto(recipe));
-        }
-        return recipesDto;
     }
 
     public static ShortRecipeDto toShortRecipeDto(Recipe recipe) {
@@ -92,9 +73,7 @@ public class RecipeMapper {
         Optional<Tag> tag;
         for (String tagName : request.getTags()) {
             tag = tagRepository.findByName(tagName);
-            if (tag.isPresent()) {
-                tags.add(tag.get());
-            }
+            tag.ifPresent(tags::add);
         }
 
         return Recipe.builder()

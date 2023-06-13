@@ -1,6 +1,5 @@
 package pw.paint.controller;
 
-import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,8 +19,9 @@ import pw.paint.service.AuthenticationService;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
+
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register (@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
         try {
             return ResponseEntity.ok(service.register(request));
         } catch (Exception ex) {
@@ -32,7 +32,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> login (@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         var token = service.authenticate(request);
         HttpHeaders headers = new HttpHeaders();
 
