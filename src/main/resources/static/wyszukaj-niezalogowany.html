@@ -34,11 +34,15 @@
           <span>Zaloguj</span>
           <div class="dropdown-content">
             <form action="/auth/authenticate" method="post" id="login-form">
-              <label class="margin-bottom-5">Nazwa użytkownika: </label><br>
-              <input class="margin-bottom-5" type="text" name="username" placeholder="nazwa użytkownika" required><br>
-              <label class="margin-bottom-5">Hasło: </label><br>
-              <input class="margin-bottom-5" type="password" name="password" placeholder="hasło" required><br>
-              <input class="margin-bottom-5" type="submit" value="Zaloguj">
+              <div class = "log-label">
+                <label>Nazwa użytkownika: </label>
+                <input class="usr-input" type="text" name="username" placeholder="Nazwa użytkownika" required>
+              </div>
+              <div class = "log-label">
+                <label class="log-label">Hasło: </label>
+                <input class="usr-input" type="password" name="password" placeholder="Hasło" required>
+              </div>
+              <input class="login-btn" type="submit" value="Zaloguj">
             </form>
           </div>
         </div>
