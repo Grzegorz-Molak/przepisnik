@@ -16,6 +16,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import pw.paint.service.JwtService;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -32,11 +34,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String username;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (request.getCookies() == null) {
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authHeader.substring(7);
+        var tokenOpt = Arrays.stream(
+                request.getCookies())
+                .filter(cookie -> Objects.equals(cookie.getName(), "token"))
+                .findFirst();
+        if (tokenOpt.isEmpty()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        jwt = tokenOpt.get().getValue();
+        //jwt = authHeader.substring(7);
         username = jwtService.extractUsername(jwt);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);

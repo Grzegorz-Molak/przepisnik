@@ -28,6 +28,10 @@ public class Recipe {
     private Integer timeMinutes;
     private byte[] image;
 
-    //TO DO PHOTO VARIABLE
-
+    public Recipe(String name, User author, Boolean status, Integer timeMinutes) {
+        this.name = name;
+        this.author = author;
+        this.status = status;
+        this.timeMinutes = timeMinutes;
+    }
 }

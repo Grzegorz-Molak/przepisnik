@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pw.paint.DTOs.mappers.RecipeMapper;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
@@ -39,12 +40,6 @@ public class RecipeServiceImpl implements RecipeService {
     private final UserRepository userRepository;
     private final String defaultFolderName = "moje autorskie przepisy";
 
-    // @Override
-    //public List<RecipeDto> getAllRecipes() {
-
-    //  return recipeMapper.toRecipeDto(recipeRepository.findAll());
-
-    //}
 
     @Override
     public List<String> getAllTags() {
@@ -66,15 +61,15 @@ public class RecipeServiceImpl implements RecipeService {
 
         Folder defaultFolder = author.get().findFolderByName(defaultFolderName);
 
-        //Podobno mogą być takie same ustaliliśmy
-        /*List<Recipe> recipes = defaultFolder.getRecipes();
-        for (Recipe recipe : recipes) {
-            if (recipe.getName().equals(newRecipeRequest.getName())) {
-                return "Przepis o takiej nazwie już istnieje";
-            }
-        }*/
-
         Recipe recipe = recipeMapper.toModelRecipeObject(newRecipeRequest);
+
+        try {
+            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\img\\obiad.png";
+            Path filePath = Paths.get(imagePath);
+            recipe.setImage(Files.readAllBytes(filePath));
+        } catch (Exception ex) {
+            throw new ImageProcessingException();
+        }
 
         if (defaultFolder == null) {
             Folder folder = new Folder(defaultFolderName);
@@ -93,6 +88,53 @@ public class RecipeServiceImpl implements RecipeService {
 
         return recipe.getId();
     }
+
+//    @Override
+//    public ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest, byte[] imageBytes) {
+//        Optional<User> author = userRepository.findByUsername(newRecipeRequest.getAuthor());
+//        if (author.isEmpty())
+//            throw new UserNotFoundException("User not found; The recipe must have an author");
+//
+//        Folder defaultFolder = author.get().findFolderByName(defaultFolderName);
+//
+//        //Podobno mogą być takie same ustaliliśmy
+//        /*List<Recipe> recipes = defaultFolder.getRecipes();
+//        for (Recipe recipe : recipes) {
+//            if (recipe.getName().equals(newRecipeRequest.getName())) {
+//                return "Przepis o takiej nazwie już istnieje";
+//            }
+//        }*/
+//
+//        Recipe recipe = recipeMapper.toModelRecipeObject(newRecipeRequest);
+//        if (imageBytes == null) {
+//            try {
+//            String imagePath = "..\\przepisnik\\src\\main\\resources\\static\\img\\obiad.png";
+//            Path filePath = Paths.get(imagePath);
+//            recipe.setImage(Files.readAllBytes(filePath));
+//            } catch (Exception ex) {
+//                throw new ImageProcessingException();
+//            }
+//        } else {
+//            recipe.setImage(imageBytes);
+//        }
+//
+//        if (defaultFolder == null) {
+//            Folder folder = new Folder(defaultFolderName);
+//            folder.setRecipes(new ArrayList<>());
+//            folder.getRecipes().add(recipe);
+//            author.get().getFolders().add(folder);
+//        } else if (defaultFolder.getRecipes() == null) {
+//            defaultFolder.setRecipes(new ArrayList<>());
+//            defaultFolder.getRecipes().add(recipe);
+//        } else {
+//            defaultFolder.getRecipes().add(recipe);
+//        }
+//
+//        recipeRepository.save(recipe);
+//        userRepository.save(author.get());
+//
+//        return recipe.getId();
+//    }
 
 
     @Override
@@ -240,5 +282,20 @@ public class RecipeServiceImpl implements RecipeService {
         if (recipe == null)
             throw new RecipeNotFoundException();
         return recipe.getImage();
+    }
+
+    @Override
+    public String setImage(String id, MultipartFile image) {
+        Recipe recipe = recipeRepository.findById(new ObjectId(id)).orElse(null);
+        if (recipe == null)
+            throw new RecipeNotFoundException();
+
+        try {
+            recipe.setImage(image.getBytes());
+            recipeRepository.save(recipe);
+        } catch (Exception ex) {
+            throw new ImageProcessingException();
+        }
+        return id;
     }
 }

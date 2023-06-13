@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @Data
@@ -12,16 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class NewRecipeRequest {
-
     private String name;
     private String author;
     private Boolean status;
-
     private List<String> tags;
     private List<String> ingredients;
     private List<String> steps;
     private Integer timeMinutes;
-
-    private byte[] image;
-
 }

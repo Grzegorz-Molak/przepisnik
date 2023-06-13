@@ -2,6 +2,7 @@ package pw.paint.service;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 import pw.paint.DTOs.model.RecipeDto;
 import pw.paint.DTOs.model.ShortRecipeDto;
 import pw.paint.DTOs.requests.NewRecipeRequest;
@@ -9,10 +10,9 @@ import pw.paint.DTOs.requests.NewRecipeRequest;
 import java.util.List;
 
 public interface RecipeService {
-   // List<RecipeDto> getAllRecipes();
-
     List<String> getAllTags();
 
+//    ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest, byte[] imageBytes);
     ObjectId createNewRecipe(NewRecipeRequest newRecipeRequest);
 
     List<ShortRecipeDto> search(String author, String keyword, List<String> tags, Boolean status, Pageable pageable);
@@ -24,4 +24,6 @@ public interface RecipeService {
     void changeStatus(String id);
 
     byte[] getImage(ObjectId objectId);
+
+    String setImage(String id, MultipartFile image);
 }
