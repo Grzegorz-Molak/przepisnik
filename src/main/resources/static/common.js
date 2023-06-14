@@ -45,7 +45,6 @@ export function search(searchType,status){
                 checkedValues.push(tag.value);
             }
         });
-        console.log(checkedValues);
 
         let author;
 
@@ -64,7 +63,6 @@ export function search(searchType,status){
         }
         document.getElementById("searchResult").innerHTML = "";
     }
-    console.log(requestBody);
 
     fetch(searchInput, {
         method: 'POST',
@@ -81,22 +79,15 @@ export function search(searchType,status){
             }
         })
         .then(data => {
-            console.log(data);
             if(data.length === 0){
                 document.getElementById("searchResult").innerHTML = 'Nie ma przepisów spełniających twoje kryteria wyszukiwania'
             }
             data.forEach(recipe => {
-                console.log(recipe)
                 const id = recipe.id;
                 const name = recipe.name;
                 const author = recipe.author;
                 const tags = recipe.tags;
                 const image = recipe.image;
-
-                console.log(`Recipe ID: ${id}`);
-                console.log(`Recipe Name: ${name}`);
-                console.log(`Recipe Author: ${author}`);
-                console.log(`Recipe Tags: ${tags}`);
 
                 let recipeDisplay = new Recipe(id,name,author,tags,[],[],0, image);
                 addRecipeAd(recipeDisplay,document.getElementById("searchResult"));
@@ -130,7 +121,6 @@ export function addRecipeAd(recipe, div) {
             window.location.href = 'wyswietl-przepis-niezalogowany.html';
         }
     })
-    //imgRecipe.src = recipe.image;
     const base64Image = recipe.image;
     imgRecipe.src = `data:image/jpeg;base64,${base64Image}`;
 
@@ -175,7 +165,6 @@ export function showNotification(message) {
     closeButton.addEventListener('click', function() {
         alertElement.style.display = 'none';
     });
-
 }
 
 
@@ -217,7 +206,6 @@ export function login(loginForm){
             }
         })
         .then(data => {
-            console.log(data);
             loginForm.reset();
             const jwtToken = data.token;
 
@@ -250,7 +238,6 @@ export function register(e, registrationForm){
         })
             .then(response => {
                 if (response.ok) {
-                    console.log(response)
                     showNotification('Gratulacje! Zarejestrowałeś się');
                     closeForm();
                 } else {

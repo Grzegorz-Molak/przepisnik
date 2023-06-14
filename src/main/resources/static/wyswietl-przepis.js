@@ -1,4 +1,4 @@
-import {createTags, Recipe, search, showNotification} from "./common.js";
+import {createTags, search, showNotification} from "./common.js";
 
 const recipeId = localStorage.getItem('recipeId');
 const username = localStorage.getItem('username');
@@ -71,7 +71,6 @@ const addButton = document.getElementById('add-to-folder');
 if(addButton) {
     addButton.addEventListener("click", function () {
         let chosenFolder = document.getElementById("sel-folder").value;
-        console.log(chosenFolder);
         fetch(`/folder/add/${username}/${chosenFolder}/${recipeId}`, {
             method: 'PUT',
             headers: {
@@ -79,7 +78,6 @@ if(addButton) {
             }
         })
             .then(response => {
-                console.log(response)
                 if (response.ok) {
                     showNotification('Dodano do folderu ' + chosenFolder);
                 } else {

@@ -1,4 +1,4 @@
-import {addRecipeAd, Recipe, search} from "./common.js";
+import {search} from "./common.js";
 
 const privateRadio = document.getElementById('own');
 const publicRadio = document.getElementById('all');

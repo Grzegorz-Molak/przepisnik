@@ -1,4 +1,4 @@
-import {changeTheme, closeForm, login, openForm, register, search} from "./common.js";
+import {changeTheme, closeForm, login, openForm, register} from "./common.js";
 
 const registrationForm = document.getElementById('form');
 const loginForm = document.getElementById('login-form');

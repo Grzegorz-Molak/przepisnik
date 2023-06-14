@@ -18,9 +18,7 @@ function chooseFile() {
 
         let fileExtension = fileName.split(".").pop().toLowerCase();
         if (acceptedExtensions.includes(fileExtension)) {
-            console.log("Wybrano obraz o nazwie: " + fileName);
             showNotification("Wybrano obraz o nazwie: " + fileName)
-            // Tutaj możesz wykonać dodatkowe działania na nazwie pliku
         }
         else{
             showNotification("Wybrany plik nie jest obrazem")
@@ -95,7 +93,6 @@ recipeForm.addEventListener('submit', function(event) {
             checkedValues.push(tag.value);
         }
     });
-    console.log(checkedValues);
 
     //get ingredients
     const ingList = document.getElementById('ing-list');
@@ -104,16 +101,12 @@ recipeForm.addEventListener('submit', function(event) {
         return item.childNodes[0].textContent.trim();
     });
 
-    console.log(ingText);
-
     //get steps
     const stepsList = document.getElementById('step-list');
     const steps = stepsList.getElementsByTagName('li');
     const stepsText = Array.from(steps).map(item => {
         return item.childNodes[0].textContent.trim();
     });
-
-    console.log(stepsText);
 
     const requestBody = {
         name: document.getElementById('ra-name').value,
@@ -125,11 +118,6 @@ recipeForm.addEventListener('submit', function(event) {
         timeMinutes: document.getElementById('minutes').value
     }
 
-    const jsonBody = JSON.stringify(requestBody);
-    console.log(jsonBody)
-
-    console.log(requestBody);
-
     fetch('/recipe/new', {
         method: 'POST',
         headers: {
@@ -139,19 +127,15 @@ recipeForm.addEventListener('submit', function(event) {
         body: JSON.stringify(requestBody)
     })
         .then(response => {
-            console.log(response);
             if (response.ok) {
-                // return response.json();
                 return response.text();
             } else {
                 throw new Error('Request failed');
             }
         })
         .then(id => {
-            console.log(id);
             const imageFile = fileInput.files[0];
            showNotification('Przepis został dodany');
-            console.log(imageFile)
             if(imageFile!==undefined){
                 const formData = new FormData();
                 formData.append('image',imageFile);
@@ -161,7 +145,6 @@ recipeForm.addEventListener('submit', function(event) {
                     body: formData
                 })
                     .then(response => {
-                        console.log(response)
                         if (response.ok) {
                             return response.json();
                         } else {

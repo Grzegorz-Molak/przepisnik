@@ -1,4 +1,4 @@
-import {addRecipeAd, closeFromId, createTags, openForm, Recipe, search, showNotification} from "./common.js";
+import {addRecipeAd, closeFromId, openForm, Recipe, search, showNotification} from "./common.js";
 
 const searchForm= document.getElementById('searchForm')
 const username = localStorage.getItem('username');
@@ -14,7 +14,6 @@ function createRecipeAdWithDelete(recipe){
     let folderContentDiv = document.getElementById("folder-content-recipes")
     let newDiv = document.createElement("div");
     newDiv.className = "recip";
-    // newDiv.id = "recip"; // Zmień "recipId" na odpowiednie ID
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.className = "actionbutton w-button";
@@ -43,7 +42,6 @@ function createRecipeAdWithDelete(recipe){
                 }
             })
                 .then(response => {
-                    console.log(response)
                     if (response.ok) {
                         folderContentDiv.innerHTML = '';
                         getRecipesFromFolder(folderElementNameText);
@@ -96,7 +94,6 @@ function addFolderButtons(folderNames) {
 
 const newNameText = document.getElementById('new-folder-name');
 const newNameClose = document.getElementById('edit-close');
-const newNameForm = document.getElementById('form');
 const newConfirmButton = document.getElementById('name-confirm');
 newNameClose.addEventListener("click", function (){
     document.getElementById('new-name').style.display = "none";
@@ -111,14 +108,12 @@ newConfirmButton.addEventListener('click', function (){
         }
     })
         .then(response => {
-            console.log(response);
             if (response.ok) {
                 document.getElementById('new-name').style.display = "none";
                 newNameText.innerText = '';
                 fetch(`/folder/${username}`)
                     .then(response => response.json())
                     .then(names => {
-                        console.log(response);
                         document.getElementById("tabs").innerHTML = '';
                         addFolderButtons(names)
                     })
@@ -131,8 +126,6 @@ newConfirmButton.addEventListener('click', function (){
             showNotification('Nie możesz utowrzyć folderu o takiej samej nazwie jak już istniejący');
         });
 })
-
-const deleteDialog = document.getElementById('confirm');
 const deleteClose = document.getElementById('delete-close');
 const deleteYes = document.getElementById('yes-button');
 const deleteNo = document.getElementById('no-button');
@@ -162,7 +155,6 @@ deleteYes.addEventListener('click', function (){
             }
         })
             .then(response => {
-                console.log(response)
                 if (response.ok) {
                     showNotification('Usunięto folder');
                     document.getElementById("tabs").innerHTML = '';
@@ -185,7 +177,6 @@ deleteYes.addEventListener('click', function (){
             }
         })
             .then(response => {
-                console.log(response)
                 if (response.ok) {
                     showNotification('Usunięto przepis');
                     getRecipesFromFolder(folderNameElement.textContent);
@@ -206,14 +197,12 @@ deleteYes.addEventListener('click', function (){
 function getRecipesFromFolder(folderName){
     fetch(`/folder/${username}/${folderName}`)
         .then(response => {
-            console.log(response)
             if (response.ok) {
                 return response.json();
             }else{
                 throw new Error('Pusty folder');
             } })
         .then(data => {
-            console.log(data);
             if(data!==undefined){
                 document.getElementById('folder-content-recipes').innerHTML = '';
                 data.forEach(recipe => {
